@@ -131,6 +131,8 @@ GameObject:
   - component: {fileID: 666182449}
   - component: {fileID: 666182448}
   - component: {fileID: 666182447}
+  - component: {fileID: 666182452}
+  - component: {fileID: 666182451}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -231,6 +233,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &666182451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666182446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b18aa74da5815486a83f169805ee8a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputController
+--- !u!114 &666182452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666182446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d581749b84805474895ee0ca33bc288b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMotor
+  _inputController: {fileID: 666182451}
+  _moveSpeed: 5
 --- !u!1 &1164994814
 GameObject:
   m_ObjectHideFlags: 0
