@@ -53,7 +53,7 @@ namespace UI
         private void OnStartClicked()
         {
             // 使用反射找到GameManager
-            var gameManager = FindObjectOfType<GameManager>();
+            var gameManager = FindFirstObjectByType<GameManager>();
             if (gameManager != null)
             {
                 gameManager.StartNewGame();
@@ -108,10 +108,10 @@ namespace UI
         //     UIManager.Instance.ShowUI("ConfirmationDialog", confirmMenuData);
         // }
         
-        protected void OnDestroy()
+        protected override void OnDestroy()
         {
             base.OnDestroy();
-            
+
             if (startButton != null) startButton.onClick.RemoveListener(OnStartClicked);
             if (settingsButton != null) settingsButton.onClick.RemoveListener(OnSettingsClicked);
             if (creditsButton != null) creditsButton.onClick.RemoveListener(OnCreditsClicked);

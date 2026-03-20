@@ -5,23 +5,9 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : MonoSingleton<UIManager>
     {
-        private static UIManager _instance;
-        public static UIManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    // 自动创建UIManager
-                    GameObject go = new GameObject("UIManager");
-                    _instance = go.AddComponent<UIManager>();
-                    DontDestroyOnLoad(go);
-                }
-                return _instance;
-            }
-        }
+        // 单例由MonoSingleton基类管理
         
         [Header("UI预制体")]
         [SerializeField] private GameObject countdownUIPrefab;
@@ -49,18 +35,10 @@ namespace UI
         public event System.Action<string> OnMenuShown;
         public event System.Action<string> OnMenuHidden;
         
-        private void Awake()
+        protected override void Awake()
         {
-            if (_instance == null)
-            {
-                _instance = this;
-                DontDestroyOnLoad(gameObject);
-                Initialize();
-            }
-            else if (_instance != this)
-            {
-                Destroy(gameObject);
-            }
+            base.Awake();
+            Initialize();
         }
         
         private void Initialize()
@@ -68,7 +46,6 @@ namespace UI
             // 初始化UI预制体字典
             RegisterUIPrefab("CountdownUI", countdownUIPrefab);
             RegisterUIPrefab("HealthUI", healthUIPrefab);
-            
             // 注册菜单预制体
             RegisterUIPrefab("MainMenu", mainMenuPrefab);
             RegisterUIPrefab("PauseMenu", pauseMenuPrefab);
@@ -85,11 +62,11 @@ namespace UI
             Debug.Log($"UIManager初始化完成，已加载 {uiPrefabDictionary.Count} 个UI预制体");
         }
         
-        private void RegisterUIPrefab(string name, GameObject prefab)
+        private void RegisterUIPrefab(string uiName, GameObject prefab)
         {
             if (prefab != null)
             {
-                uiPrefabDictionary[name] = prefab;
+                uiPrefabDictionary[uiName] = prefab;
             }
         }
         
@@ -253,7 +230,7 @@ namespace UI
         {
             if (mainCanvas == null)
             {
-                mainCanvas = FindObjectOfType<Canvas>();
+                mainCanvas = FindFirstObjectByType<Canvas>();
                 if (mainCanvas == null)
                 {
                     CreateCanvas();
