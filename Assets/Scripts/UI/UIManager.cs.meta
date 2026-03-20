@@ -1,2 +1,21 @@
 fileFormatVersion: 2
 guid: a955cb081937c4b48898fce37855a3fd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - countdownUIPrefab: {fileID: 2203108888085674859, guid: a9e64b7270c47f0439ee692dd7aa5068, type: 3}
+  - healthUIPrefab: {fileID: 2377880412435887772, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
+  - mainMenuPrefab: {instanceID: 0}
+  - pauseMenuPrefab: {instanceID: 0}
+  - settingsMenuPrefab: {instanceID: 0}
+  - gameOverMenuPrefab: {instanceID: 0}
+  - loadingScreenPrefab: {instanceID: 0}
+  - confirmationDialogPrefab: {instanceID: 0}
+  - creditsMenuPrefab: {instanceID: 0}
+  - levelSelectMenuPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -305,6 +305,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1712286220}
   - component: {fileID: 1712286219}
+  - component: {fileID: 1712286221}
+  - component: {fileID: 1712286222}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -339,6 +341,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1712286221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712286218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e0d7e612e9ae040bac5a29a986e83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.GameManager
+  currentState: 0
+  isGamePaused: 0
+  gameTimeScale: 1
+  pauseAction: {fileID: 0}
+  quitAction: {fileID: 0}
+--- !u!114 &1712286222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712286218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a955cb081937c4b48898fce37855a3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.UIManager
+  countdownUIPrefab: {fileID: 2203108888085674859, guid: a9e64b7270c47f0439ee692dd7aa5068, type: 3}
+  healthUIPrefab: {fileID: 2377880412435887772, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
+  mainMenuPrefab: {fileID: 0}
+  pauseMenuPrefab: {fileID: 0}
+  settingsMenuPrefab: {fileID: 0}
+  gameOverMenuPrefab: {fileID: 0}
+  loadingScreenPrefab: {fileID: 0}
+  confirmationDialogPrefab: {fileID: 0}
+  creditsMenuPrefab: {fileID: 0}
+  levelSelectMenuPrefab: {fileID: 0}
 --- !u!1 &1872360941
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +392,6 @@ GameObject:
   - component: {fileID: 1872360946}
   - component: {fileID: 1872360945}
   - component: {fileID: 1872360944}
-  - component: {fileID: 1872360948}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -444,20 +484,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1872360948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872360941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a955cb081937c4b48898fce37855a3fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI.UIManager
-  countdownUIPrefab: {fileID: 2203108888085674859, guid: a9e64b7270c47f0439ee692dd7aa5068, type: 3}
-  healthUIPrefab: {fileID: 2377880412435887772, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
 --- !u!1 &1876002337
 GameObject:
   m_ObjectHideFlags: 0
