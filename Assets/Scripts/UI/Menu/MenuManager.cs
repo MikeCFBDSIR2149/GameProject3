@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 
 namespace UI.Menu
 {
-    public class GameManager : MonoSingleton<GameManager>
+    public class MenuManager : MonoSingleton<MenuManager>
     {
         [Header("游戏状态")]
         [SerializeField] private GameState currentState = GameState.MainMenu;
     
         [Header("游戏设置")]
-        [SerializeField] private bool isGamePaused = false;
+        [SerializeField] private bool isGamePaused ;
         [SerializeField] private float gameTimeScale = 1f;
         [Header("输入设置")]
         [SerializeField] private InputActionReference pauseAction; // 使用 Input Action
@@ -23,6 +23,7 @@ namespace UI.Menu
     
         protected override void Awake()
         {
+            MainMenu.StartGameRequested += OnStartGameRequested;
             base.Awake();
             InitializeGame();
         }
@@ -216,7 +217,15 @@ namespace UI.Menu
                 }
             }
         }
-    
+        private new void OnDestroy()
+        {
+            MainMenu.StartGameRequested -= OnStartGameRequested;
+            // ...existing code...
+        }
+        private void OnStartGameRequested()
+        {
+            StartNewGame(); 
+        }
         private void ShowQuitConfirmation()
         {
             // 这里可以显示确认对话框

@@ -30,7 +30,7 @@ namespace UI
         // 新增：菜单栈管理
         private Stack<string> menuStack = new Stack<string>();
         private Canvas mainCanvas;
-        
+        public HealthUI healthUI;
         // 新增：事件
         public event System.Action<string> OnMenuShown;
         public event System.Action<string> OnMenuHidden;
@@ -40,7 +40,13 @@ namespace UI
             base.Awake();
             Initialize();
         }
-        
+        //调用血量UI变化
+        public void SetPlayerHealth(float value)
+        {
+            healthUI.SetHealth(value);
+        }
+        // 示例角色血量变化时
+        // UIManager.Instance.SetPlayerHealth(newHealthValue);
         private void Initialize()
         {
             // 初始化UI预制体字典
@@ -289,18 +295,18 @@ namespace UI
         }
         
         // 更新：添加键盘输入检测
-        private void Update()
-        {
-            // ESC键返回
-            // 使用新的 Input System
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
-                var currentMenu = GetCurrentMenu();
-                if (currentMenu != null)
-                {
-                    currentMenu.OnBackPressed();
-                }
-            }
-        }
+        // private void Update()
+        // {
+        //     // ESC键返回
+        //     // 使用新的 Input System
+        //     if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        //     {
+        //         var currentMenu = GetCurrentMenu();
+        //         if (currentMenu != null)
+        //         {
+        //             currentMenu.OnBackPressed();
+        //         }
+        //     }
+        // }
     }
 }

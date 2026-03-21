@@ -13,7 +13,7 @@ namespace UI
     
         private Coroutine countdownCoroutine;
         private int currentTime;
-    
+        private float currentTickInterval = 1f; // 当前倒计时步长
         public override void UpdateUI(object data)
         {
             if (data is CountdownData countdownData)
@@ -35,7 +35,7 @@ namespace UI
             messageText.text = data.message;
             countdownText.text = currentTime.ToString();
             countdownPanel.SetActive(true);
-        
+            currentTickInterval = data.tickInterval; 
             countdownCoroutine = StartCoroutine(CountdownRoutine(data));
         }
     
@@ -43,7 +43,7 @@ namespace UI
         {
             while (currentTime > 0)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(currentTickInterval); // 每次读取最新步长
                 currentTime--;
                 countdownText.text = currentTime.ToString();
             
@@ -60,7 +60,17 @@ namespace UI
             // 倒计时结束
             OnCountdownComplete(data);
         }
-    
+        // 新增：运行时修改倒计时速度
+        public void SetTickInterval(float newInterval)
+        {
+            currentTickInterval = Mathf.Max(0.01f, newInterval); // 防止为0或负数
+        }
+        // 外部调用方法
+        // var countdownUI = UIManager.Instance.GetUI<CountdownUI>("CountdownUI");
+        //     if (countdownUI != null)
+        // {
+        //     countdownUI.SetTickInterval(0.5f); // 让倒计时加速
+        // }
         private IEnumerator FlashText()
         {
             Color originalColor = countdownText.color;
@@ -139,5 +149,6 @@ namespace UI
         public string completeMessage = "开始!"; // 完成消息
         public bool autoHide = true;        // 完成后自动隐藏
         public float hideDelay = 1f;        // 隐藏延迟
+        public float tickInterval = 1f; // 新增：倒计时步长（秒）
     }
 }

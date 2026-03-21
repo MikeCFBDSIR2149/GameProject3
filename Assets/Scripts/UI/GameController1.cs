@@ -78,7 +78,7 @@ public class GameController1 : MonoBehaviour
         var healthUI = UIManager.Instance.GetUI<HealthUI>("HealthUI");
         if (healthUI != null)
         {
-            healthUI.SetHealth(5);
+            //healthUI.SetHealth(5);
             Debug.Log("按K键：设置血量为5");
         }
     }

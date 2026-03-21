@@ -12,7 +12,7 @@ namespace UI
         [SerializeField] private GameObject heartPrefab;   // 单个心形预制体
         [SerializeField] private Sprite fullHeartSprite;   // 满血心形
         [SerializeField] private Sprite emptyHeartSprite;  // 空血心形
-        
+        public Slider healthBar;
         [Header("数字显示设置")]
         [SerializeField] private Text healthText;          // 血量数字显示
         [SerializeField] private bool showNumbers = true;  // 是否显示数字
@@ -58,6 +58,13 @@ namespace UI
             }
         }
         
+        
+        public void SetHealth(float value)
+        {
+            // 刷新血量UI
+            healthBar.value = value;
+            healthText.text = value.ToString();
+        }
         // 初始化血量显示
         private void InitializeHealth()
         {
@@ -292,36 +299,36 @@ namespace UI
         }
         
         // 设置血量（直接设置）
-        public void SetHealth(int health)
-        {
-            if (healthData == null) return;
-            
-            healthData.SetHealth(health);
-            
-            // 更新显示
-            UpdateHeartDisplay();
-            UpdateHealthText();
-            
-            // 触发事件
-            UIEventManager.TriggerEvent("HealthChanged", healthData.currentHealth);
-            
-            if (healthData.currentHealth <= 0)
-            {
-                OnHealthDepleted();
-            }
-        }
-        
+        // public void SetHealth(int health)
+        // {
+        //     if (healthData == null) return;
+        //     
+        //     healthData.SetHealth(health);
+        //     
+        //     // 更新显示
+        //     UpdateHeartDisplay();
+        //     UpdateHealthText();
+        //     
+        //     // 触发事件
+        //     UIEventManager.TriggerEvent("HealthChanged", healthData.currentHealth);
+        //     
+        //     if (healthData.currentHealth <= 0)
+        //     {
+        //         OnHealthDepleted();
+        //     }
+        // }
+        //
         // 设置最大血量
-        public void SetMaxHealth(int maxHealth)
-        {
-            if (healthData == null) return;
-            
-            healthData.SetMaxHealth(maxHealth);
-            
-            // 重新初始化
-            InitializeHealth();
-        }
-        
+        // public void SetMaxHealth(int maxHealth)
+        // {
+        //     if (healthData == null) return;
+        //     
+        //     healthData.SetMaxHealth(maxHealth);
+        //     
+        //     // 重新初始化
+        //     InitializeHealth();
+        // }
+        //
         // 获取当前血量
         public int GetCurrentHealth()
         {
