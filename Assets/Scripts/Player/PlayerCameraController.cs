@@ -20,7 +20,7 @@ namespace Player
         }
         private void OnDisable()
         {
-            MousePointerManager.Instance.UnlockCursor();
+            MousePointerManager.Instance?.UnlockCursor();
             if (inputController != null)
             {
                 inputController.OnLookInputChanged -= SetLookInput;
