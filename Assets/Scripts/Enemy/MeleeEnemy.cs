@@ -6,7 +6,7 @@ namespace Enemy
     public class MeleeEnemy : EnemyController
     {
         public float attackDistance = 1.5f;
-   
+        
         protected override void OnPlayerDetected()
         {
             if (player == null) return;

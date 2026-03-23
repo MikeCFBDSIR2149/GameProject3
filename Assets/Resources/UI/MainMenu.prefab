@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 581083172981068540}
   - component: {fileID: 2170080396043298992}
   - component: {fileID: 8054882285989525108}
+  - component: {fileID: 6559806521013027203}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -273,6 +274,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6aab05d6218b947ab6dd8523e98914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.GameController1
+--- !u!114 &6559806521013027203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147099024290341597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a955cb081937c4b48898fce37855a3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.UIManager
+  countdownUIPrefab: {fileID: 2203108888085674859, guid: a9e64b7270c47f0439ee692dd7aa5068, type: 3}
+  healthUIPrefab: {fileID: 2377880412435887772, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
+  mainMenuPrefab: {fileID: 5147099024290341597}
+  pauseMenuPrefab: {fileID: 0}
+  settingsMenuPrefab: {fileID: 0}
+  gameOverMenuPrefab: {fileID: 0}
+  loadingScreenPrefab: {fileID: 0}
+  confirmationDialogPrefab: {fileID: 0}
+  creditsMenuPrefab: {fileID: 0}
+  levelSelectMenuPrefab: {fileID: 0}
+  energyUIPrefab: {fileID: 1355232608050673053, guid: 435bc20457e084d48bced1ce335aa322, type: 3}
+  healthUI: {fileID: 3796588711931750867}
 --- !u!1001 &548387522825510643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -582,6 +607,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
+--- !u!114 &3796588711931750867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7868713634860777264, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
+  m_PrefabInstance: {fileID: 6450131089256421091}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6199ac0b76af249458fc4b1dc0e2e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.HealthUI
 --- !u!224 &8211424888505448127 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2915992124337823836, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
