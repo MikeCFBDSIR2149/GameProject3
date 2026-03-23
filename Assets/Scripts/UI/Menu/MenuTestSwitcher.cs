@@ -24,5 +24,10 @@ public class MenuTestSwitcher : MonoBehaviour
             UIManager.Instance.ShowUI("PauseMenu");
             Debug.Log("Pressed Digit3");
         }
+        if (Keyboard.current.digit4Key.wasPressedThisFrame)
+        {
+            UIManager.Instance.HideUI("MainMenu");
+            Debug.Log("Pressed Digit4");
+        }
     }
 }

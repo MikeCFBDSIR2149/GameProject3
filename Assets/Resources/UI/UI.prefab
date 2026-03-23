@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 8054882285989525108}
   - component: {fileID: 6559806521013027203}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,9 +288,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UI.UIManager
   countdownUIPrefab: {fileID: 2203108888085674859, guid: a9e64b7270c47f0439ee692dd7aa5068, type: 3}
   healthUIPrefab: {fileID: 2377880412435887772, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-  mainMenuPrefab: {fileID: 5147099024290341597}
-  pauseMenuPrefab: {fileID: 0}
-  settingsMenuPrefab: {fileID: 0}
+  mainMenuPrefab: {fileID: 0}
+  pauseMenuPrefab: {fileID: 5301393680560910864, guid: 91c274e49fb90054eb2cabbf8524627b, type: 3}
+  settingsMenuPrefab: {fileID: 8625286726777706467, guid: 7b09c32b4a4f23c4280b0d56d31f8c0a, type: 3}
   gameOverMenuPrefab: {fileID: 0}
   loadingScreenPrefab: {fileID: 0}
   confirmationDialogPrefab: {fileID: 0}

@@ -50,7 +50,7 @@ namespace UI
 
             public override void UpdateUI(object data)
             {
-                throw new System.NotImplementedException();
+                //throw new System.NotImplementedException();
             }
 
             private void OnStartClicked()
