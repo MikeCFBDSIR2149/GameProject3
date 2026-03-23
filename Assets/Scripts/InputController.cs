@@ -10,6 +10,7 @@ public class InputController : MonoBehaviour
     public event System.Action<Vector2> OnMoveInputChanged;
     public event System.Action<Vector2> OnLookInputChanged;
     public event System.Action OnJumpInputChanged;
+    public event System.Action OnAttackInputChanged;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class InputController : MonoBehaviour
         _inputActions.Player.Look.performed += OnLook;
         _inputActions.Player.Look.canceled += OnLook;
         _inputActions.Player.Jump.performed += OnJump;
+        _inputActions.Player.Attack.performed += OnAttack;
     }
 
     private void OnDisable()
@@ -33,7 +35,15 @@ public class InputController : MonoBehaviour
         _inputActions.Player.Look.performed -= OnLook;
         _inputActions.Player.Look.canceled -= OnLook;
         _inputActions.Player.Jump.performed -= OnJump;
+        _inputActions.Player.Attack.performed -= OnAttack;
         _inputActions.Disable();
+    }
+    private void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnAttackInputChanged?.Invoke();
+        }
     }
 
     private void OnMove(InputAction.CallbackContext context)
