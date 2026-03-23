@@ -28,7 +28,7 @@ namespace Player
         }
         private void SetLookInput(Vector2 lookDelta)
         {
-            float deltaY = lookDelta.y * verticalLookSensitivity;
+            float deltaY = lookDelta.y * verticalLookSensitivity * Time.unscaledDeltaTime;
             if (Mathf.Abs(deltaY) > 0.0001f)
             {
                 _pitch -= deltaY;

@@ -11,6 +11,7 @@ public class InputController : MonoBehaviour
     public event System.Action<Vector2> OnLookInputChanged;
     public event System.Action OnJumpInputChanged;
     public event System.Action OnAttackInputChanged;
+    public event System.Action OnBulletTimeSkillInputChanged;
 
     private void Awake()
     {
@@ -26,6 +27,8 @@ public class InputController : MonoBehaviour
         _inputActions.Player.Look.canceled += OnLook;
         _inputActions.Player.Jump.performed += OnJump;
         _inputActions.Player.Attack.performed += OnAttack;
+        // 绑定 BulletTimeSkill
+        _inputActions.Player.BulletTimeSkill.performed += OnBulletTimeSkill;
     }
 
     private void OnDisable()
@@ -36,6 +39,8 @@ public class InputController : MonoBehaviour
         _inputActions.Player.Look.canceled -= OnLook;
         _inputActions.Player.Jump.performed -= OnJump;
         _inputActions.Player.Attack.performed -= OnAttack;
+        // 解绑 BulletTimeSkill
+        _inputActions.Player.BulletTimeSkill.performed -= OnBulletTimeSkill;
         _inputActions.Disable();
     }
     private void OnAttack(InputAction.CallbackContext context)
@@ -87,6 +92,14 @@ public class InputController : MonoBehaviour
         if (context.performed)
         {
             OnJumpInputChanged?.Invoke();
+        }
+    }
+
+    private void OnBulletTimeSkill(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnBulletTimeSkillInputChanged?.Invoke();
         }
     }
 }

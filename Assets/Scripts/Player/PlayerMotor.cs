@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Player
@@ -65,15 +66,15 @@ namespace Player
                     Vector3 targetPosition = _rigidbody.position + move;
                     _rigidbody.MovePosition(targetPosition);
                 }
-                else
-                {
-                    transform.Translate(move, Space.World);
-                }
             }
+        }
+
+        private void Update()
+        {
             // 水平旋转
             if (Mathf.Abs(_lookDeltaX) > 0.0001f)
             {
-                transform.Rotate(0, _lookDeltaX * horizontalLookSensitivity, 0, Space.World);
+                transform.Rotate(0, _lookDeltaX * horizontalLookSensitivity * Time.unscaledDeltaTime, 0, Space.World);
             }
         }
 
