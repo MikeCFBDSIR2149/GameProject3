@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - countdownUIPrefab: {fileID: 2203108888085674859, guid: a9e64b7270c47f0439ee692dd7aa5068, type: 3}
   - healthUIPrefab: {fileID: 2377880412435887772, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-  - mainMenuPrefab: {instanceID: 0}
+  - mainMenuPrefab: {fileID: 5147099024290341597, guid: 0c6ac0a4f16ce6b44aa332a421215fce, type: 3}
   - pauseMenuPrefab: {instanceID: 0}
   - settingsMenuPrefab: {instanceID: 0}
   - gameOverMenuPrefab: {instanceID: 0}
@@ -14,6 +14,8 @@ MonoImporter:
   - confirmationDialogPrefab: {instanceID: 0}
   - creditsMenuPrefab: {instanceID: 0}
   - levelSelectMenuPrefab: {instanceID: 0}
+  - energyUIPrefab: {fileID: 1355232608050673053, guid: 435bc20457e084d48bced1ce335aa322, type: 3}
+  - healthUI: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

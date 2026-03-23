@@ -23,7 +23,7 @@ namespace UI
         [SerializeField] private GameObject confirmationDialogPrefab;
         [SerializeField] private GameObject creditsMenuPrefab;
         [SerializeField] private GameObject levelSelectMenuPrefab;
-        
+        [SerializeField] private GameObject energyUIPrefab;
         private Dictionary<string, UIBase> uiDictionary = new Dictionary<string, UIBase>();
         private Dictionary<string, GameObject> uiPrefabDictionary = new Dictionary<string, GameObject>();
         
@@ -61,7 +61,7 @@ namespace UI
             RegisterUIPrefab("ConfirmationDialog", confirmationDialogPrefab);
             RegisterUIPrefab("CreditsMenu", creditsMenuPrefab);
             RegisterUIPrefab("LevelSelectMenu", levelSelectMenuPrefab);
-            
+            RegisterUIPrefab("EnergyUIPrefab", energyUIPrefab);
             // 确保Canvas存在
             EnsureCanvas();
             

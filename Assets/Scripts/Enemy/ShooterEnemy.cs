@@ -1,3 +1,4 @@
+using UI;
 using UnityEngine;
 
 namespace Enemy
@@ -40,7 +41,7 @@ namespace Enemy
             {
                 GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
                 Bullet bullet = bulletObj.GetComponent<Bullet>();
-                if (bullet != null)
+                UIEventManager.TriggerEvent("OnEnergyChanged", 75f); if (bullet != null)
                 {
                     //Debug.Log($"Bullet direction set to: {player.position}");
                     bullet.SetDirection(player.position);
