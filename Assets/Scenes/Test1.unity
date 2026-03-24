@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 118603392}
+  - component: {fileID: 118603400}
   - component: {fileID: 118603393}
   - component: {fileID: 118603394}
   - component: {fileID: 118603397}
@@ -267,6 +268,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBulletTimeSkill
   bulletTimeDuration: 5
   inputController: {fileID: 118603393}
+--- !u!114 &118603400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118603391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a101a814ee6a4537a7b4097b9a99cc94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.Player
+  playerCamera: {fileID: 1164994816}
 --- !u!1 &350123497
 GameObject:
   m_ObjectHideFlags: 0

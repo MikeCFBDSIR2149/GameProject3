@@ -31,7 +31,7 @@ public class ObjectPool : MonoBehaviour
     {
         GameObject obj = pool.Count == 0 ? Instantiate(prefab, transform) : pool.Dequeue();
         obj.transform.SetPositionAndRotation(position, rotation);
-        obj.transform.parent = null; // 保证子弹不跟随池或枪移动
+        obj.transform.parent = null;
         obj.SetActive(true);
         return obj;
     }

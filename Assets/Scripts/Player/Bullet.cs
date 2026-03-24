@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerBullet : MonoBehaviour
+    public class Bullet : MonoBehaviour
     {
         public Rigidbody rb;
         public string referencePoolKey;

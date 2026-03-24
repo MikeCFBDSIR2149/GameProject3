@@ -12,6 +12,11 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     private TimeScaleController _timeScaleController;
     private EnergyController _energyController;
 
+    public GameplayStatus Status { get; private set; } = GameplayStatus.Default;
+    public event Action<GameplayStatus> OnStatusChanged;
+    
+    public Player.Player Player { get; set; }
+
     [Header("Time Scale Settings")]
     private const float DefaultTimeScale = 1f;
     private const float BulletTimeScale = 0.2f;
@@ -29,6 +34,9 @@ public class GameplayManager : MonoSingleton<GameplayManager>
 
     public void SetGameplayStatus(GameplayStatus targetStatus)
     {
+        if (Status == targetStatus) return;
+        Status = targetStatus;
+        OnStatusChanged?.Invoke(Status);
         switch (targetStatus)
         {
             case GameplayStatus.Default:
