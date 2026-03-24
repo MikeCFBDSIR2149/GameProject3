@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8401816091834589554}
   - component: {fileID: 1450572972592810266}
   - component: {fileID: 6733104475901894069}
+  - component: {fileID: 9172866444468158473}
   - component: {fileID: 8558082723626588351}
   - component: {fileID: 3368445801712962054}
   m_Layer: 0
@@ -107,6 +108,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBullet
   rb: {fileID: 3368445801712962054}
   referencePoolKey: PlayerBullet
+--- !u!114 &9172866444468158473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6075218991753209543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884d0ff47a3940ddaa66d540df234cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.BulletHighlight
+  highlightDistance: 10
 --- !u!135 &8558082723626588351
 SphereCollider:
   m_ObjectHideFlags: 0

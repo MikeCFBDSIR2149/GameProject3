@@ -15,6 +15,7 @@ MonoImporter:
   - creditsMenuPrefab: {instanceID: 0}
   - levelSelectMenuPrefab: {instanceID: 0}
   - energyUIPrefab: {fileID: 1355232608050673053, guid: 435bc20457e084d48bced1ce335aa322, type: 3}
+  - highlightRingPrefab: {fileID: 3075238126630460644, guid: ef04661c2bc032e4193174b7c3cd8273, type: 3}
   - healthUI: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}

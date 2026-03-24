@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Player;
+using UI;
 
 public class HighlightManager : MonoSingleton<HighlightManager>
 {
@@ -30,24 +31,22 @@ public class HighlightManager : MonoSingleton<HighlightManager>
     {
         if (!highlightUIDict.ContainsKey(highlightObj))
         {
-            // TODO: 创建UI实例，替换null为实际IHighlightUI实现
-            IHighlightUI ui = null;
+            IHighlightUI ui = UIManager.Instance.ShowUI("HighlightRing") as IHighlightUI;
             highlightUIDict[highlightObj] = ui;
-            Debug.Log($"[HighlightManager] 创建高亮UI: {highlightObj} at {screenPos}");
+            ui?.SetPosition(screenPos);
         }
         else
         {
             highlightUIDict[highlightObj]?.SetPosition(screenPos);
-            Debug.Log($"[HighlightManager] 更新高亮UI: {highlightObj} at {screenPos}");
         }
     }
 
     // 关闭高亮 UI
     public void CloseHighlight(IHighlightInViewport highlightObj)
     {
-        if (highlightUIDict.TryGetValue(highlightObj, out var ui))
+        if (highlightUIDict.TryGetValue(highlightObj, out IHighlightUI ui))
         {
-            ui?.Dispose();
+            UIManager.Instance.HideUI("HighlightRing");
             highlightUIDict.Remove(highlightObj);
             Debug.Log($"[HighlightManager] 移除高亮UI: {highlightObj}");
         }
@@ -56,9 +55,9 @@ public class HighlightManager : MonoSingleton<HighlightManager>
     // 清除所有高亮 UI
     private void ClearAllHighlights()
     {
-        foreach (var kv in highlightUIDict)
+        foreach (KeyValuePair<IHighlightInViewport, IHighlightUI> kv in highlightUIDict)
         {
-            kv.Value?.Dispose();
+            UIManager.Instance.HideUI("HighlightRing");
             Debug.Log($"[HighlightManager] 清除高亮UI: {kv.Key}");
         }
         highlightUIDict.Clear();

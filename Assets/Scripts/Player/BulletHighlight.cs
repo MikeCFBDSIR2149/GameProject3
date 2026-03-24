@@ -41,8 +41,8 @@ namespace Player
 
         public bool CheckHighlightCondition()
         {
-            var player = GameplayManager.Instance?.Player;
-            if (player == null) return false;
+            Player player = GameplayManager.Instance?.Player;
+            if (!player) return false;
             float dist = Vector3.Distance(transform.position, player.GetWorldPosition());
             return dist <= highlightDistance;
         }
