@@ -577,7 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -594,12 +594,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -772,6 +772,7 @@ GameObject:
   - component: {fileID: 763896211}
   - component: {fileID: 763896213}
   - component: {fileID: 763896212}
+  - component: {fileID: 763896214}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -796,7 +797,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &763896212
 MonoBehaviour:
@@ -812,7 +813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.13560265, b: 0.13396227, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -836,6 +837,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763896210}
   m_CullTransparentMesh: 1
+--- !u!114 &763896214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763896210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2028ecb0e14a69a8b62f8ee4a28168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.CrosshairUI
 --- !u!1 &1164994814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,18 +1391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a955cb081937c4b48898fce37855a3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.UIManager
-  countdownUIPrefab: {fileID: 2203108888085674859, guid: a9e64b7270c47f0439ee692dd7aa5068, type: 3}
-  healthUIPrefab: {fileID: 2377880412435887772, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-  mainMenuPrefab: {fileID: 5147099024290341597, guid: 0c6ac0a4f16ce6b44aa332a421215fce, type: 3}
-  pauseMenuPrefab: {fileID: 0}
-  settingsMenuPrefab: {fileID: 0}
-  gameOverMenuPrefab: {fileID: 0}
-  loadingScreenPrefab: {fileID: 0}
-  confirmationDialogPrefab: {fileID: 0}
-  creditsMenuPrefab: {fileID: 0}
-  levelSelectMenuPrefab: {fileID: 0}
-  energyUIPrefab: {fileID: 1355232608050673053, guid: 435bc20457e084d48bced1ce335aa322, type: 3}
-  highlightRingPrefab: {fileID: 3075238126630460644, guid: ef04661c2bc032e4193174b7c3cd8273, type: 3}
   healthUI: {fileID: 0}
 --- !u!4 &1740303161
 Transform:
@@ -1681,6 +1682,10 @@ PrefabInstance:
     - target: {fileID: 3075238126630460644, guid: ef04661c2bc032e4193174b7c3cd8273, type: 3}
       propertyPath: m_Name
       value: HighlightRing
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075238126630460644, guid: ef04661c2bc032e4193174b7c3cd8273, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

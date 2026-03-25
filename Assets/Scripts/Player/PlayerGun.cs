@@ -29,7 +29,6 @@ namespace Player
             if (cameraDetector != null)
             {
                 Vector3 hitPoint = cameraDetector.DetectAimPosition();
-                Debug.Log($"[PlayerGun] Attack! Aim hit point: {hitPoint}");
                 GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, transform.position, transform.rotation);
                 Bullet bulletScript = bullet.GetComponent<Bullet>();
                 if (bulletScript == null)

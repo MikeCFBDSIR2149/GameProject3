@@ -32,7 +32,7 @@ public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
         else
         {
             Debug.LogWarning($"[ObjectPoolManager] No pool found for key {poolKey}.");
-            GameObject.Destroy(obj);
+            Destroy(obj);
         }
     }
 }

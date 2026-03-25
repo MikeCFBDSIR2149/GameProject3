@@ -62,4 +62,15 @@ public class HighlightManager : MonoSingleton<HighlightManager>
         }
         highlightUIDict.Clear();
     }
+
+    // 通过UI查找对应的高亮对象
+    public IHighlightInViewport GetHighlightOwner(IHighlightUI ui)
+    {
+        foreach (KeyValuePair<IHighlightInViewport, IHighlightUI> kv in highlightUIDict)
+        {
+            if (kv.Value == ui)
+                return kv.Key;
+        }
+        return null;
+    }
 }

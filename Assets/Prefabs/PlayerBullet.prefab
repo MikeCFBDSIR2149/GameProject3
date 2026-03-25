@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7998365645242958763
 Transform:
   m_ObjectHideFlags: 0
@@ -120,7 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884d0ff47a3940ddaa66d540df234cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.BulletHighlight
-  highlightDistance: 10
+  highlightDistance: 15
+  referencePoolKey: PlayerBullet
 --- !u!135 &8558082723626588351
 SphereCollider:
   m_ObjectHideFlags: 0

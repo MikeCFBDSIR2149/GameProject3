@@ -5,6 +5,7 @@ namespace Player
     public class BulletHighlight : MonoBehaviour, IHighlightInViewport
     {
         public float highlightDistance = 10f;
+        public string referencePoolKey;
         private bool _isHighlighted = false;
 
         private void Update()
@@ -38,6 +39,15 @@ namespace Player
                 }
             }
         }
+        
+        private void OnDisable()
+        {
+            if (!_isHighlighted)
+                return;
+            _isHighlighted = false;
+            OnHighlightStateChanged(false);
+            HighlightManager.Instance?.CloseHighlight(this);
+        }
 
         public bool CheckHighlightCondition()
         {
@@ -63,6 +73,12 @@ namespace Player
             {
                 Debug.Log($"[BulletHighlight] 高亮关闭: {gameObject.name}");
             }
+        }
+
+        // 返回自身和对象池key
+        public (GameObject bullet, string poolKey) GetBulletAndPoolKey()
+        {
+            return (gameObject, referencePoolKey);
         }
     }
 }
