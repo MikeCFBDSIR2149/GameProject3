@@ -7,24 +7,7 @@ namespace UI
 {
     public class UIManager : MonoSingleton<UIManager>
     {
-        // 单例由MonoSingleton基类管理
         
-        [Header("UI预制体")]
-        [SerializeField] private GameObject countdownUIPrefab;
-        [SerializeField] private GameObject healthUIPrefab;
-        
-        // 新增菜单预制体
-        [Header("菜单预制体")]
-        [SerializeField] private GameObject mainMenuPrefab;
-        [SerializeField] private GameObject pauseMenuPrefab;
-        [SerializeField] private GameObject settingsMenuPrefab;
-        [SerializeField] private GameObject gameOverMenuPrefab;
-        [SerializeField] private GameObject loadingScreenPrefab;
-        [SerializeField] private GameObject confirmationDialogPrefab;
-        [SerializeField] private GameObject creditsMenuPrefab;
-        [SerializeField] private GameObject levelSelectMenuPrefab;
-        [SerializeField] private GameObject energyUIPrefab;
-        [SerializeField] private GameObject highlightRingPrefab;
         private Dictionary<string, UIBase> uiDictionary = new Dictionary<string, UIBase>();
         private Dictionary<string, GameObject> uiPrefabDictionary = new Dictionary<string, GameObject>();
         
@@ -50,20 +33,7 @@ namespace UI
         // UIManager.Instance.SetPlayerHealth(newHealthValue);
         private void Initialize()
         {
-            // 初始化UI预制体字典
-            RegisterUIPrefab("CountdownUI", countdownUIPrefab);
-            RegisterUIPrefab("HealthUI", healthUIPrefab);
-            // 注册菜单预制体
-            RegisterUIPrefab("MainMenu", mainMenuPrefab);
-            RegisterUIPrefab("PauseMenu", pauseMenuPrefab);
-            RegisterUIPrefab("SettingsMenu", settingsMenuPrefab);
-            RegisterUIPrefab("GameOverMenu", gameOverMenuPrefab);
-            RegisterUIPrefab("LoadingScreen", loadingScreenPrefab);
-            RegisterUIPrefab("ConfirmationDialog", confirmationDialogPrefab);
-            RegisterUIPrefab("CreditsMenu", creditsMenuPrefab);
-            RegisterUIPrefab("LevelSelectMenu", levelSelectMenuPrefab);
-            RegisterUIPrefab("EnergyUIPrefab", energyUIPrefab);
-            RegisterUIPrefab("HighlightRing", highlightRingPrefab);
+            
             // 确保Canvas存在
             EnsureCanvas();
             
@@ -83,11 +53,6 @@ namespace UI
         {
             Debug.Log($"尝试显示UI: {uiName}");
             
-            if (!uiPrefabDictionary.ContainsKey(uiName))
-            {
-                Debug.LogError($"未找到UI预制体: {uiName}");
-                return null;
-            }
             
             // 如果UI已经存在，直接显示
             if (uiDictionary.TryGetValue(uiName, out UIBase existingUI))
@@ -112,8 +77,16 @@ namespace UI
         {
             if (!uiPrefabDictionary.TryGetValue(uiName, out GameObject prefab))
             {
-                Debug.LogError($"未找到UI预制体: {uiName}");
-                return null;
+               
+                // 尝试从 Resources 里加载：约定路径为 "UI/<uiName>"
+                prefab = Resources.Load<GameObject>($"UI/{uiName}");
+                if (prefab == null)
+                {
+                    Debug.LogError($"[UIManager] 未在Resources/UI下找到 {uiName} 预制体");
+                    return null;
+                }
+                // 缓存起来，避免下次重复加载
+                uiPrefabDictionary[uiName] = prefab;
             }
             
             // 确保有Canvas
@@ -147,7 +120,40 @@ namespace UI
             Debug.Log($"成功创建UI: {uiName}");
             return ui;
         }
-        
+        public UIBase CreateUIInstance(string uiName, object data = null, Transform parent = null)
+        {
+            // 1. 从缓存字典或 Resources 里拿到 prefab
+            if (!uiPrefabDictionary.TryGetValue(uiName, out GameObject prefab) || prefab == null)
+            {
+                prefab = Resources.Load<GameObject>($"UI/{uiName}");
+                if (prefab == null)
+                {
+                    Debug.LogError($"[UIManager] 未在Resources/UI下找到 {uiName} 预制体");
+                    return null;
+                }
+                uiPrefabDictionary[uiName] = prefab;
+            }
+
+            // 2. 确保Canvas，或者允许传入自定义 parent
+            EnsureCanvas();
+            Transform targetParent = parent != null ? parent : mainCanvas.transform;
+
+            // 3. 实例化
+            GameObject uiObj = Object.Instantiate(prefab, targetParent);
+            UIBase ui = uiObj.GetComponent<UIBase>();
+            if (ui == null)
+            {
+                Debug.LogError($"UI预制体没有UIBase组件: {uiName}");
+                Object.Destroy(uiObj);
+                return null;
+            }
+
+            // 4. 这里刻意**不**放进 uiDictionary，不入菜单栈
+            ui.OnInit();
+            ui.OnShow(data);
+
+            return ui;
+        }
         // 隐藏UI
         public void HideUI(string uiName)
         {
@@ -295,20 +301,43 @@ namespace UI
                 Debug.Log($"销毁UI: {uiName}");
             }
         }
+        public void DestroyUIInstance(UIBase ui)
+        {
+            if (ui == null) return;
+
+            // 如果是通过 ShowUI 创建的单例 UI，还需要从 uiDictionary/menuStack 里移除
+            string keyToRemove = null;
+            foreach (var kv in uiDictionary)
+            {
+                if (kv.Value == ui)
+                {
+                    keyToRemove = kv.Key;
+                    break;
+                }
+            }
+            if (keyToRemove != null)
+            {
+                uiDictionary.Remove(keyToRemove);
+
+                // 从菜单栈中移除
+                var tempStack = new Stack<string>();
+                while (menuStack.Count > 0)
+                {
+                    var item = menuStack.Pop();
+                    if (item != keyToRemove)
+                    {
+                        tempStack.Push(item);
+                    }
+                }
+                while (tempStack.Count > 0)
+                {
+                    menuStack.Push(tempStack.Pop());
+                }
+            }
+
+            ui.OnHide();
+            Object.Destroy(ui.gameObject);
+        }
         
-        // 更新：添加键盘输入检测
-        // private void Update()
-        // {
-        //     // ESC键返回
-        //     // 使用新的 Input System
-        //     if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-        //     {
-        //         var currentMenu = GetCurrentMenu();
-        //         if (currentMenu != null)
-        //         {
-        //             currentMenu.OnBackPressed();
-        //         }
-        //     }
-        // }
     }
 }
