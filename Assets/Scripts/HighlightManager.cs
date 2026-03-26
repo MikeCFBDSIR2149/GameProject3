@@ -67,9 +67,16 @@ public class HighlightManager : MonoSingleton<HighlightManager>
     {
         foreach (KeyValuePair<IHighlightInViewport, IHighlightUI> kv in highlightUIDict)
         {
-            UIManager.Instance.HideUI("HighlightRing");
+            // 这里要销毁每一个具体实例，而不是按名字 Hide
+            UIBase uiBase = kv.Value as UIBase;
+            if (uiBase != null)
+            {
+                UIManager.Instance.DestroyUIInstance(uiBase);
+            }
+
             Debug.Log($"[HighlightManager] 清除高亮UI: {kv.Key}");
         }
+
         highlightUIDict.Clear();
     }
 
