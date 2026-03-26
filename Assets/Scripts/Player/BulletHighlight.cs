@@ -7,10 +7,12 @@ namespace Player
         public float highlightDistance = 10f;
         public string referencePoolKey;
         private bool _isHighlighted = false;
+        public string highlightUIPrefabName = "HighlightRing";
+        public string HighlightUIPrefabName => highlightUIPrefabName;
 
         private void Update()
         {
-            if (GameplayManager.Instance.Status != GameplayStatus.BulletTime)
+            if (GameplayManager.Instance.Status != EGameplayStatus.BulletTime)
                 return;
             Player player = GameplayManager.Instance?.Player;
             if (!player) return;

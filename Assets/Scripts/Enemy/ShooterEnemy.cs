@@ -40,7 +40,7 @@ namespace Enemy
             if (bulletPrefab != null && firePoint != null)
             {
                 GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-                Bullet bullet = bulletObj.GetComponent<Bullet>();
+                EnemyBullet bullet = bulletObj.GetComponent<EnemyBullet>();
                 if (bullet != null)
                 {
                     //Debug.Log($"Bullet direction set to: {player.position}");

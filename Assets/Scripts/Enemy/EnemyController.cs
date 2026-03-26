@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, ISender
     {
         public float detectRange = 10f;         // 感知主角的范围
         public float patrolRadius = 5f;         // 巡逻半径

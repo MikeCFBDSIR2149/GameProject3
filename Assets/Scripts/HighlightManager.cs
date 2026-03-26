@@ -18,9 +18,9 @@ public class HighlightManager : MonoSingleton<HighlightManager>
             GameplayManager.Instance.OnStatusChanged -= OnGameplayStatusChanged;
     }
     
-    private void OnGameplayStatusChanged(GameplayStatus status)
+    private void OnGameplayStatusChanged(EGameplayStatus status)
     {
-        if (status == GameplayStatus.Default)
+        if (status == EGameplayStatus.Default)
         {
             ClearAllHighlights();
         }
@@ -32,10 +32,10 @@ public class HighlightManager : MonoSingleton<HighlightManager>
         if (!highlightUIDict.TryGetValue(highlightObj, out IHighlightUI value))
         {
             // 用多实例接口，而不是 ShowUI（单例）
-            IHighlightUI ui = UIManager.Instance.CreateUIInstance("HighlightRing") as IHighlightUI;
-            if (ui == null)
+            string prefabName = highlightObj.HighlightUIPrefabName;
+            if (UIManager.Instance.CreateUIInstance(prefabName) is not IHighlightUI ui)
             {
-                Debug.LogError("[HighlightManager] 无法创建 HighlightRing UI，请检查预制体是否挂了 IHighlightUI / UIBase。");
+                Debug.LogWarning($"[HighlightManager] 无法创建 {prefabName} UI，请检查预制体是否挂了 IHighlightUI / UIBase。");
                 return;
             }
 

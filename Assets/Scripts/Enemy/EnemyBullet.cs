@@ -1,15 +1,20 @@
-using UI;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class Bullet : MonoBehaviour
+    public class EnemyBullet : MonoBehaviour, IContainSender
     {
-        
         public float speed = 10f;
         public float lifeTime = 5f;
 
         private Vector3 direction;
+
+        public ISender Sender { get; set; }
+
+        public void SetSender(ISender s)
+        {
+            Sender = s;
+        }
 
         // 在生成子弹时调用，设置目标方向
         public void SetDirection(Vector3 targetPosition)
@@ -20,16 +25,17 @@ namespace Enemy
             //Debug.Log($"Bullet direction set to: {direction}");
         }
 
-        void Update()
+        private void Update()
         {
-            transform.position += direction * speed * Time.deltaTime;
+            transform.position += direction * (speed * Time.deltaTime);
             lifeTime -= Time.deltaTime;
             if (lifeTime <= 0f)
             {
                 Destroy(gameObject);
             }
         }
-        void OnTriggerEnter(Collider other)
+
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum GameplayStatus
+public enum EGameplayStatus
 {
     Default,
     BulletTime
@@ -12,8 +12,8 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     private TimeScaleController _timeScaleController;
     private EnergyController _energyController;
 
-    public GameplayStatus Status { get; private set; } = GameplayStatus.Default;
-    public event Action<GameplayStatus> OnStatusChanged;
+    public EGameplayStatus Status { get; private set; } = EGameplayStatus.Default;
+    public event Action<EGameplayStatus> OnStatusChanged;
     
     public Player.Player Player { get; set; }
 
@@ -32,18 +32,18 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         _energyController = new EnergyController(DefaultTimeEnergyConsumption, BulletTimeEnergyConsumption);
     }
 
-    public void SetGameplayStatus(GameplayStatus targetStatus)
+    public void SetGameplayStatus(EGameplayStatus targetStatus)
     {
         if (Status == targetStatus) return;
         Status = targetStatus;
         OnStatusChanged?.Invoke(Status);
         switch (targetStatus)
         {
-            case GameplayStatus.Default:
+            case EGameplayStatus.Default:
                 _timeScaleController.UseDefaultTimeScale();
                 _energyController.UseDefaultTimeEnergyConsumption();
                 break;
-            case GameplayStatus.BulletTime:
+            case EGameplayStatus.BulletTime:
                 _timeScaleController.UseBulletTimeScale();
                 _energyController.UseBulletTimeEnergyConsumption();
                 break;

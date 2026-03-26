@@ -34,9 +34,9 @@ namespace Player
         private IEnumerator BulletTimeRoutine()
         {
             isBulletTimeActive = true;
-            GameplayManager.Instance.SetGameplayStatus(GameplayStatus.BulletTime);
+            GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.BulletTime);
             yield return new WaitForSecondsRealtime(bulletTimeDuration);
-            GameplayManager.Instance.SetGameplayStatus(GameplayStatus.Default);
+            GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
             isBulletTimeActive = false;
         }
     }

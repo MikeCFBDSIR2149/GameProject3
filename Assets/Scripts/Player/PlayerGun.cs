@@ -30,7 +30,7 @@ namespace Player
             {
                 Vector3 hitPoint = cameraDetector.DetectAimPosition();
                 GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, transform.position, transform.rotation);
-                Bullet bulletScript = bullet.GetComponent<Bullet>();
+                PlayerBullet bulletScript = bullet.GetComponent<PlayerBullet>();
                 if (bulletScript == null)
                     return;
                 Vector3 velocity = (hitPoint - transform.position).normalized * bulletSpeed;
