@@ -31,22 +31,32 @@ public class HighlightManager : MonoSingleton<HighlightManager>
     {
         if (!highlightUIDict.ContainsKey(highlightObj))
         {
-            IHighlightUI ui = UIManager.Instance.ShowUI("HighlightRing") as IHighlightUI;
+            // 用多实例接口，而不是 ShowUI（单例）
+            IHighlightUI ui = UIManager.Instance.CreateUIInstance("HighlightRing") as IHighlightUI;
+            if (ui == null)
+            {
+                Debug.LogError("[HighlightManager] 无法创建 HighlightRing UI，请检查预制体是否挂了 IHighlightUI / UIBase。");
+                return;
+            }
+
             highlightUIDict[highlightObj] = ui;
-            ui?.SetPosition(screenPos);
+            ui.SetPosition(screenPos);
         }
         else
         {
-            highlightUIDict[highlightObj]?.SetPosition(screenPos);
+            highlightUIDict[highlightObj].SetPosition(screenPos);
         }
     }
 
-    // 关闭高亮 UI
+// 关闭高亮 UI
     public void CloseHighlight(IHighlightInViewport highlightObj)
     {
         if (highlightUIDict.TryGetValue(highlightObj, out IHighlightUI ui))
         {
-            UIManager.Instance.HideUI("HighlightRing");
+            // 因为是多实例，所以这里不能用 HideUI("HighlightRing")
+            // 需要直接销毁这个具体实例
+            UIManager.Instance.DestroyUIInstance(ui as UIBase);
+
             highlightUIDict.Remove(highlightObj);
             Debug.Log($"[HighlightManager] 移除高亮UI: {highlightObj}");
         }
