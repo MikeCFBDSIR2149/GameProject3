@@ -29,7 +29,7 @@ public class HighlightManager : MonoSingleton<HighlightManager>
     // 更新和创建高亮 UI
     public void UpdateHighlight(IHighlightInViewport highlightObj, Vector3 screenPos)
     {
-        if (!highlightUIDict.ContainsKey(highlightObj))
+        if (!highlightUIDict.TryGetValue(highlightObj, out IHighlightUI value))
         {
             // 用多实例接口，而不是 ShowUI（单例）
             IHighlightUI ui = UIManager.Instance.CreateUIInstance("HighlightRing") as IHighlightUI;
@@ -44,11 +44,11 @@ public class HighlightManager : MonoSingleton<HighlightManager>
         }
         else
         {
-            highlightUIDict[highlightObj].SetPosition(screenPos);
+            value.SetPosition(screenPos);
         }
     }
 
-// 关闭高亮 UI
+    // 关闭高亮 UI
     public void CloseHighlight(IHighlightInViewport highlightObj)
     {
         if (highlightUIDict.TryGetValue(highlightObj, out IHighlightUI ui))

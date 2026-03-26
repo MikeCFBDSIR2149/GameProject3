@@ -52,23 +52,6 @@ namespace Player
             _lookDeltaX = lookDelta.x;
         }
 
-        private void FixedUpdate()
-        {
-            // 检查是否在地面
-            _isGrounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundMask);
-            // 移动
-            if (_moveInput != Vector2.zero)
-            {
-                Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
-                move = transform.TransformDirection(move) * (moveSpeed * Time.fixedDeltaTime);
-                if (_rigidbody)
-                {
-                    Vector3 targetPosition = _rigidbody.position + move;
-                    _rigidbody.MovePosition(targetPosition);
-                }
-            }
-        }
-
         private void Update()
         {
             // 水平旋转
@@ -76,6 +59,21 @@ namespace Player
             {
                 transform.Rotate(0, _lookDeltaX * horizontalLookSensitivity * Time.unscaledDeltaTime, 0, Space.World);
             }
+            // 移动（用 unscaledDeltaTime，保证子弹时间下流畅）
+            if (_moveInput != Vector2.zero && _rigidbody)
+            {
+                Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
+                move = transform.TransformDirection(move) * (moveSpeed * Time.deltaTime);
+                Vector3 targetPosition = _rigidbody.position + move;
+                _rigidbody.MovePosition(targetPosition);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            // 检查是否在地面
+            _isGrounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundMask);
+            // 移动逻辑已移至 Update
         }
 
         private void OnJumpInput()
