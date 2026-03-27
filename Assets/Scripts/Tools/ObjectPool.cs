@@ -13,7 +13,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < initialSize; i++)
         {
-            GameObject obj = Instantiate(prefab, transform);
+            GameObject obj = Instantiate(prefab);
             obj.SetActive(false);
             pool.Enqueue(obj);
         }
@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject Get(Vector3 position, Quaternion rotation)
     {
-        GameObject obj = pool.Count == 0 ? Instantiate(prefab, transform) : pool.Dequeue();
+        GameObject obj = pool.Count == 0 ? Instantiate(prefab) : pool.Dequeue();
         obj.transform.SetPositionAndRotation(position, rotation);
         obj.transform.parent = null;
         obj.SetActive(true);

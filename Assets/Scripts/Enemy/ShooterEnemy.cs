@@ -7,8 +7,9 @@ namespace Enemy
     {
         public float shootDistance = 8f;
         public float shootInterval = 1.5f;
-        public GameObject bulletPrefab;
         public Transform firePoint;
+        public string bulletPoolKey = "EnemyBullet";
+        public float bulletSpeed = 10f;
 
         private float shootTimer = 0f;
 
@@ -35,17 +36,22 @@ namespace Enemy
             }
         }
 
-        void Shoot()
+        private void Shoot()
         {
-            if (bulletPrefab != null && firePoint != null)
+            if (firePoint != null)
             {
-                GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-                EnemyBullet bullet = bulletObj.GetComponent<EnemyBullet>();
-                if (bullet != null)
-                {
-                    //Debug.Log($"Bullet direction set to: {player.position}");
-                    bullet.SetDirection(player.position);
-                }
+                GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, transform.position, Quaternion.identity);
+                EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
+                if (bulletScript == null)
+                    return;
+                Vector3 velocity = (player.position - firePoint.position).normalized * bulletSpeed;
+                bulletScript.Init(velocity);
+                // Set Sender
+                bulletScript.SetSender(this);
+            }
+            else
+            {
+                Debug.LogWarning("[PlayerGun] No PlayerCameraDetector found!");
             }
         }
     }

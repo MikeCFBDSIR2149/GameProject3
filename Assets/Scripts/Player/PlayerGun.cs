@@ -29,7 +29,7 @@ namespace Player
             if (cameraDetector != null)
             {
                 Vector3 hitPoint = cameraDetector.DetectAimPosition();
-                GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, transform.position, transform.rotation);
+                GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, transform.position, Quaternion.identity);
                 PlayerBullet bulletScript = bullet.GetComponent<PlayerBullet>();
                 if (bulletScript == null)
                     return;
