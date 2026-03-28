@@ -67,14 +67,14 @@ namespace Player
         public void OnHighlightStateChanged(bool isHighlighted)
         {
             // 可在此处处理高亮状态变化时的本地逻辑（如特效、声音等）
-            if (isHighlighted)
+            /*if (isHighlighted)
             {
                 Debug.Log($"[BulletHighlight] 高亮开启: {gameObject.name}");
             }
             else
             {
                 Debug.Log($"[BulletHighlight] 高亮关闭: {gameObject.name}");
-            }
+            }*/
         }
 
         // 返回自身和对象池key

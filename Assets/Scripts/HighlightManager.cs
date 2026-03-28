@@ -35,7 +35,7 @@ public class HighlightManager : MonoSingleton<HighlightManager>
             string prefabName = highlightObj.HighlightUIPrefabName;
             if (UIManager.Instance.CreateUIInstance(prefabName) is not IHighlightUI ui)
             {
-                Debug.LogWarning($"[HighlightManager] 无法创建 {prefabName} UI，请检查预制体是否挂了 IHighlightUI / UIBase。");
+                // Debug.LogWarning($"[HighlightManager] 无法创建 {prefabName} UI，请检查预制体是否挂了 IHighlightUI / UIBase。");
                 return;
             }
 
@@ -58,7 +58,7 @@ public class HighlightManager : MonoSingleton<HighlightManager>
             UIManager.Instance.DestroyUIInstance(ui as UIBase);
 
             highlightUIDict.Remove(highlightObj);
-            Debug.Log($"[HighlightManager] 移除高亮UI: {highlightObj}");
+            // Debug.Log($"[HighlightManager] 移除高亮UI: {highlightObj}");
         }
     }
     
@@ -74,7 +74,7 @@ public class HighlightManager : MonoSingleton<HighlightManager>
                 UIManager.Instance.DestroyUIInstance(uiBase);
             }
 
-            Debug.Log($"[HighlightManager] 清除高亮UI: {kv.Key}");
+            // Debug.Log($"[HighlightManager] 清除高亮UI: {kv.Key}");
         }
 
         highlightUIDict.Clear();

@@ -15,8 +15,12 @@ namespace Player
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
+            if (other.gameObject.GetComponent<PlayerBullet>())
+            {
+                return;
+            }
             if (!other.gameObject.CompareTag("Player"))
             {
                 ObjectPoolManager.Instance.Dispose(referencePoolKey, gameObject);

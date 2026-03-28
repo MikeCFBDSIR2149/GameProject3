@@ -63,5 +63,10 @@ namespace Enemy
             Vector2 randomPoint = Random.insideUnitCircle * patrolRadius;
             patrolTarget = patrolCenter + new Vector3(randomPoint.x, 0, randomPoint.y);
         }
+
+        public Vector3 GetWorldPosition()
+        {
+            return transform.position;
+        }
     }
 }

@@ -60,7 +60,9 @@ GameObject:
   - component: {fileID: 6850187992675806197}
   - component: {fileID: 9135234848160596083}
   - component: {fileID: 8765535849076225387}
+  - component: {fileID: 8514242841801262915}
   - component: {fileID: 9137961191121664696}
+  - component: {fileID: 4338246741107992499}
   - component: {fileID: 173598498611628897}
   m_Layer: 0
   m_Name: Gun
@@ -157,6 +159,20 @@ MonoBehaviour:
   cameraDetector: {fileID: 8987283102007461699}
   bulletPoolKey: PlayerBullet
   bulletSpeed: 10
+--- !u!114 &8514242841801262915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8284535474924839996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0a1bf35cda44da98a98ec34c8abeec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAttackBack
+  bulletTrackingPoolKey: PlayerBulletTracking
+  bulletSpeed: 15
 --- !u!114 &9137961191121664696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,9 +185,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09360a8eca7fa24cb283a3100fa1a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
-  prefab: {fileID: 0}
+  prefab: {fileID: 6075218991753209543, guid: 76a475abc7a190a418b69d2d90dcf3d0, type: 3}
   initialSize: 5
   poolKey: PlayerBullet
+--- !u!114 &4338246741107992499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8284535474924839996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09360a8eca7fa24cb283a3100fa1a17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+  prefab: {fileID: 6075218991753209543, guid: d2fe720923fdb4363988fc8fc41a59ed, type: 3}
+  initialSize: 5
+  poolKey: PlayerBulletTracking
 --- !u!136 &173598498611628897
 CapsuleCollider:
   m_ObjectHideFlags: 0

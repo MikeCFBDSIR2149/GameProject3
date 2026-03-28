@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 7998365645242958763}
   - component: {fileID: 8401816091834589554}
   - component: {fileID: 1450572972592810266}
-  - component: {fileID: 6733104475901894069}
+  - component: {fileID: 7186503061171997628}
   - component: {fileID: 8558082723626588351}
   - component: {fileID: 3368445801712962054}
   m_Layer: 0
-  m_Name: PlayerBullet
+  m_Name: PlayerBulletTracking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 71af6424d389ce140aa0a557c279c091, type: 2}
+  - {fileID: 2100000, guid: 69fe9bf96414344e38b1082f1e27c40b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,7 +93,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6733104475901894069
+--- !u!114 &7186503061171997628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,11 +102,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6075218991753209543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f54098b9f357bf94abf7b90d53e7c375, type: 3}
+  m_Script: {fileID: 11500000, guid: 41c05b6cf8475460382aaa25196248d5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBullet
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBulletTracking
   rb: {fileID: 3368445801712962054}
-  referencePoolKey: PlayerBullet
+  referencePoolKey: PlayerBulletTracking
 --- !u!135 &8558082723626588351
 SphereCollider:
   m_ObjectHideFlags: 0

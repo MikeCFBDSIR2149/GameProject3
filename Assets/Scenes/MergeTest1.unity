@@ -627,6 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2028ecb0e14a69a8b62f8ee4a28168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.CrosshairUI
+  attackBack: {fileID: 1759458055}
 --- !u!114 &1442059860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -990,7 +991,7 @@ GameObject:
   - component: {fileID: 1712286220}
   - component: {fileID: 1712286221}
   m_Layer: 0
-  m_Name: ManuTestSwitcher
+  m_Name: MenuTestSwitcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1079,10 +1080,6 @@ PrefabInstance:
       propertyPath: cameraAim
       value: 
       objectReference: {fileID: 1580367425}
-    - target: {fileID: 9137961191121664696, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 6075218991753209543, guid: 76a475abc7a190a418b69d2d90dcf3d0, type: 3}
     - target: {fileID: 9184655428823888042, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1097,6 +1094,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4479451114731084045, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
   m_PrefabInstance: {fileID: 1759458053}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1759458055 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8514242841801262915, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+  m_PrefabInstance: {fileID: 1759458053}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0a1bf35cda44da98a98ec34c8abeec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAttackBack
 --- !u!1 &1876002337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,6 +1421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1498909527303287482, guid: 6a69890d40028e7409675ad018ae7275, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8089303203163949979, guid: 6a69890d40028e7409675ad018ae7275, type: 3}
       propertyPath: energyUI
       value: 
@@ -1478,6 +1490,10 @@ PrefabInstance:
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
+    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: shootInterval
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
