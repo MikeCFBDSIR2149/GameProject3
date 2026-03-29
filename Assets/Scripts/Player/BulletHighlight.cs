@@ -22,7 +22,8 @@ namespace Player
             bool shouldHighlight = CheckHighlightCondition();
             Vector3 screenPos = GetScreenPosition(cam);
 
-            if (shouldHighlight)
+            // 只有目标在摄像机前方(z>0)时才高亮
+            if (shouldHighlight && screenPos.z > 0)
             {
                 if (!_isHighlighted)
                 {

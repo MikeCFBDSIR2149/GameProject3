@@ -1487,9 +1487,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: detectRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
+    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: shootDistance
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
       value: 1
