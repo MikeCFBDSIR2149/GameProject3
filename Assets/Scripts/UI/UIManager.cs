@@ -49,7 +49,7 @@ namespace UI
         }
         
         // 显示UI（增强版）
-        public UIBase ShowUI(string uiName, object data = null)
+        public UIBase ShowUI(string uiName, object data = null, bool asRootCanvas = false)
         {
             Debug.Log($"尝试显示UI: {uiName}");
             
@@ -70,10 +70,10 @@ namespace UI
             }
             
             // 动态创建UI
-            return CreateUI(uiName, data);
+            return CreateUI(uiName, data, asRootCanvas);
         }
         
-        private UIBase CreateUI(string uiName, object data = null)
+        private UIBase CreateUI(string uiName, object data = null, bool asRootCanvas = false)
         {
             if (!uiPrefabDictionary.TryGetValue(uiName, out GameObject prefab))
             {
@@ -91,9 +91,17 @@ namespace UI
             
             // 确保有Canvas
             EnsureCanvas();
-            
-            // 实例化UI
-            GameObject uiObj = Instantiate(prefab, mainCanvas.transform);
+            GameObject uiObj;
+            if (asRootCanvas && prefab.GetComponent<Canvas>() != null)
+            {
+                // 作为根Canvas实例化
+                uiObj = Instantiate(prefab);
+            }
+            else
+            {
+                // 默认作为mainCanvas子物体
+                uiObj = Instantiate(prefab, mainCanvas.transform);
+            }
             UIBase ui = uiObj.GetComponent<UIBase>();
             
             if (ui == null)
@@ -120,7 +128,7 @@ namespace UI
             Debug.Log($"成功创建UI: {uiName}");
             return ui;
         }
-        public UIBase CreateUIInstance(string uiName, object data = null, Transform parent = null)
+        public UIBase CreateUIInstance(string uiName, object data = null, Transform parent = null, bool asRootCanvas = false)
         {
             // 1. 从缓存字典或 Resources 里拿到 prefab
             if (!uiPrefabDictionary.TryGetValue(uiName, out GameObject prefab) || prefab == null)
@@ -137,9 +145,15 @@ namespace UI
             // 2. 确保Canvas，或者允许传入自定义 parent
             EnsureCanvas();
             Transform targetParent = parent != null ? parent : mainCanvas.transform;
-
-            // 3. 实例化
-            GameObject uiObj = Object.Instantiate(prefab, targetParent);
+            GameObject uiObj;
+            if (asRootCanvas && prefab.GetComponent<Canvas>() != null)
+            {
+                uiObj = Object.Instantiate(prefab);
+            }
+            else
+            {
+                uiObj = Object.Instantiate(prefab, targetParent);
+            }
             UIBase ui = uiObj.GetComponent<UIBase>();
             if (ui == null)
             {

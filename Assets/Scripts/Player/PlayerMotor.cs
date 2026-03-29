@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UserOptions;
 
 namespace Player
 {
-    public class PlayerMotor : MonoBehaviour
+    public class PlayerMotor : MonoBehaviour, ISyncFromOptions
     {
         public InputController inputController;
         public float moveSpeed = 5f;
@@ -20,6 +21,7 @@ namespace Player
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            SyncFromOptions();
         }
 
         private void OnEnable()
@@ -29,6 +31,10 @@ namespace Player
                 inputController.OnMoveInputChanged += SetMoveInput;
                 inputController.OnLookInputChanged += SetLookInput;
                 inputController.OnJumpInputChanged += OnJumpInput;
+            }
+            if (OptionsManager.Instance != null)
+            {
+                OptionsManager.Instance.OnOptionsChanged += SyncFromOptions;
             }
         }
 
@@ -40,6 +46,10 @@ namespace Player
                 inputController.OnLookInputChanged -= SetLookInput;
                 inputController.OnJumpInputChanged -= OnJumpInput;
             }
+            if (OptionsManager.Instance != null)
+            {
+                OptionsManager.Instance.OnOptionsChanged -= SyncFromOptions;
+            }
         }
 
         private void SetMoveInput(Vector2 input)
@@ -50,6 +60,17 @@ namespace Player
         private void SetLookInput(Vector2 lookDelta)
         {
             _lookDeltaX = lookDelta.x;
+        }
+
+        public void SyncFromOptions()
+        {
+            OptionsManager optionsMgr = OptionsManager.Instance;
+            if (!optionsMgr) return;
+            OptionsData options = optionsMgr.GetOptions();
+            if (options != null)
+            {
+                horizontalLookSensitivity = options.horizontalSensitivity;
+            }
         }
 
         private void Update()
