@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884d0ff47a3940ddaa66d540df234cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.BulletHighlight
-  highlightDistance: 15
+  highlightDistance: 5
   referencePoolKey: EnemyBullet
   highlightUIPrefabName: HighlightRing
 --- !u!135 &8558082723626588351

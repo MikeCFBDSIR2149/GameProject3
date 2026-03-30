@@ -46,7 +46,7 @@ namespace Player
             if (!other.gameObject.CompareTag("Player"))
             {
                 ObjectPoolManager.Instance.Dispose(referencePoolKey, gameObject);
-                Debug.Log($"Attack Back! {other.gameObject.name}");
+                // Debug.Log($"Attack Back! {other.gameObject.name}");
             }
         }
     }

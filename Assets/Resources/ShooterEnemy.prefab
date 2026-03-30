@@ -149,13 +149,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3c5cb7617c87b4d83b03d14f9da2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.ShooterEnemy
-  detectRange: 10
+  detectRange: 15
   patrolRadius: 5
   patrolWaitTime: 2
-  shootDistance: 8
-  shootInterval: 1.5
-  bulletPrefab: {fileID: 0}
+  shootDistance: 12
+  shootInterval: 1
   firePoint: {fileID: 143102536395324814}
+  bulletPoolKey: EnemyBullet
+  bulletSpeed: 3.5
 --- !u!1 &8507570420934095657
 GameObject:
   m_ObjectHideFlags: 0

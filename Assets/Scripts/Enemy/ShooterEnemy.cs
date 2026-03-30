@@ -12,9 +12,28 @@ namespace Enemy
         public float bulletSpeed = 10f;
 
         private float shootTimer = 0f;
+        private bool isPaused = false;
+
+        private void OnEnable()
+        {
+            if (GameplayManager.Instance != null)
+                GameplayManager.Instance.OnStatusChanged += OnStatusChanged;
+        }
+
+        private void OnDisable()
+        {
+            if (GameplayManager.Instance != null)
+                GameplayManager.Instance.OnStatusChanged -= OnStatusChanged;
+        }
+
+        private void OnStatusChanged(EGameplayStatus status)
+        {
+            isPaused = (status == EGameplayStatus.Paused);
+        }
 
         protected override void OnPlayerDetected()
         {
+            if (isPaused) return;
             if (player == null) return;
 
             float distance = Vector3.Distance(transform.position, player.position);
@@ -27,7 +46,7 @@ namespace Enemy
                 agent.SetDestination(transform.position); // 停止移动
                 transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z)); // 水平朝向主角
 
-                shootTimer += Time.deltaTime;
+                shootTimer += Time.unscaledDeltaTime;
                 if (shootTimer >= shootInterval)
                 {
                     Shoot();

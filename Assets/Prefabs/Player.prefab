@@ -158,7 +158,7 @@ MonoBehaviour:
   inputController: {fileID: 1490091806887864891}
   cameraDetector: {fileID: 8987283102007461699}
   bulletPoolKey: PlayerBullet
-  bulletSpeed: 10
+  bulletSpeed: 3
 --- !u!114 &8514242841801262915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAttackBack
   bulletTrackingPoolKey: PlayerBulletTracking
-  bulletSpeed: 15
+  bulletSpeed: 5
+  attackBackInterval: 0.2
 --- !u!114 &9137961191121664696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,9 +306,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMotor
   inputController: {fileID: 1490091806887864891}
-  moveSpeed: 5
+  moveSpeed: 1
   horizontalLookSensitivity: 10
-  jumpForce: 5
+  jumpForce: 8
   groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -348,8 +349,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9184655428823888042}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 0.001
+  m_LinearDamping: 0.1
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

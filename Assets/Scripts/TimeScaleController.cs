@@ -25,4 +25,9 @@ public class TimeScaleController
     {
         SetTimeScale(_bulletTimeScale);
     }
+    
+    public void UsePausedTimeScale()
+    {
+        SetTimeScale(0f);
+    }
 }

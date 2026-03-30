@@ -4,7 +4,8 @@ using UnityEngine;
 public enum EGameplayStatus
 {
     Default,
-    BulletTime
+    BulletTime,
+    Paused
 }
 
 public class GameplayManager : MonoSingleton<GameplayManager>
@@ -13,13 +14,14 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     private EnergyController _energyController;
 
     public EGameplayStatus Status { get; private set; } = EGameplayStatus.Default;
+    public EGameplayStatus PreviousStatus { get; private set; } = EGameplayStatus.Default;
     public event Action<EGameplayStatus> OnStatusChanged;
     
     public Player.Player Player { get; set; }
 
     [Header("Time Scale Settings")]
-    private const float DefaultTimeScale = 1f;
-    private const float BulletTimeScale = 0.2f;
+    private const float DefaultTimeScale = 5f;
+    private const float BulletTimeScale = 1f;
 
     [Header("Energy Consumption Settings")]
     private const float DefaultTimeEnergyConsumption = 1f;
@@ -32,9 +34,16 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         _energyController = new EnergyController(DefaultTimeEnergyConsumption, BulletTimeEnergyConsumption);
     }
 
-    public void SetGameplayStatus(EGameplayStatus targetStatus)
+    private void Start()
     {
-        if (Status == targetStatus) return;
+        Debug.Log("GameplayManager Start");
+        SetGameplayStatus(EGameplayStatus.Default, true);
+    }
+
+    public void SetGameplayStatus(EGameplayStatus targetStatus, bool forceSwitch = false)
+    {
+        if (Status == targetStatus && !forceSwitch) return;
+        PreviousStatus = Status;
         Status = targetStatus;
         OnStatusChanged?.Invoke(Status);
         switch (targetStatus)
@@ -47,8 +56,18 @@ public class GameplayManager : MonoSingleton<GameplayManager>
                 _timeScaleController.UseBulletTimeScale();
                 _energyController.UseBulletTimeEnergyConsumption();
                 break;
+            case EGameplayStatus.Paused:
+                _timeScaleController.UsePausedTimeScale();
+                // _energyController.UseDefaultTimeEnergyConsumption();
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(targetStatus), targetStatus, null);
         }
+    }
+    
+    public void SetToPreviousStatus()
+    {
+        SetGameplayStatus(PreviousStatus);
+        PreviousStatus = Status;
     }
 }

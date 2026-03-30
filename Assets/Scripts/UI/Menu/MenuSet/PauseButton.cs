@@ -1,9 +1,8 @@
 using UnityEngine;
-using UserOptions;
 
-namespace UI.UserOptions
+namespace UI.Menu.MenuSet
 {
-    public class UserOptionsButton : MonoBehaviour
+    public class PauseButton : MonoBehaviour
     {
         private static bool isOpen;
         
@@ -23,26 +22,27 @@ namespace UI.UserOptions
             }
         }
 
-        public void OpenUserOptionsPanel()
+        public void OpenPausePanel()
         {
             if (isOpen) return;
-            UIManager.Instance.ShowUI("UserOptionsMain", asRootCanvas: true);
+            UIManager.Instance.ShowUI("PauseMenu", asRootCanvas: true);
+            GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Paused);
             MousePointerManager.Instance.UnlockCursor();
             isOpen = true;
         }
 
-        public void CloseUserOptionsPanel()
+        public void ClosePausePanel()
         {
             if (!isOpen) return;
-            OptionsManager.Instance.SaveOptions();
-            UIManager.Instance.HideUI("UserOptionsMain");
+            UIManager.Instance.HideUI("PauseMenu");
+            GameplayManager.Instance.SetToPreviousStatus();
             MousePointerManager.Instance.LockCursor();
             isOpen = false;
         }
 
         private void OnCancelInputChanged()
         {
-            OpenUserOptionsPanel();
+            OpenPausePanel();
         }
     }
 }

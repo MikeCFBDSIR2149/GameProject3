@@ -15,8 +15,10 @@ namespace Player
 
         private Vector2 _moveInput;
         private float _lookDeltaX;
+        private float _pendingLookDeltaX;
         private Rigidbody _rigidbody;
         [SerializeField] private bool _isGrounded;
+        private bool isPaused = false;
 
         private void Awake()
         {
@@ -36,6 +38,12 @@ namespace Player
             {
                 OptionsManager.Instance.OnOptionsChanged += SyncFromOptions;
             }
+            if (GameplayManager.Instance != null)
+            {
+                GameplayManager.Instance.OnStatusChanged += OnGameplayStatusChanged;
+                // 初始化 isPaused 状态
+                isPaused = (GameplayManager.Instance.Status == EGameplayStatus.Paused);
+            }
         }
 
         private void OnDisable()
@@ -50,6 +58,10 @@ namespace Player
             {
                 OptionsManager.Instance.OnOptionsChanged -= SyncFromOptions;
             }
+            if (GameplayManager.Instance != null)
+            {
+                GameplayManager.Instance.OnStatusChanged -= OnGameplayStatusChanged;
+            }
         }
 
         private void SetMoveInput(Vector2 input)
@@ -59,7 +71,7 @@ namespace Player
 
         private void SetLookInput(Vector2 lookDelta)
         {
-            _lookDeltaX = lookDelta.x;
+            _pendingLookDeltaX += lookDelta.x;
         }
 
         public void SyncFromOptions()
@@ -75,27 +87,40 @@ namespace Player
 
         private void Update()
         {
-            // 水平旋转
-            if (Mathf.Abs(_lookDeltaX) > 0.0001f)
+            // 仅采集输入，累计到_pendingLookDeltaX
+        }
+
+        private void FixedUpdate()
+        {
+            // 暂停时不旋转且清空 lookDelta，防止累积
+            if (isPaused)
             {
-                transform.Rotate(0, _lookDeltaX * horizontalLookSensitivity * Time.unscaledDeltaTime, 0, Space.World);
+                _pendingLookDeltaX = 0f;
+                return;
             }
-            // 移动（用 unscaledDeltaTime，保证子弹时间下流畅）
+
+            // 旋转（刚体模式，消耗_pendingLookDeltaX）
+            if (Mathf.Abs(_pendingLookDeltaX) > 0.0001f && _rigidbody)
+            {
+                float yRotation = _pendingLookDeltaX * horizontalLookSensitivity * Time.fixedDeltaTime * 0.5f;
+                Quaternion deltaRotation = Quaternion.Euler(0, yRotation, 0);
+                _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
+                _pendingLookDeltaX = 0f;
+            }
+
+            // 检查是否在地面
+            _isGrounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundMask);
+            
+            // 移动逻辑
             if (_moveInput != Vector2.zero && _rigidbody)
             {
                 Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
-                move = transform.TransformDirection(move) * (moveSpeed * Time.deltaTime);
+                move = transform.TransformDirection(move) * (moveSpeed * Time.fixedDeltaTime);
                 Vector3 targetPosition = _rigidbody.position + move;
                 _rigidbody.MovePosition(targetPosition);
             }
         }
 
-        private void FixedUpdate()
-        {
-            // 检查是否在地面
-            _isGrounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundMask);
-            // 移动逻辑已移至 Update
-        }
 
         private void OnJumpInput()
         {
@@ -104,6 +129,11 @@ namespace Player
                 _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             }
+        }
+
+        private void OnGameplayStatusChanged(EGameplayStatus status)
+        {
+            isPaused = (status == EGameplayStatus.Paused);
         }
     }
 }
