@@ -152,6 +152,7 @@ MonoBehaviour:
   detectRange: 15
   patrolRadius: 5
   patrolWaitTime: 2
+  canMove: 0
   shootDistance: 12
   shootInterval: 1
   firePoint: {fileID: 143102536395324814}

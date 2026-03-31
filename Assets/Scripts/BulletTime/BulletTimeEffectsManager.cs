@@ -4,45 +4,46 @@ using UnityEngine;
 public class BulletTimeEffectsManager : MonoBehaviour
 {
     [Header("Overlay Settings")]
-    [SerializeField] private UnityEngine.UI.Image overlayImage;   // 指向 BulletTimeOverlay
-    [SerializeField] private float fadeInDuration = 0.3f;         // 变黑淡入时间
-    [SerializeField] private float fadeOutDuration = 0.3f;        // 变黑淡出时间
+    [SerializeField] private UnityEngine.UI.Image overlayImage;
+    [SerializeField] private float fadeInDuration = 0.3f;
+    [SerializeField] private float fadeOutDuration = 0.3f;
 
     [Header("Wave Settings")]
-    [SerializeField] private float waveMaxRadius = 1.0f;          // 波纹最大半径（0~1 左右）
-    [SerializeField] private float waveWidth = 0.1f;              // 波纹带宽
-    [SerializeField] private float waveStrength = 0.7f;           // 波纹亮度
-    [SerializeField] private float waveExpandDuration = 0.4f;     // 扩散时间
-    [SerializeField] private float waveContractDuration = 0.4f;   // 收回时间
+    [SerializeField] private float waveMaxRadius = 1.0f;
+    [SerializeField] private float waveWidth = 0.1f;
+    [SerializeField] private float waveStrength = 0.7f;
+    [SerializeField] private float waveExpandDuration = 0.4f;
+    [SerializeField] private float waveContractDuration = 0.4f;
 
     private Material _matInstance;
     private Coroutine _effectCoroutine;
 
-    private static readonly int IntensityID   = Shader.PropertyToID("_Intensity");
-    private static readonly int WaveCenterID  = Shader.PropertyToID("_WaveCenter");
-    private static readonly int WaveRadiusID  = Shader.PropertyToID("_WaveRadius");
-    private static readonly int WaveWidthID   = Shader.PropertyToID("_WaveWidth");
-    private static readonly int WaveStrengthID= Shader.PropertyToID("_WaveStrength");
+    private bool _isPaused;
+    private bool _isBulletTime;   // 当前是否处于子弹时间状态（用于恢复时不重播）
+    private bool _enteredOnce;    // 防止重复播放 Enter 效果
+
+    private static readonly int IntensityID = Shader.PropertyToID("_Intensity");
+    private static readonly int WaveCenterID = Shader.PropertyToID("_WaveCenter");
+    private static readonly int WaveRadiusID = Shader.PropertyToID("_WaveRadius");
+    private static readonly int WaveWidthID = Shader.PropertyToID("_WaveWidth");
+    private static readonly int WaveStrengthID = Shader.PropertyToID("_WaveStrength");
     private static readonly int GlitchStrengthID = Shader.PropertyToID("_GlitchStrength");
+
     private void Awake()
     {
         if (overlayImage != null)
         {
-            // 用实例材质，避免改到其他地方
             _matInstance = Instantiate(overlayImage.material);
-            _matInstance.SetFloat(GlitchStrengthID, 0f);
             overlayImage.material = _matInstance;
 
-            // 初始化参数
             _matInstance.SetFloat(IntensityID, 0f);
             _matInstance.SetFloat(WaveRadiusID, 0f);
             _matInstance.SetFloat(WaveWidthID, waveWidth);
             _matInstance.SetFloat(WaveStrengthID, waveStrength);
-            // 默认中心在屏幕中间
+            _matInstance.SetFloat(GlitchStrengthID, 0f);
             _matInstance.SetVector(WaveCenterID, new Vector4(0.5f, 0.5f, 0, 0));
         }
 
-        // 初始隐藏 UI
         if (overlayImage != null)
             overlayImage.gameObject.SetActive(false);
     }
@@ -61,23 +62,42 @@ public class BulletTimeEffectsManager : MonoBehaviour
 
     private void HandleStatusChanged(EGameplayStatus status)
     {
+        // 1) 处理暂停：只冻结，不触发 Enter/Exit
+        if (status == EGameplayStatus.Paused)
+        {
+            _isPaused = true;
+            return;
+        }
+
+        // 2) 非暂停：恢复
+        _isPaused = false;
+
         switch (status)
         {
             case EGameplayStatus.BulletTime:
+                _isBulletTime = true;
                 EnterBulletTimeEffects();
                 break;
 
             case EGameplayStatus.Default:
+                _isBulletTime = false;
+                _enteredOnce = false; // 回到默认后允许下次再播 Enter
                 ExitBulletTimeEffects();
                 break;
         }
     }
 
-   
     private void EnterBulletTimeEffects()
     {
+        // 已经播过 enter 且仍在 bulletTime：不要重复播（防止“又播一遍”）
+        if (_isBulletTime && _enteredOnce)
+            return;
+
+        _enteredOnce = true;
+
         if (_effectCoroutine != null)
             StopCoroutine(_effectCoroutine);
+
         _effectCoroutine = StartCoroutine(DoEnterEffect());
     }
 
@@ -85,7 +105,17 @@ public class BulletTimeEffectsManager : MonoBehaviour
     {
         if (_effectCoroutine != null)
             StopCoroutine(_effectCoroutine);
+
         _effectCoroutine = StartCoroutine(DoExitEffect());
+    }
+
+    private float GetEffectDeltaTime()
+    {
+        // 暂停时冻结效果动画
+        if (_isPaused) return 0f;
+
+        // 非暂停时：用 unscaled，保证子弹时间/慢动作不影响 UI 特效速度
+        return Time.unscaledDeltaTime;
     }
 
     private IEnumerator DoEnterEffect()
@@ -94,24 +124,28 @@ public class BulletTimeEffectsManager : MonoBehaviour
 
         overlayImage.gameObject.SetActive(true);
 
-        // 1) 先把 Intensity 从 0 淡到 1（屏幕变暗）
+        // 1) Intensity 淡入
         float t = 0f;
         while (t < fadeInDuration)
         {
-            t += Time.unscaledDeltaTime;
+            float dt = GetEffectDeltaTime();
+            if (dt <= 0f) { yield return null; continue; }
+
+            t += dt;
             float k = Mathf.Clamp01(t / fadeInDuration);
             _matInstance.SetFloat(IntensityID, k);
-          
             yield return null;
         }
         _matInstance.SetFloat(IntensityID, 1f);
 
-        // 2) 在暗的背景上做一个波纹：从 0 扩散到 waveMaxRadius 再收回
-        // 扩散
+        // 2) 波纹扩散
         t = 0f;
         while (t < waveExpandDuration)
         {
-            t += Time.unscaledDeltaTime;
+            float dt = GetEffectDeltaTime();
+            if (dt <= 0f) { yield return null; continue; }
+
+            t += dt;
             float k = Mathf.Clamp01(t / waveExpandDuration);
             float radius = Mathf.Lerp(0f, waveMaxRadius, k);
             _matInstance.SetFloat(WaveRadiusID, radius);
@@ -119,11 +153,14 @@ public class BulletTimeEffectsManager : MonoBehaviour
             yield return null;
         }
 
-        // 收回
+        // 3) 波纹收回
         t = 0f;
         while (t < waveContractDuration)
         {
-            t += Time.unscaledDeltaTime;
+            float dt = GetEffectDeltaTime();
+            if (dt <= 0f) { yield return null; continue; }
+
+            t += dt;
             float k = Mathf.Clamp01(t / waveContractDuration);
             float radius = Mathf.Lerp(waveMaxRadius, 0f, k);
             _matInstance.SetFloat(WaveRadiusID, radius);
@@ -131,7 +168,7 @@ public class BulletTimeEffectsManager : MonoBehaviour
             yield return null;
         }
 
-        // 波纹结束，保留暗屏效果，直到子弹时间结束
+        // 波纹结束：保留暗屏（直到退出子弹时间）
         _matInstance.SetFloat(WaveRadiusID, 0f);
         _matInstance.SetFloat(GlitchStrengthID, 0f);
     }
@@ -140,12 +177,15 @@ public class BulletTimeEffectsManager : MonoBehaviour
     {
         if (overlayImage == null || _matInstance == null) yield break;
 
-        // 将 Intensity 从当前值淡回 0
         float startIntensity = _matInstance.GetFloat(IntensityID);
         float t = 0f;
+
         while (t < fadeOutDuration)
         {
-            t += Time.unscaledDeltaTime;
+            float dt = GetEffectDeltaTime();
+            if (dt <= 0f) { yield return null; continue; }
+
+            t += dt;
             float k = Mathf.Clamp01(t / fadeOutDuration);
             float intensity = Mathf.Lerp(startIntensity, 0f, k);
             _matInstance.SetFloat(IntensityID, intensity);

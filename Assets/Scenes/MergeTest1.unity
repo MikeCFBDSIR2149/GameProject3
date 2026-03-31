@@ -517,7 +517,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1082591832}
+  m_Mesh: {fileID: 1657706414}
 --- !u!33 &5697019
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -12081,7 +12081,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1948916944}
+  m_Mesh: {fileID: 1323932295}
 --- !u!33 &509105456
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -18070,6 +18070,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: d4c4e02bcae041c49a43b2f7a048cbec, type: 2}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: detectRange
       value: 15
       objectReference: {fileID: 0}
@@ -18870,6 +18874,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d4c4e02bcae041c49a43b2f7a048cbec, type: 2}
+    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: detectRange
       value: 15
@@ -22926,7 +22934,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1923909919}
+  m_Mesh: {fileID: 1021101829}
 --- !u!33 &1055088638
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -28021,6 +28029,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d4c4e02bcae041c49a43b2f7a048cbec, type: 2}
+    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: detectRange
       value: 15
@@ -41098,8 +41110,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 8.064009}
-  m_SizeDelta: {x: 2058.913, y: 976.464}
+  m_AnchoredPosition: {x: 23.166, y: 8.064009}
+  m_SizeDelta: {x: 2531.11, y: 976.464}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943437617
 MonoBehaviour:
