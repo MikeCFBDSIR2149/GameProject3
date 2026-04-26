@@ -37,7 +37,7 @@ namespace UI
             // 确保Canvas存在
             EnsureCanvas();
             
-            Debug.Log($"UIManager初始化完成，已加载 {uiPrefabDictionary.Count} 个UI预制体");
+            // Debug.Log($"UIManager初始化完成，已加载 {uiPrefabDictionary.Count} 个UI预制体");
         }
         
         private void RegisterUIPrefab(string uiName, GameObject prefab)

@@ -540,6 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2028ecb0e14a69a8b62f8ee4a28168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.CrosshairUI
+  attackBack: {fileID: 0}
 --- !u!1 &1164994814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,9 +1259,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8987283102007461699, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1164994816}
+    - target: {fileID: 8987283102007461699, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+      propertyPath: IgnoreTag
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987283102007461699, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
       propertyPath: cameraAim
       value: 
       objectReference: {fileID: 1599927705}
+    - target: {fileID: 8987283102007461699, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+      propertyPath: UseCinemachine
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987283102007461699, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+      propertyPath: LayerFilter.m_Bits
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 9137961191121664696, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
       propertyPath: prefab
       value: 

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UserOptions;
 
@@ -18,7 +17,7 @@ namespace Player
         private float _pendingLookDeltaX;
         private Rigidbody _rigidbody;
         [SerializeField] private bool _isGrounded;
-        private bool isPaused = false;
+        private bool isPaused;
 
         private void Awake()
         {
@@ -85,17 +84,13 @@ namespace Player
             }
         }
 
-        private void Update()
-        {
-            // 仅采集输入，累计到_pendingLookDeltaX
-        }
-
         private void FixedUpdate()
         {
             // 暂停时不旋转且清空 lookDelta，防止累积
             if (isPaused)
             {
                 _pendingLookDeltaX = 0f;
+                ForceUprightRotation();
                 return;
             }
 
@@ -106,10 +101,11 @@ namespace Player
                 Quaternion deltaRotation = Quaternion.Euler(0, yRotation, 0);
                 _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
                 _pendingLookDeltaX = 0f;
+                ForceUprightRotation();
             }
 
             // 检查是否在地面
-            _isGrounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundMask);
+            _isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundMask);
             
             // 移动逻辑
             if (_moveInput != Vector2.zero && _rigidbody)
@@ -119,6 +115,14 @@ namespace Player
                 Vector3 targetPosition = _rigidbody.position + move;
                 _rigidbody.MovePosition(targetPosition);
             }
+        }
+
+        private void ForceUprightRotation()
+        {
+            if (!_rigidbody) return;
+
+            Vector3 euler = _rigidbody.rotation.eulerAngles;
+            _rigidbody.MoveRotation(Quaternion.Euler(0f, euler.y, 0f));
         }
 
 
