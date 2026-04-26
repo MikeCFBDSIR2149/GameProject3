@@ -1,14 +1,61 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy
 {
     public class EnemyBullet : MonoBehaviour, IContainSender
     {
-        private Vector3 direction;
-        public Rigidbody rb;
-        public string referencePoolKey;
-        
+        [Header("Physics")]
+        [SerializeField] private Rigidbody rb;
+        [SerializeField] private LineRenderer line;
+        [SerializeField] private int maxPoints = 20;
+        [SerializeField] private float minDistance = 0.1f;
+        [Header("Pool")]
+        [Tooltip("必须与 ObjectPool.poolKey 一致，否则无法回收到对象池")]
+        public string referencePoolKey = "EnemyBullet";
+
+        [Header("Lifetime")]
+        [SerializeField] private float lifeTime = 5f;
+        private readonly List<Vector3> points = new();
         public ISender Sender { get; set; }
+
+        private float _lifeTimer;
+
+        private void OnEnable()
+        {
+            points.Clear();
+            if (line != null) line.positionCount = 0;
+
+            AddPoint(transform.position);
+            // 复用对象时重置计时
+            _lifeTimer = 0f;
+
+            // 保险：避免上一次的速度残留（看你需求，可保留/可清空）
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+        }
+        private void AddPoint(Vector3 p)
+        {
+            points.Add(p);
+            if (points.Count > maxPoints) points.RemoveAt(0);
+
+            line.positionCount = points.Count;
+            line.SetPositions(points.ToArray());
+        }
+        private void Update()
+        {
+            if (points.Count == 0 || Vector3.Distance(points[^1], transform.position) >= minDistance)
+                AddPoint(transform.position);
+            // 超时回收，避免子弹飞远了永远不回池
+            _lifeTimer += Time.deltaTime;
+            if (_lifeTimer >= lifeTime)
+            {
+                ReturnToPool();
+            }
+        }
 
         public void SetSender(ISender s)
         {
@@ -17,7 +64,7 @@ namespace Enemy
 
         public void Init(Vector3 velocity)
         {
-            if (rb)
+            if (rb != null)
             {
                 rb.linearVelocity = velocity;
             }
@@ -27,7 +74,24 @@ namespace Enemy
         {
             if (other.CompareTag("Player"))
             {
-                Destroy(gameObject);
+                // 这里留扩展：命中效果/伤害（你可以在这里调用 Player 的受击/扣血）
+                // 比如：other.GetComponent<PlayerHealth>()?.TakeDamage(damage, Sender);
+
+                ReturnToPool();
+            }
+            
+        }
+
+        private void ReturnToPool()
+        {
+            // 如果没填 key，降级为直接隐藏（至少别 Destroy）
+            if (!string.IsNullOrEmpty(referencePoolKey) && ObjectPoolManager.Instance != null)
+            {
+                ObjectPoolManager.Instance.Dispose(referencePoolKey, gameObject);
+            }
+            else
+            {
+                gameObject.SetActive(false);
             }
         }
     }

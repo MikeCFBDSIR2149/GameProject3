@@ -13,7 +13,8 @@ namespace Enemy
 
         private float shootTimer = 0f;
         private bool isPaused = false;
-
+        public float aimConeAngle = 8f;          // 散射半角（度）
+        public bool horizontalOnly = false; 
         private void OnEnable()
         {
             if (GameplayManager.Instance != null)
@@ -63,7 +64,7 @@ namespace Enemy
             // 水平朝向主角（不影响 canMove）
             transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
 
-            shootTimer += Time.unscaledDeltaTime;
+            shootTimer += Time.deltaTime;
             if (shootTimer >= shootInterval)
             {
                 Shoot();
@@ -93,12 +94,56 @@ namespace Enemy
             EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
             if (bulletScript == null) return;
 
-            // 注意：这里你用的是 firePoint.position 来算方向，但生成位置用的是 transform.position
-            // 如果你希望更准确，生成位置也可以用 firePoint.position（按你项目需求来）
-            Vector3 velocity = (player.position - firePoint.position).normalized * bulletSpeed;
+            Vector3 baseDir = (player.position - firePoint.position).normalized;
+
+            // 在 baseDir 周围做随机偏移
+            Vector3 shootDir = GetRandomDirectionInCone(baseDir, aimConeAngle, horizontalOnly);
+
+            Vector3 velocity = shootDir * bulletSpeed;
 
             bulletScript.Init(velocity);
             bulletScript.SetSender(this);
+        }
+        private Vector3 GetRandomDirectionInCone(Vector3 forward, float coneHalfAngleDeg, bool horizontalOnly)
+        {
+            if (forward.sqrMagnitude < 1e-6f) forward = transform.forward;
+
+            if (horizontalOnly)
+            {
+                // 只在水平面散射：把 forward 投影到XZ
+                forward.y = 0f;
+                if (forward.sqrMagnitude < 1e-6f) forward = transform.forward;
+                forward.Normalize();
+
+                float angle = Random.Range(-coneHalfAngleDeg, coneHalfAngleDeg);
+                // 绕Y轴偏转
+                Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
+                return (rot * forward).normalized;
+            }
+            else
+            {
+                // 3D圆锥散射：随机一个轴向角度 + 随机一个圆周角
+                float coneRad = coneHalfAngleDeg * Mathf.Deg2Rad;
+
+                // 关键：为了“均匀”分布在圆锥内，用 cos(theta) 插值
+                float u = Random.value;
+                float v = Random.value;
+
+                float cosTheta = Mathf.Lerp(1f, Mathf.Cos(coneRad), u);
+                float sinTheta = Mathf.Sqrt(1f - cosTheta * cosTheta);
+                float phi = 2f * Mathf.PI * v;
+
+                // 在局部空间（forward=Z轴）构造方向
+                Vector3 localDir = new Vector3(
+                    sinTheta * Mathf.Cos(phi),
+                    sinTheta * Mathf.Sin(phi),
+                    cosTheta
+                );
+
+                // 把局部Z轴对齐到 forward
+                Quaternion toForward = Quaternion.FromToRotation(Vector3.forward, forward.normalized);
+                return (toForward * localDir).normalized;
+            }
         }
     }
 }

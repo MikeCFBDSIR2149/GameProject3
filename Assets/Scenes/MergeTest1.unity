@@ -7582,7 +7582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18087,7 +18087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18892,7 +18892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20935,7 +20935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27420,7 +27420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28047,7 +28047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36860,7 +36860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41069,7 +41069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -47029,7 +47029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: shootInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

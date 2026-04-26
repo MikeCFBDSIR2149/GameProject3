@@ -154,10 +154,12 @@ MonoBehaviour:
   patrolWaitTime: 2
   canMove: 0
   shootDistance: 12
-  shootInterval: 1
+  shootInterval: 5
   firePoint: {fileID: 143102536395324814}
   bulletPoolKey: EnemyBullet
   bulletSpeed: 3.5
+  aimConeAngle: 8
+  horizontalOnly: 0
 --- !u!1 &8507570420934095657
 GameObject:
   m_ObjectHideFlags: 0
