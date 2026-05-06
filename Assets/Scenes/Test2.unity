@@ -593,6 +593,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1686767629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1686767631}
+  - component: {fileID: 1686767630}
+  m_Layer: 0
+  m_Name: TimeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1686767630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686767629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e108b3bdfdd04847b44db9cc487b456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelCountdownToGameOver
+  levelTimeSeconds: 60
+  countdownUIName: CountDownUI
+  gameOverUIName: GameOverMenu
+  pauseWhenTimeScaleZero: 1
+--- !u!4 &1686767631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686767629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40.90514, y: 8.66865, z: 33.32264}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1712286218
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,11 +869,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 386821481730677972, guid: 0c6ac0a4f16ce6b44aa332a421215fce, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 832192542326362808, guid: 0c6ac0a4f16ce6b44aa332a421215fce, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3004128573391660974, guid: 0c6ac0a4f16ce6b44aa332a421215fce, type: 3}
       propertyPath: m_Pivot.x
@@ -910,6 +958,10 @@ PrefabInstance:
     - target: {fileID: 5147099024290341597, guid: 0c6ac0a4f16ce6b44aa332a421215fce, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147099024290341597, guid: 0c6ac0a4f16ce6b44aa332a421215fce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6559806521013027203, guid: 0c6ac0a4f16ce6b44aa332a421215fce, type: 3}
       propertyPath: mainMenuPrefab
@@ -1056,3 +1108,4 @@ SceneRoots:
   - {fileID: 1567364007}
   - {fileID: 2063730808}
   - {fileID: 1778571392}
+  - {fileID: 1686767631}
