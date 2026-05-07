@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8089303203163949979}
   m_Layer: 0
   m_Name: MeleeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,4 +151,5 @@ MonoBehaviour:
   detectRange: 10
   patrolRadius: 5
   patrolWaitTime: 2
+  canMove: 1
   attackDistance: 1.5

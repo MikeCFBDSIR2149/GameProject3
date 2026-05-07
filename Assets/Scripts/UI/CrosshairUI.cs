@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CharacterUniversal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

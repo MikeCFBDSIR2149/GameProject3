@@ -53,7 +53,7 @@ namespace Enemy
                 GameplayManager.Instance.OnStatusChanged -= OnStatusChanged;
         }
 
-        private void Start()
+        protected override void Start()
         {
             // 保留 EnemyController.Start() 初始化 player/agent/patrol
             base.Start();

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CharacterUniversal;
+using UnityEngine;
 
 namespace Player
 {

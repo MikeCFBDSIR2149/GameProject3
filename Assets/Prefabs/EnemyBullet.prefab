@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1450572972592810266}
   - component: {fileID: 522960006036194849}
   - component: {fileID: 9172866444468158473}
+  - component: {fileID: -5707417753386127886}
   - component: {fileID: 8558082723626588351}
   - component: {fileID: 3368445801712962054}
   - component: {fileID: 8668338846511975862}
@@ -128,6 +129,21 @@ MonoBehaviour:
   highlightDistance: 5
   referencePoolKey: EnemyBullet
   highlightUIPrefabName: HighlightRing
+--- !u!114 &-5707417753386127886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6075218991753209543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0fe5308b1ae940e29c91782396ca546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterUniversal.Attack
+  damage: 10
+  targetTags:
+  - Player
 --- !u!135 &8558082723626588351
 SphereCollider:
   m_ObjectHideFlags: 0

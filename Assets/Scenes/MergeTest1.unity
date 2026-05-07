@@ -39543,10 +39543,6 @@ PrefabInstance:
       propertyPath: cameraAim
       value: 
       objectReference: {fileID: 1891173385}
-    - target: {fileID: 8987283102007461699, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
-      propertyPath: UseCinemachine
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9184655428823888042, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
       propertyPath: m_Name
       value: Player
