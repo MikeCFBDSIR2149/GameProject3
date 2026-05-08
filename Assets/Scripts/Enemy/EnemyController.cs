@@ -1,11 +1,15 @@
 using CharacterUniversal;
 using UnityEngine;
 using UnityEngine.AI;
-
 namespace Enemy
 {
     public class EnemyController : MonoBehaviour, ISender
     {
+        [Header("Health (optional)")]
+        [SerializeField] private bool destroyOnDeath = false; // 你希望“消失”，这里给你可选：Destroy 或 SetActive(false)
+        private Health _health;
+        private bool _isDead;
+        
         [Header("Perception")]
         public float detectRange = 10f;         // 感知主角的范围
 
@@ -33,10 +37,12 @@ namespace Enemy
 
             // 初始化时根据 canMove 同步 agent 状态
             ApplyMoveState();
+            _health = GetComponent<Health>(); // 没挂则为 null，不影响
         }
 
         protected virtual void Update()
         {
+            if (CheckAndHandleDeath()) return;
             if (player != null && Vector3.Distance(transform.position, player.position) < detectRange)
             {
                 OnPlayerDetected();
@@ -46,7 +52,40 @@ namespace Enemy
                 Patrol();
             }
         }
+        protected virtual bool CheckAndHandleDeath()
+        {
+            if (_isDead) return true;
 
+            if (_health != null && _health.CurrentHealth <= 0f)
+            {
+                Die();
+                return true;
+            }
+
+            return false;
+        }
+
+        protected virtual void Die()
+        {
+            _isDead = true;
+
+            // 停止移动
+            if (agent != null && agent.isActiveAndEnabled)
+            {
+                agent.isStopped = true;
+                agent.ResetPath();
+            }
+
+            // 你说“消失”：两种做法二选一
+            if (destroyOnDeath)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
         /// <summary>
         /// 外部/子类都可以调用，控制该敌人是否允许移动
         /// </summary>

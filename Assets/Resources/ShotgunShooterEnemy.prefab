@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 860910602288411413}
   - component: {fileID: 1757572440324224902}
   - component: {fileID: 1435030002385753436}
+  - component: {fileID: 5316709883730346173}
   m_Layer: 0
   m_Name: ShotgunShooterEnemy
   m_TagString: Enemy
@@ -161,6 +162,19 @@ MonoBehaviour:
   pelletsPerShot: 4
   spreadAngle: 12
   horizontalOnly: 0
+--- !u!114 &5316709883730346173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102826843422094571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7671622b1c143959713b0ced313e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterUniversal.Health
+  maxHealth: 100
 --- !u!1 &2833031346920572692
 GameObject:
   m_ObjectHideFlags: 0

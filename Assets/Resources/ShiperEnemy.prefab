@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6387910274035343670}
   - component: {fileID: 4028315026285010028}
   - component: {fileID: -3840727948029883128}
+  - component: {fileID: 1005600009170989527}
   m_Layer: 0
   m_Name: ShiperEnemy
   m_TagString: Enemy
@@ -195,7 +196,7 @@ MonoBehaviour:
   laserMaxDistance: 100
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   laserWidth: 0.02
   laserColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!120 &-3840727948029883128
@@ -308,3 +309,16 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1005600009170989527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656163645207786766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7671622b1c143959713b0ced313e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterUniversal.Health
+  maxHealth: 50
