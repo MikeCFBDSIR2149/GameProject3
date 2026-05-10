@@ -38,6 +38,7 @@ Transform:
   - {fileID: 8950273101521533209}
   - {fileID: 7539982066323451770}
   - {fileID: 6940894738096424115}
+  - {fileID: 2703981055492690959}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 175.787, z: 0}
 --- !u!33 &5292533620165620759
@@ -152,10 +153,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f6d48984670b140a28e3389846a004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.HybridEnemy
+  destroyOnDeath: 0
   detectRange: 10
   patrolRadius: 5
   patrolWaitTime: 2
   canMove: 0
+  meleeHitbox: {fileID: 3102477846950832424}
+  meleeAttackDuration: 0.6
+  meleeSpinDegrees: 360
+  parryKnockbackDistance: 2
+  parryStunTime: 0.8
   meleeEnterDistance: 2
   meleeExitDistance: 5
   shootDistance: 8
@@ -179,6 +186,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUniversal.Health
   maxHealth: 150
+--- !u!1 &6620082636773295313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2703981055492690959}
+  - component: {fileID: 3884675118565000464}
+  - component: {fileID: 3102477846950832424}
+  - component: {fileID: 8866382718220326767}
+  m_Layer: 0
+  m_Name: MeleeHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2703981055492690959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6620082636773295313}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 241369497665660080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3884675118565000464
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6620082636773295313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.27249962, y: 0.044060912, z: 0.81371623}
+  m_Center: {x: 0.08334009, y: -0.012101689, z: 0.8059487}
+--- !u!114 &3102477846950832424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6620082636773295313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20dd43bb837f36744b7ee7d233700d34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.MeleeAttackHitbox
+  damage: 10
+  owner: {fileID: 3828470344084671792}
+--- !u!114 &8866382718220326767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6620082636773295313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675c9205dd8e69b42a14e62d4fbbaeed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.MeleeAttackHighlight
+  highlightDistance: 10
+  highlightUIPrefabName: HighlightRing
+  hitbox: {fileID: 3102477846950832424}
 --- !u!1 &8661836010039459340
 GameObject:
   m_ObjectHideFlags: 0
