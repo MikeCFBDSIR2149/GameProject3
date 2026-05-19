@@ -44,10 +44,11 @@ namespace UI
                 IContainSender containSender = bullet.GetComponent<IContainSender>();
                 if (containSender is { Sender: not null } && attackBack)
                 {
+                    Vector3 spawnPosition = bullet.transform.position;
                     // 先回收敌人子弹
                     ObjectPoolManager.Instance.Dispose(poolKey, bullet);
                     // 再登记反弹目标
-                    attackBack.RegisterBulletReturn(containSender.Sender);
+                    attackBack.RegisterBulletReturn(containSender.Sender, spawnPosition);
                 }
             }
         }

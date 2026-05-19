@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using CharacterUniversal;
 using UnityEngine;
@@ -10,11 +8,7 @@ namespace Player
     {
         public string bulletTrackingPoolKey = "PlayerBulletTracking";
         public float bulletSpeed = 20f;
-        public float attackBackInterval = 0.2f; // 间隔发射时间（秒）
-        private readonly Queue<ISender> readyBulletTargets = new Queue<ISender>();
-
-        private bool isPaused = false;
-        private Coroutine attackBackCoroutine;
+        private readonly Queue<PlayerBulletTracking> _readyBulletTrackingBullets = new Queue<PlayerBulletTracking>();
 
         private void OnEnable()
         {
@@ -29,52 +23,42 @@ namespace Player
             GameplayManager.Instance.OnStatusChanged -= OnStatusChanged;
         }
 
-        public void RegisterBulletReturn(ISender sender)
+        public void RegisterBulletReturn(ISender sender, Vector3 spawnPosition)
         {
             if (sender == null)
                 return;
-            readyBulletTargets.Enqueue(sender);
-            // Debug.Log($"BulletBack Count: {readyBulletTargets.Count}");
+
+            GameObject bullet = ObjectPoolManager.Instance.Get(bulletTrackingPoolKey, spawnPosition, Quaternion.identity);
+            if (!bullet)
+                return;
+
+            PlayerBulletTracking bulletScript = bullet.GetComponent<PlayerBulletTracking>();
+            if (bulletScript == null)
+            {
+                ObjectPoolManager.Instance.Dispose(bulletTrackingPoolKey, bullet);
+                return;
+            }
+
+            bulletScript.Prepare(sender);
+            _readyBulletTrackingBullets.Enqueue(bulletScript);
+
+            if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.Default)
+                ReleaseAllQueuedBullets();
         }
 
         private void OnStatusChanged(EGameplayStatus gameplayStatus)
         {
-            isPaused = (gameplayStatus == EGameplayStatus.Paused);
-            if (gameplayStatus == EGameplayStatus.Default && readyBulletTargets.Count > 0)
-            {
-                if (attackBackCoroutine == null)
-                    attackBackCoroutine = StartCoroutine(AttackBackRoutine());
-            }
+            if (gameplayStatus == EGameplayStatus.Default && _readyBulletTrackingBullets.Count > 0)
+                ReleaseAllQueuedBullets();
         }
 
-        private IEnumerator AttackBackRoutine()
+        private void ReleaseAllQueuedBullets()
         {
-            while (readyBulletTargets.Count > 0)
+            while (_readyBulletTrackingBullets.Count > 0)
             {
-                // 暂停时协程挂起
-                while (isPaused)
-                {
-                    yield return null;
-                }
-                ISender sender = readyBulletTargets.Dequeue();
-                GameObject bullet =
-                    ObjectPoolManager.Instance.Get(bulletTrackingPoolKey, transform.position, Quaternion.identity);
-                PlayerBulletTracking bulletScript = bullet.GetComponent<PlayerBulletTracking>();
-                if (bulletScript == null)
-                    yield break;
-                Vector3 targetPosition = sender.GetWorldPosition();
-                Vector3 velocity = (targetPosition - transform.position).normalized * bulletSpeed;
-                bulletScript.Init(velocity, sender);
-                float elapsed = 0f;
-                while (elapsed < attackBackInterval)
-                {
-                    while (isPaused)
-                        yield return null;
-                    elapsed += Time.unscaledDeltaTime;
-                    yield return null;
-                }
+                PlayerBulletTracking bulletScript = _readyBulletTrackingBullets.Dequeue();
+                bulletScript?.Launch(bulletSpeed);
             }
-            attackBackCoroutine = null;
         }
     }
 }
