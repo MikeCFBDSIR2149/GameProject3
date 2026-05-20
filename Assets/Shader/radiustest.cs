@@ -83,7 +83,7 @@ public class AORadiusController : MonoBehaviour
         if (ssaoFeature != null && radiusField != null)
         {
             ApplyValue(radiusMin);
-            Debug.Log("<color=orange>【AO Controller】已自动还原为默认半径: " + radiusMin + "</color>");
+            // Debug.Log("<color=orange>【AO Controller】已自动还原为默认半径: " + radiusMin + "</color>");
         }
     }
 

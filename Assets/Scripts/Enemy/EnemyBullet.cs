@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CharacterUniversal;
 using UnityEngine;
 
@@ -8,26 +7,18 @@ namespace Enemy
     {
         [Header("Physics")]
         [SerializeField] private Rigidbody rb;
-        [SerializeField] private LineRenderer line;
-        [SerializeField] private int maxPoints = 20;
-        [SerializeField] private float minDistance = 0.1f;
         [Header("Pool")]
         [Tooltip("必须与 ObjectPool.poolKey 一致，否则无法回收到对象池")]
         public string referencePoolKey = "EnemyBullet";
 
         [Header("Lifetime")]
         [SerializeField] private float lifeTime = 5f;
-        private readonly List<Vector3> points = new();
         public ISender Sender { get; set; }
 
         private float _lifeTimer;
 
         private void OnEnable()
         {
-            points.Clear();
-            if (line != null) line.positionCount = 0;
-
-            AddPoint(transform.position);
             // 复用对象时重置计时
             _lifeTimer = 0f;
 
@@ -38,18 +29,9 @@ namespace Enemy
                 rb.angularVelocity = Vector3.zero;
             }
         }
-        private void AddPoint(Vector3 p)
-        {
-            points.Add(p);
-            if (points.Count > maxPoints) points.RemoveAt(0);
 
-            line.positionCount = points.Count;
-            line.SetPositions(points.ToArray());
-        }
         private void Update()
         {
-            if (points.Count == 0 || Vector3.Distance(points[^1], transform.position) >= minDistance)
-                AddPoint(transform.position);
             // 超时回收，避免子弹飞远了永远不回池
             _lifeTimer += Time.deltaTime;
             if (_lifeTimer >= lifeTime)

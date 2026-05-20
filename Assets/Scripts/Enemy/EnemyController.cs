@@ -179,5 +179,7 @@ namespace Enemy
         {
             return transform.position;
         }
+
+        public bool IsAlive => !_isDead && this != null;
     }
 }
