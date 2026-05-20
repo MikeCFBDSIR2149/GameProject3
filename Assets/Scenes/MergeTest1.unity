@@ -7519,7 +7519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e108b3bdfdd04847b44db9cc487b456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelCountdownToGameOver
-  levelTimeSeconds: 60
+  levelTimeSeconds: 180
   countdownUIName: CountDownUI
   gameOverUIName: GameOverMenu
   pauseWhenTimeScaleZero: 1
@@ -19236,7 +19236,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 241369497665660080, guid: 1402246e1138b2d489279fba3474edd2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -444.775
+      value: -442.72
       objectReference: {fileID: 0}
     - target: {fileID: 241369497665660080, guid: 1402246e1138b2d489279fba3474edd2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -19244,7 +19244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241369497665660080, guid: 1402246e1138b2d489279fba3474edd2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.2
+      value: 5.35
       objectReference: {fileID: 0}
     - target: {fileID: 241369497665660080, guid: 1402246e1138b2d489279fba3474edd2, type: 3}
       propertyPath: m_LocalRotation.w
