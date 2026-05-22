@@ -62,4 +62,20 @@ public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
         
         Debug.Log("[ObjectPoolManager] Cleared all object pools");
     }
+
+    private void OnEnable()
+    {
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.BeforeSceneLoad += ClearAllPools;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.BeforeSceneLoad -= ClearAllPools;
+        }
+    }
 }

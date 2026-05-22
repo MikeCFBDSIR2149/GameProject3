@@ -88,4 +88,26 @@ public class GameplayManager : MonoSingleton<GameplayManager>
 
         SetGameplayStatus(EGameplayStatus.GameOver, true);
     }
+
+    private void OnEnable()
+    {
+        // 订阅场景切换前事件，确保在场景切换时重置到默认玩法状态
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.BeforeSceneLoad += HandleBeforeSceneLoad;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.BeforeSceneLoad -= HandleBeforeSceneLoad;
+        }
+    }
+
+    private void HandleBeforeSceneLoad()
+    {
+        SetGameplayStatus(EGameplayStatus.Default, true);
+    }
 }

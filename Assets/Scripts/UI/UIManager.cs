@@ -293,5 +293,22 @@ namespace UI
             
             Debug.Log("[UIManager] Cleared all cached UI references");
         }
+
+        private void OnEnable()
+        {
+            // 订阅场景切换前事件，使用事件驱动清理
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.BeforeSceneLoad += ClearAllCachedUI;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.BeforeSceneLoad -= ClearAllCachedUI;
+            }
+        }
     }
 }

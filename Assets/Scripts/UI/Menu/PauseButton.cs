@@ -17,6 +17,11 @@ namespace UI.Menu
             {
                 GlobalInputController.Instance.OnCancelInputChanged += OnCancelInputChanged;
             }
+            // 订阅场景切换前事件，改为事件驱动的清理（兼容之前的静态调用）
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.BeforeSceneLoad += ResetPauseState;
+            }
         }
 
         private void OnDisable()
@@ -24,6 +29,12 @@ namespace UI.Menu
             if (GlobalInputController.Instance != null)
             {
                 GlobalInputController.Instance.OnCancelInputChanged -= OnCancelInputChanged;
+            }
+
+            // 取消订阅，避免泄漏
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.BeforeSceneLoad -= ResetPauseState;
             }
 
             _isOpen = false;
