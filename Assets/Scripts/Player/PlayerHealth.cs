@@ -23,6 +23,8 @@ namespace Player
             {
                 Debug.LogError($"[PlayerHealth] Missing Health component on {gameObject.name}");
             }
+            // 初始化为未死亡
+            _isDead = false;
         }
 
         private void OnEnable()
@@ -30,7 +32,6 @@ namespace Player
             if (_health != null)
             {
                 _health.OnDied += HandleDied;
-                _isDead = _health.IsDead;
             }
         }
 
@@ -44,7 +45,6 @@ namespace Player
 
         private void HandleDied()
         {
-            Debug.Log("XXXXXXX");
             if (_isDead)
                 return;
 
