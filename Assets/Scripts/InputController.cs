@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,7 +48,14 @@ public class InputController : MonoBehaviour
     {
         if (context.performed)
         {
-            OnAttackInputChanged?.Invoke();
+            try
+            {
+                OnAttackInputChanged?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Exception when invoking OnAttackInputChanged: {e}");
+            }
         }
     }
 
@@ -66,7 +74,14 @@ public class InputController : MonoBehaviour
                 _moveInput = Vector2.zero;
                 break;
         }
-        OnMoveInputChanged?.Invoke(_moveInput);
+        try
+        {
+            OnMoveInputChanged?.Invoke(_moveInput);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"Exception when invoking OnMoveInputChanged: {e}");
+        }
     }
 
     private void OnLook(InputAction.CallbackContext context)
@@ -84,14 +99,28 @@ public class InputController : MonoBehaviour
                 _lookInput = Vector2.zero;
                 break;
         }
-        OnLookInputChanged?.Invoke(_lookInput);
+        try
+        {
+            OnLookInputChanged?.Invoke(_lookInput);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"Exception when invoking OnLookInputChanged: {e}");
+        }
     }
 
     private void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            OnJumpInputChanged?.Invoke();
+            try
+            {
+                OnJumpInputChanged?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Exception when invoking OnJumpInputChanged: {e}");
+            }
         }
     }
 
@@ -99,7 +128,14 @@ public class InputController : MonoBehaviour
     {
         if (context.performed)
         {
-            OnBulletTimeSkillInputChanged?.Invoke();
+            try
+            {
+                OnBulletTimeSkillInputChanged?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Exception when invoking OnBulletTimeSkillInputChanged: {e}");
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ public class LevelManager : MonoSingleton<LevelManager>
             return;
         }
 
+        ClearBeforeSceneLoad();
         SceneManager.LoadScene(sceneName);
     }
 
@@ -33,6 +34,7 @@ public class LevelManager : MonoSingleton<LevelManager>
             return;
         }
 
+        ClearBeforeSceneLoad();
         SceneManager.LoadScene(sceneBuildIndex);
     }
 
@@ -48,6 +50,7 @@ public class LevelManager : MonoSingleton<LevelManager>
             return;
         }
 
+        ClearBeforeSceneLoad();
         SceneManager.LoadScene(activeScene.buildIndex);
     }
 
@@ -65,6 +68,33 @@ public class LevelManager : MonoSingleton<LevelManager>
             return;
         }
 
+        ClearBeforeSceneLoad();
         SceneManager.LoadScene(nextIndex);
+    }
+    
+    /// <summary>
+    /// 场景加载前清空 MonoSingleton 中的旧缓存
+    /// 这确保 UIManager 和 ObjectPoolManager 不会持有已销毁场景对象的引用
+    /// </summary>
+    private void ClearBeforeSceneLoad()
+    {
+        Debug.Log("[LevelManager] Clearing singleton caches before scene load...");
+
+        if (GameplayManager.Instance != null)
+        {
+            GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default, true);
+        }
+
+        UI.Menu.PauseButton.ResetPauseState();
+        
+        if (UI.UIManager.Instance != null)
+        {
+            UI.UIManager.Instance.ClearAllCachedUI();
+        }
+        
+        if (ObjectPoolManager.Instance != null)
+        {
+            ObjectPoolManager.Instance.ClearAllPools();
+        }
     }
 }

@@ -31,11 +31,7 @@ namespace CharacterUniversal
         {
             // Ensure trail is clean when object is activated (pool take)
             ResetTrail();
-
-            if (controlMode == TrailControlMode.Auto)
-                StartTrail();
-            else
-                StopTrail();
+            StopTrail();
         }
 
         private void OnDisable()

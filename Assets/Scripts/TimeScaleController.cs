@@ -30,4 +30,9 @@ public class TimeScaleController
     {
         SetTimeScale(0f);
     }
+
+    public void UseGameOverTimeScale()
+    {
+        SetTimeScale(0f);
+    }
 }

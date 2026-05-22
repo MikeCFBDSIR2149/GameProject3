@@ -5,7 +5,8 @@ public enum EGameplayStatus
 {
     Default,
     BulletTime,
-    Paused
+    Paused,
+    GameOver
 }
 
 public class GameplayManager : MonoSingleton<GameplayManager>
@@ -46,6 +47,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         PreviousStatus = Status;
         Status = targetStatus;
         OnStatusChanged?.Invoke(Status);
+        
         switch (targetStatus)
         {
             case EGameplayStatus.Default:
@@ -60,6 +62,10 @@ public class GameplayManager : MonoSingleton<GameplayManager>
                 _timeScaleController.UsePausedTimeScale();
                 // _energyController.UseDefaultTimeEnergyConsumption();
                 break;
+            case EGameplayStatus.GameOver:
+                _timeScaleController.UseGameOverTimeScale();
+                // 游戏结束后不再消耗能量
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(targetStatus), targetStatus, null);
         }
@@ -67,7 +73,19 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     
     public void SetToPreviousStatus()
     {
+        if (Status == EGameplayStatus.GameOver)
+            return;
+
         SetGameplayStatus(PreviousStatus);
         PreviousStatus = Status;
+    }
+
+    public void RequestGameOver()
+    {
+        if (Status == EGameplayStatus.GameOver)
+            return;
+        Debug.Log("[GameplayManager] Requesting GameOver");
+
+        SetGameplayStatus(EGameplayStatus.GameOver, true);
     }
 }

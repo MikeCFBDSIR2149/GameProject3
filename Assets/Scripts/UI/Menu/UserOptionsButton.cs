@@ -1,25 +1,25 @@
 using UnityEngine;
 using UserOptions;
 
-namespace UI.Menu.MenuSet
+namespace UI.Menu
 {
     public class UserOptionsButton : MonoBehaviour
     {
-        private static bool isOpen;
+        private static bool _isOpen;
 
         public void OpenUserOptionsPanel()
         {
-            if (isOpen) return;
+            if (_isOpen) return;
             UIManager.Instance.ShowUI("UserOptionsMain", asRootCanvas: true);
-            isOpen = true;
+            _isOpen = true;
         }
 
         public void CloseUserOptionsPanel()
         {
-            if (!isOpen) return;
+            if (!_isOpen) return;
             OptionsManager.Instance.SaveOptions();
             UIManager.Instance.HideUI("UserOptionsMain");
-            isOpen = false;
+            _isOpen = false;
         }
     }
 }

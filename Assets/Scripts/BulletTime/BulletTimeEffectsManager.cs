@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class BulletTimeEffectsManager : MonoBehaviour
+namespace BulletTime
 {
+    public class BulletTimeEffectsManager : MonoBehaviour
+    {
     [Header("Overlay Settings")]
     [SerializeField] private UnityEngine.UI.Image overlayImage;
     [SerializeField] private float fadeInDuration = 0.3f;
@@ -66,6 +68,15 @@ public class BulletTimeEffectsManager : MonoBehaviour
         if (status == EGameplayStatus.Paused)
         {
             _isPaused = true;
+            return;
+        }
+
+        if (status == EGameplayStatus.GameOver)
+        {
+            _isPaused = false;
+            _isBulletTime = false;
+            _enteredOnce = false;
+            ExitBulletTimeEffects();
             return;
         }
 
@@ -194,5 +205,6 @@ public class BulletTimeEffectsManager : MonoBehaviour
 
         _matInstance.SetFloat(IntensityID, 0f);
         overlayImage.gameObject.SetActive(false);
+    }
     }
 }

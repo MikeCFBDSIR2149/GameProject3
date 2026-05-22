@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI.Menu.MenuSet
+namespace UI.Menu
 {
     public class BackMainMenuButton : MonoBehaviour
     {

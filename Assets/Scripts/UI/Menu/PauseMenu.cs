@@ -1,4 +1,4 @@
-namespace UI.Menu.MenuSet
+namespace UI.Menu
 {
     public class PauseMenu : UIBase
     {

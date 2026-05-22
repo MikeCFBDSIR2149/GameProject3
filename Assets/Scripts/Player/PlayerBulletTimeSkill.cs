@@ -8,10 +8,10 @@ namespace Player
         [Header("Bullet Time Settings")]
         public float bulletTimeDuration = 2f;
         public InputController inputController;
-        private bool isBulletTimeActive = false;
+        private bool _isBulletTimeActive;
         private Coroutine _bulletTimeCoroutine;
 
-        private bool isPaused = false;
+        private bool _isPaused;
 
         private void OnEnable()
         {
@@ -27,16 +27,27 @@ namespace Player
                 inputController.OnBulletTimeSkillInputChanged -= TryActivateBulletTime;
             if (GameplayManager.Instance != null)
                 GameplayManager.Instance.OnStatusChanged -= OnGameplayStatusChanged;
+
+            AbortBulletTime();
         }
 
         private void OnGameplayStatusChanged(EGameplayStatus status)
         {
-            isPaused = (status == EGameplayStatus.Paused);
+            if (status == EGameplayStatus.GameOver)
+            {
+                AbortBulletTime();
+                return;
+            }
+
+            _isPaused = (status == EGameplayStatus.Paused);
         }
 
         private void TryActivateBulletTime()
         {
-            if (!isBulletTimeActive)
+            if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
+                return;
+
+            if (!_isBulletTimeActive)
             {
                 _bulletTimeCoroutine = StartCoroutine(BulletTimeRoutine());
             }
@@ -44,13 +55,13 @@ namespace Player
 
         private IEnumerator BulletTimeRoutine()
         {
-            isBulletTimeActive = true;
+            _isBulletTimeActive = true;
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.BulletTime);
             float elapsed = 0f;
             while (elapsed < bulletTimeDuration)
             {
                 // 如果暂停，协程挂起，不累计时间
-                while (isPaused)
+                while (_isPaused)
                 {
                     yield return null;
                 }
@@ -59,7 +70,20 @@ namespace Player
                 yield return null;
             }
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
-            isBulletTimeActive = false;
+            _isBulletTimeActive = false;
+            _bulletTimeCoroutine = null;
+        }
+
+        private void AbortBulletTime()
+        {
+            if (_bulletTimeCoroutine != null)
+            {
+                StopCoroutine(_bulletTimeCoroutine);
+                _bulletTimeCoroutine = null;
+            }
+
+            _isBulletTimeActive = false;
+            _isPaused = false;
         }
     }
 }

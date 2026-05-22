@@ -1,10 +1,15 @@
 using UnityEngine;
 
-namespace UI.Menu.MenuSet
+namespace UI.Menu
 {
     public class PauseButton : MonoBehaviour
     {
-        private static bool isOpen;
+        private static bool _isOpen;
+
+        public static void ResetPauseState()
+        {
+            _isOpen = false;
+        }
         
         private void OnEnable()
         {
@@ -20,24 +25,28 @@ namespace UI.Menu.MenuSet
             {
                 GlobalInputController.Instance.OnCancelInputChanged -= OnCancelInputChanged;
             }
+
+            _isOpen = false;
         }
 
         public void OpenPausePanel()
         {
-            if (isOpen) return;
+            if (_isOpen) return;
+            if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
+                return;
             UIManager.Instance.ShowUI("PauseMenu", asRootCanvas: true);
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Paused);
             MousePointerManager.Instance.UnlockCursor();
-            isOpen = true;
+            _isOpen = true;
         }
 
         public void ClosePausePanel()
         {
-            if (!isOpen) return;
+            if (!_isOpen) return;
             UIManager.Instance.HideUI("PauseMenu");
             GameplayManager.Instance.SetToPreviousStatus();
             MousePointerManager.Instance.LockCursor();
-            isOpen = false;
+            _isOpen = false;
         }
 
         private void OnCancelInputChanged()

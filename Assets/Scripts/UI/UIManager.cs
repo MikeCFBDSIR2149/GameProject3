@@ -11,13 +11,8 @@ namespace UI
         private Dictionary<string, UIBase> uiDictionary = new Dictionary<string, UIBase>();
         private Dictionary<string, GameObject> uiPrefabDictionary = new Dictionary<string, GameObject>();
         
-        // 新增：菜单栈管理
-        private Stack<string> menuStack = new Stack<string>();
         private Canvas mainCanvas;
         public HealthUI healthUI;
-        // 新增：事件
-        public event System.Action<string> OnMenuShown;
-        public event System.Action<string> OnMenuHidden;
         
         protected override void Awake()
         {
@@ -59,12 +54,7 @@ namespace UI
             {
                 existingUI.OnShow(data);
                 
-                // 如果是菜单，推入栈
-                if (existingUI is BaseMenu)
-                {
-                    menuStack.Push(uiName);
-                    OnMenuShown?.Invoke(uiName);
-                }
+                // existing UI: simply show it
                 
                 return existingUI;
             }
@@ -118,12 +108,7 @@ namespace UI
             ui.OnInit();
             ui.OnShow(data);
             
-            // 如果是菜单，推入栈
-            if (ui is BaseMenu)
-            {
-                menuStack.Push(uiName);
-                OnMenuShown?.Invoke(uiName);
-            }
+            // created UI: initialized and shown
             
             Debug.Log($"成功创建UI: {uiName}");
             return ui;
@@ -175,81 +160,40 @@ namespace UI
             {
                 ui.OnHide();
                 
-                // 如果是菜单，从栈中移除
-                if (ui is BaseMenu)
-                {
-                    var tempStack = new Stack<string>();
-                    while (menuStack.Count > 0)
-                    {
-                        var item = menuStack.Pop();
-                        if (item != uiName)
-                        {
-                            tempStack.Push(item);
-                        }
-                    }
-                    
-                    while (tempStack.Count > 0)
-                    {
-                        menuStack.Push(tempStack.Pop());
-                    }
-                    
-                    OnMenuHidden?.Invoke(uiName);
-                }
+                // simply hide the UI
             }
         }
         
         // 隐藏所有菜单
         public void HideAllMenus()
         {
-            List<string> menusToHide = new List<string>();
-            
-            foreach (var kvp in uiDictionary)
+            // Hide all UI entries that are currently tracked
+            List<string> toHide = new List<string>(uiDictionary.Keys);
+            foreach (var name in toHide)
             {
-                if (kvp.Value is BaseMenu)
-                {
-                    menusToHide.Add(kvp.Key);
-                }
+                HideUI(name);
             }
-            
-            foreach (var menuName in menusToHide)
-            {
-                HideUI(menuName);
-            }
-            
-            menuStack.Clear();
-            Debug.Log("隐藏所有菜单");
+            Debug.Log("隐藏所有UI");
         }
         
         // 隐藏顶层菜单
         public void HideTopMenu()
         {
-            if (menuStack.Count > 0)
-            {
-                string topMenuName = menuStack.Pop();
-                HideUI(topMenuName);
-                Debug.Log($"隐藏顶层菜单: {topMenuName}");
-            }
+            Debug.Log("HideTopMenu is no longer supported when menu stack is removed.");
         }
         
         // 返回上一级菜单
         public void GoBack()
         {
-            if (menuStack.Count > 0)
-            {
-                HideTopMenu();
-            }
+            Debug.Log("GoBack is no longer supported when menu stack is removed.");
         }
         
         // 获取当前顶层菜单
-        public BaseMenu GetCurrentMenu()
+        public UIBase GetCurrentUI(string uiName)
         {
-            if (menuStack.Count > 0)
+            if (uiDictionary.TryGetValue(uiName, out UIBase ui))
             {
-                string topMenuName = menuStack.Peek();
-                if (uiDictionary.TryGetValue(topMenuName, out UIBase ui))
-                {
-                    return ui as BaseMenu;
-                }
+                return ui;
             }
             return null;
         }
@@ -295,23 +239,6 @@ namespace UI
                 ui.OnHide();
                 Destroy(ui.gameObject);
                 uiDictionary.Remove(uiName);
-                
-                // 从栈中移除
-                var tempStack = new Stack<string>();
-                while (menuStack.Count > 0)
-                {
-                    var item = menuStack.Pop();
-                    if (item != uiName)
-                    {
-                        tempStack.Push(item);
-                    }
-                }
-                
-                while (tempStack.Count > 0)
-                {
-                    menuStack.Push(tempStack.Pop());
-                }
-                
                 Debug.Log($"销毁UI: {uiName}");
             }
         }
@@ -319,7 +246,7 @@ namespace UI
         {
             if (ui == null) return;
 
-            // 如果是通过 ShowUI 创建的单例 UI，还需要从 uiDictionary/menuStack 里移除
+            // 如果是通过 ShowUI 创建的单例 UI，还需要从 uiDictionary 里移除
             string keyToRemove = null;
             foreach (var kv in uiDictionary)
             {
@@ -332,26 +259,39 @@ namespace UI
             if (keyToRemove != null)
             {
                 uiDictionary.Remove(keyToRemove);
-
-                // 从菜单栈中移除
-                var tempStack = new Stack<string>();
-                while (menuStack.Count > 0)
-                {
-                    var item = menuStack.Pop();
-                    if (item != keyToRemove)
-                    {
-                        tempStack.Push(item);
-                    }
-                }
-                while (tempStack.Count > 0)
-                {
-                    menuStack.Push(tempStack.Pop());
-                }
             }
 
             ui.OnHide();
             Object.Destroy(ui.gameObject);
         }
         
+        /// <summary>
+        /// 清空所有缓存的 UI 引用（场景切换时调用）
+        /// </summary>
+        public void ClearAllCachedUI()
+        {
+            // 隐藏所有 UI
+            List<string> toHide = new List<string>(uiDictionary.Keys);
+            foreach (var name in toHide)
+            {
+                if (uiDictionary.TryGetValue(name, out var ui))
+                {
+                    try
+                    {
+                        ui.OnHide();
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogWarning($"[UIManager] Error hiding UI {name}: {e}");
+                    }
+                }
+            }
+            
+            // 清空字典
+            uiDictionary.Clear();
+            uiPrefabDictionary.Clear();
+            
+            Debug.Log("[UIManager] Cleared all cached UI references");
+        }
     }
 }

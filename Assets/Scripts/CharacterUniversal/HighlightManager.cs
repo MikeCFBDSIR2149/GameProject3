@@ -10,7 +10,8 @@ namespace CharacterUniversal
 
         private void OnEnable()
         {
-            GameplayManager.Instance.OnStatusChanged += OnGameplayStatusChanged;
+            if (GameplayManager.Instance != null)
+                GameplayManager.Instance.OnStatusChanged += OnGameplayStatusChanged;
         }
     
         private void OnDisable()
@@ -21,7 +22,7 @@ namespace CharacterUniversal
     
         private void OnGameplayStatusChanged(EGameplayStatus status)
         {
-            if (status == EGameplayStatus.Default)
+            if (status == EGameplayStatus.Default || status == EGameplayStatus.GameOver)
             {
                 ClearAllHighlights();
             }

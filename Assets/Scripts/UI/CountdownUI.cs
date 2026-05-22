@@ -11,11 +11,11 @@ namespace UI
         [SerializeField] private Text messageText;
         [SerializeField] private GameObject countdownPanel;
 
-        private Coroutine countdownCoroutine;
-        private Coroutine flashCoroutine;
+        private Coroutine _countdownCoroutine;
+        private Coroutine _flashCoroutine;
 
-        private int currentTime;
-        private float currentTickInterval = 1f;
+        private int _currentTime;
+        private float _currentTickInterval = 1f;
 
         // 缓存最后一次启动的数据，避免“暂停恢复/重启”时数据丢字段
         private CountdownData _lastData;
@@ -45,26 +45,26 @@ namespace UI
             _lastData = data;
 
             // 停止之前的倒计时
-            if (countdownCoroutine != null)
+            if (_countdownCoroutine != null)
             {
-                StopCoroutine(countdownCoroutine);
-                countdownCoroutine = null;
+                StopCoroutine(_countdownCoroutine);
+                _countdownCoroutine = null;
             }
 
-            if (flashCoroutine != null)
+            if (_flashCoroutine != null)
             {
-                StopCoroutine(flashCoroutine);
-                flashCoroutine = null;
+                StopCoroutine(_flashCoroutine);
+                _flashCoroutine = null;
             }
 
-            currentTime = Mathf.Max(0, data.startTime);
-            currentTickInterval = Mathf.Max(0.01f, data.tickInterval);
+            _currentTime = Mathf.Max(0, data.startTime);
+            _currentTickInterval = Mathf.Max(0.01f, data.tickInterval);
 
             if (messageText != null) messageText.text = data.message;
-            if (countdownText != null) countdownText.text = currentTime.ToString();
+            if (countdownText != null) countdownText.text = _currentTime.ToString();
             if (countdownPanel != null) countdownPanel.SetActive(true);
 
-            countdownCoroutine = StartCoroutine(CountdownRoutine());
+            _countdownCoroutine = StartCoroutine(CountdownRoutine());
         }
 
         /// <summary>
@@ -73,11 +73,11 @@ namespace UI
         /// </summary>
         private IEnumerator CountdownRoutine()
         {
-            while (currentTime > 0)
+            while (_currentTime > 0)
             {
                 // 先等待一个 tick（期间如果暂停则等待不前进）
                 float t = 0f;
-                while (t < currentTickInterval)
+                while (t < _currentTickInterval)
                 {
                     // 暂停：不累计 t，直接挂起
                     if (IsPaused())
@@ -91,17 +91,17 @@ namespace UI
                 }
 
                 // tick 到了，扣 1 秒
-                currentTime--;
-                if (countdownText != null) countdownText.text = currentTime.ToString();
+                _currentTime--;
+                if (countdownText != null) countdownText.text = _currentTime.ToString();
 
                 // 触发每秒事件
-                UIEventManager.TriggerEvent("CountdownTick", currentTime);
+                UIEventManager.TriggerEvent("CountdownTick", _currentTime);
 
                 // 最后3秒闪烁：只允许同时存在一个闪烁协程，避免叠加
-                if (currentTime <= 3 && currentTime > 0)
+                if (_currentTime <= 3 && _currentTime > 0)
                 {
-                    if (flashCoroutine == null)
-                        flashCoroutine = StartCoroutine(FlashTextOnce());
+                    if (_flashCoroutine == null)
+                        _flashCoroutine = StartCoroutine(FlashTextOnce());
                 }
             }
 
@@ -113,14 +113,16 @@ namespace UI
         {
             // 只要 GameplayManager 存在且处于 Paused，就认为暂停
             // 这样不依赖 timeScale（因为你 bulletTime/默认状态会改变 timeScale）
-            return GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.Paused;
+            return GameplayManager.Instance != null &&
+                   (GameplayManager.Instance.Status == EGameplayStatus.Paused ||
+                    GameplayManager.Instance.Status == EGameplayStatus.GameOver);
         }
 
         private IEnumerator FlashTextOnce()
         {
             if (countdownText == null)
             {
-                flashCoroutine = null;
+                _flashCoroutine = null;
                 yield break;
             }
 
@@ -142,7 +144,7 @@ namespace UI
             }
 
             countdownText.color = originalColor;
-            flashCoroutine = null;
+            _flashCoroutine = null;
         }
 
         private void OnCountdownComplete()
@@ -202,17 +204,34 @@ namespace UI
 
         public void StopCountdown()
         {
-            if (countdownCoroutine != null)
+            if (_countdownCoroutine != null)
             {
-                StopCoroutine(countdownCoroutine);
-                countdownCoroutine = null;
+                StopCoroutine(_countdownCoroutine);
+                _countdownCoroutine = null;
             }
 
-            if (flashCoroutine != null)
+            if (_flashCoroutine != null)
             {
-                StopCoroutine(flashCoroutine);
-                flashCoroutine = null;
+                StopCoroutine(_flashCoroutine);
+                _flashCoroutine = null;
             }
+        }
+
+        // Ensure coroutines are stopped when UI is hidden/disabled/destroyed
+        public override void OnHide()
+        {
+            base.OnHide();
+            StopCountdown();
+        }
+
+        private void OnDisable()
+        {
+            StopCountdown();
+        }
+
+        private void OnDestroy()
+        {
+            StopCountdown();
         }
 
         // 可选：你之前加的 SetTime 还想保留的话也可以

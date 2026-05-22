@@ -29,7 +29,7 @@ namespace Enemy
 
         private void OnStatusChanged(EGameplayStatus status)
         {
-            isPaused = (status == EGameplayStatus.Paused);
+            isPaused = (status == EGameplayStatus.Paused || status == EGameplayStatus.GameOver);
 
             // 如果进入暂停，建议立刻停下（不然还会沿着旧路径走一段）
             if (isPaused && agent != null && agent.isActiveAndEnabled)

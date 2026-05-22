@@ -9,12 +9,11 @@ namespace Player
         private bool _isPrepared;
         private bool _isLaunched;
         private Collider _cachedCollider;
-        private BulletTrail _bulletTrail;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _cachedCollider = GetComponent<Collider>();
-            TryGetComponent(out _bulletTrail);
         }
 
         public void Prepare(ISender target)
@@ -29,8 +28,8 @@ namespace Player
             _target = target;
             _isPrepared = true;
             _isLaunched = false;
-            _bulletTrail?.StopTrail();
-            _bulletTrail?.ResetTrail();
+            BulletTrailComponent?.StopTrail();
+            BulletTrailComponent?.ResetTrail();
             SetFrozenState(true);
         }
 
@@ -49,8 +48,8 @@ namespace Player
             SetFrozenState(false);
             Vector3 velocity = (_target.GetWorldPosition() - transform.position).normalized * bulletSpeed;
             Init(velocity);
-            _bulletTrail?.ResetTrail();
-            _bulletTrail?.StartTrail();
+            BulletTrailComponent?.ResetTrail();
+            BulletTrailComponent?.StartTrail();
             _isLaunched = true;
         }
 
@@ -107,8 +106,8 @@ namespace Player
 
         private void OnDisable()
         {
-            _bulletTrail?.StopTrail();
-            _bulletTrail?.ResetTrail();
+            BulletTrailComponent?.StopTrail();
+            BulletTrailComponent?.ResetTrail();
             _isPrepared = false;
             _isLaunched = false;
             _target = null;

@@ -1,3 +1,4 @@
+using CharacterUniversal;
 using UnityEngine;
 
 namespace Player
@@ -6,6 +7,26 @@ namespace Player
     {
         public Rigidbody rb;
         public string referencePoolKey;
+        private BulletTrail _bulletTrail;
+
+        protected BulletTrail BulletTrailComponent => _bulletTrail;
+
+        protected virtual void Awake()
+        {
+            TryGetComponent(out _bulletTrail);
+        }
+
+        private void OnEnable()
+        {
+            if (rb)
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            BulletTrailComponent?.StopTrail();
+            BulletTrailComponent?.ResetTrail();
+        }
 
         public void Init(Vector3 velocity)
         {
@@ -13,6 +34,9 @@ namespace Player
             {
                 rb.linearVelocity = velocity;
             }
+
+            BulletTrailComponent?.ResetTrail();
+            BulletTrailComponent?.StartTrail();
         }
 
         protected virtual void OnTriggerEnter(Collider other)

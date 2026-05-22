@@ -28,6 +28,9 @@ namespace Player
             if (sender == null)
                 return;
 
+            if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
+                return;
+
             GameObject bullet = ObjectPoolManager.Instance.Get(bulletTrackingPoolKey, spawnPosition, Quaternion.identity);
             if (!bullet)
                 return;
@@ -49,7 +52,15 @@ namespace Player
         private void OnStatusChanged(EGameplayStatus gameplayStatus)
         {
             if (gameplayStatus == EGameplayStatus.Default && _readyBulletTrackingBullets.Count > 0)
+            {
                 ReleaseAllQueuedBullets();
+                return;
+            }
+
+            if (gameplayStatus == EGameplayStatus.GameOver)
+            {
+                ClearQueuedBullets();
+            }
         }
 
         private void ReleaseAllQueuedBullets()
@@ -58,6 +69,18 @@ namespace Player
             {
                 PlayerBulletTracking bulletScript = _readyBulletTrackingBullets.Dequeue();
                 bulletScript?.Launch(bulletSpeed);
+            }
+        }
+
+        private void ClearQueuedBullets()
+        {
+            while (_readyBulletTrackingBullets.Count > 0)
+            {
+                PlayerBulletTracking bulletScript = _readyBulletTrackingBullets.Dequeue();
+                if (bulletScript != null)
+                {
+                    ObjectPoolManager.Instance.Dispose(bulletTrackingPoolKey, bulletScript.gameObject);
+                }
             }
         }
     }

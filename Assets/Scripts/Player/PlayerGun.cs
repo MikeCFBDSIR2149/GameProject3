@@ -23,6 +23,12 @@ namespace Player
                 inputController.OnAttackInputChanged -= OnAttack;
         }
 
+        private void OnDestroy()
+        {
+            if (inputController != null)
+                inputController.OnAttackInputChanged -= OnAttack;
+        }
+
 
         private void OnAttack()
         {

@@ -74,7 +74,7 @@ namespace Player
         
         private void OnGameplayStatusChanged(EGameplayStatus status)
         {
-            _isPaused = status == EGameplayStatus.Paused;
+            _isPaused = status == EGameplayStatus.Paused || status == EGameplayStatus.GameOver;
         }
     }
 }

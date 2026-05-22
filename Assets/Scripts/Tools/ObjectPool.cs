@@ -41,4 +41,21 @@ public class ObjectPool : MonoBehaviour
         obj.SetActive(false);
         pool.Enqueue(obj);
     }
+    
+    /// <summary>
+    /// 清空对象池中的所有对象（场景切换时调用）
+    /// </summary>
+    public void Clear()
+    {
+        while (pool.Count > 0)
+        {
+            GameObject obj = pool.Dequeue();
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+        }
+        
+        Debug.Log($"[ObjectPool] Cleared pool for key: {poolKey}");
+    }
 }

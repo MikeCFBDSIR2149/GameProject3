@@ -44,7 +44,7 @@ namespace Enemy
 
         private void OnStatusChanged(EGameplayStatus status)
         {
-            isPaused = (status == EGameplayStatus.Paused);
+            isPaused = (status == EGameplayStatus.Paused || status == EGameplayStatus.GameOver);
 
             if (isPaused && agent != null && agent.isActiveAndEnabled)
             {

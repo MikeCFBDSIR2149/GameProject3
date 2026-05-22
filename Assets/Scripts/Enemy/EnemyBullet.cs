@@ -13,9 +13,16 @@ namespace Enemy
 
         [Header("Lifetime")]
         [SerializeField] private float lifeTime = 5f;
+        [SerializeField] private float damage = 10f;
         public ISender Sender { get; set; }
 
         private float _lifeTimer;
+        private BulletTrail _bulletTrail;
+
+        private void Awake()
+        {
+            TryGetComponent(out _bulletTrail);
+        }
 
         private void OnEnable()
         {
@@ -28,6 +35,15 @@ namespace Enemy
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
             }
+
+            _bulletTrail?.StopTrail();
+            _bulletTrail?.ResetTrail();
+        }
+
+        private void OnDisable()
+        {
+            _bulletTrail?.StopTrail();
+            _bulletTrail?.ResetTrail();
         }
 
         private void Update()
@@ -51,15 +67,16 @@ namespace Enemy
             {
                 rb.linearVelocity = velocity;
             }
+
+            _bulletTrail?.ResetTrail();
+            _bulletTrail?.StartTrail();
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                // 这里留扩展：命中效果/伤害（你可以在这里调用 Player 的受击/扣血）
-                // 比如：other.GetComponent<PlayerHealth>()?.TakeDamage(damage, Sender);
-
+                other.GetComponentInParent<IDamageable>()?.TakeDamage(damage);
                 ReturnToPool();
             }
             
