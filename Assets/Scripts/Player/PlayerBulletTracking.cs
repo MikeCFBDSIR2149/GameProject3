@@ -57,9 +57,12 @@ namespace Player
         {
             if (rb != null)
             {
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
                 rb.isKinematic = frozen;
+                if (!frozen)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
             }
 
             if (_cachedCollider == null)
