@@ -57,6 +57,7 @@ namespace Player
         {
             _isBulletTimeActive = true;
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.BulletTime);
+            
             float elapsed = 0f;
             while (elapsed < bulletTimeDuration)
             {
@@ -69,6 +70,7 @@ namespace Player
                 elapsed += Time.unscaledDeltaTime;
                 yield return null;
             }
+            
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
             _isBulletTimeActive = false;
             _bulletTimeCoroutine = null;
