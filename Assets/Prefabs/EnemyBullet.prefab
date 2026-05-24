@@ -112,6 +112,7 @@ MonoBehaviour:
   rb: {fileID: 3368445801712962054}
   referencePoolKey: EnemyBullet
   lifeTime: 5
+  damage: 10
 --- !u!114 &9172866444468158473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +127,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.BulletHighlight
   highlightDistance: 5
   referencePoolKey: EnemyBullet
+  useOcclusionCheck: 1
+  occlusionMask:
+    serializedVersion: 2
+    m_Bits: 72
+  occlusionCheckInterval: 0.1
   highlightUIPrefabName: HighlightRing
 --- !u!114 &-5707417753386127886
 MonoBehaviour:
@@ -321,4 +327,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b431c10ff020c4c2d87f5f6758dc3766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUniversal.BulletTrail
-  useWorldSpace: 1
+  controlMode: 0
