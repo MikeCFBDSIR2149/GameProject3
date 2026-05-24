@@ -47,6 +47,16 @@ namespace Player
             if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
                 return;
 
+            // 如果当前处于子弹时间，再次按键则提前结束该技能
+            if (_isBulletTimeActive)
+            {
+                AbortBulletTime();
+                if (GameplayManager.Instance != null)
+                    GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
+                return;
+            }
+
+            // 否则尝试激活子弹时间
             if (!_isBulletTimeActive)
             {
                 _bulletTimeCoroutine = StartCoroutine(BulletTimeRoutine());
