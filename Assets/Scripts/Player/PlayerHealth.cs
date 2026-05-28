@@ -1,7 +1,7 @@
 using System;
 using CharacterUniversal;
 using UnityEngine;
-
+using UI;
 namespace Player
 {
     [RequireComponent(typeof(Health))]
@@ -32,6 +32,8 @@ namespace Player
             if (_health != null)
             {
                 _health.OnDied += HandleDied;
+                _health.OnHealthChanged += HandleHealthChanged;
+                HandleHealthChanged(_health.CurrentHealth, _health.MaxHealth);
             }
         }
 
@@ -42,7 +44,10 @@ namespace Player
                 _health.OnDied -= HandleDied;
             }
         }
-
+        private void HandleHealthChanged(float current, float max)
+        {
+            UIManager.Instance?.SetPlayerHealth(current, max);
+        }
         private void HandleDied()
         {
             if (_isDead)

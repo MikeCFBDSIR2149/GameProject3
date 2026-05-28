@@ -20,10 +20,12 @@ namespace UI
             Initialize();
         }
         //调用血量UI变化
-        public void SetPlayerHealth(float value)
+        public void SetPlayerHealth(float current, float max)
         {
-            healthUI.SetHealth(value);
+            if (healthUI != null)
+                healthUI.SetHealth(current, max);
         }
+
         // 示例角色血量变化时
         // UIManager.Instance.SetPlayerHealth(newHealthValue);
         private void Initialize()

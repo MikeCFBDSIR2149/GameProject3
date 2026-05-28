@@ -12435,7 +12435,7 @@ MonoBehaviour:
   fadeOutDuration: 0.3
   waveMaxRadius: 1
   waveWidth: 0.2
-  waveStrength: 0.7
+  waveStrength: 0
   waveExpandDuration: 1
   waveContractDuration: 0.4
 --- !u!1 &1595258853
@@ -12824,7 +12824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e108b3bdfdd04847b44db9cc487b456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelCountdownToGameOver
-  levelTimeSeconds: 30
+  levelTimeSeconds: 180
   countdownUIName: CountDownUI
 --- !u!4 &1674946374
 Transform:
