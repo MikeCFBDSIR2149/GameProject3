@@ -6,14 +6,21 @@ using UnityEngine.UI;
 namespace UI
 {
     /// <summary>
-    /// 能量UI（滑动条）：
-    /// - 通过 GameplayManager 提供的 Player 引用绑定 BulletTimeEnergy
-    /// - 监听 BulletTimeEnergy 实时更新
-    /// - 不依赖外部"手动传值"
+    /// 子弹时间能量UI（滑动条版，TMP文本可选）
+    /// - 自动在自身子物体中寻找 Slider / TMP_Text（无需手动拖引用）
+    /// - 订阅 UIEventManager: "OnEnergyChanged" 实时更新（由 BulletTimeEnergy 推送）
+    /// - 开局会从 GameplayManager.Player 的 BulletTimeEnergy 拉一次当前值，避免不显示/显示旧值
     /// </summary>
     public class EnergyUI : UIBase
     {
-        [Header("References")]
+        [Header("Auto Find (optional, recommended)")]
+        [Tooltip("如果你的UI子物体里有多个Slider，建议填写能量条Slider的物体名以精确定位。留空则取第一个找到的Slider。")]
+        [SerializeField] private string sliderObjectName = "";
+
+        [Tooltip("如果你的UI子物体里有多个TMP_Text，建议填写能量文本的物体名以精确定位。留空则取第一个找到的TMP_Text。")]
+        [SerializeField] private string textObjectName = "";
+
+        [Header("References (auto if null)")]
         [SerializeField] private Slider energySlider;
         [SerializeField] private TMP_Text energyText;
 
@@ -21,51 +28,54 @@ namespace UI
         [SerializeField] private bool showNumbers = true;
         [SerializeField] private bool showAsInt = true;
 
-        // runtime
+        [Header("Defaults (used before binding)")]
+        [SerializeField] private float defaultMaxEnergy = 100f;
+
         private GameplayManager _gameplayManager;
         private Player.Player _boundPlayer;
         private Player.BulletTimeEnergy _energy;
 
         private float _current;
-        private float _max = 100f;
+        private float _max;
+
+        private const string EnergyChangedEventName = "OnEnergyChanged";
 
         public override void OnInit()
         {
             base.OnInit();
 
-            if (energySlider == null)
-                energySlider = GetComponentInChildren<Slider>(true);
+            _max = Mathf.Max(1f, defaultMaxEnergy);
+            _current = _max;
 
-            if (energyText == null)
-                energyText = GetComponentInChildren<TMP_Text>(true);
-
-            // 先用默认值刷新一次，避免UI空白
-            Apply();
+            AutoFindReferences();
+            Apply(); // 防止UI空白
         }
 
         public override void OnShow(object data = null)
         {
             base.OnShow(data);
 
-            SubscribeToGameplayManager();
-            BindToCurrentPlayer();
+            AutoFindReferences();
+            Subscribe();
+            BindToCurrentPlayerAndPullOnce();
         }
 
         private void OnEnable()
         {
-            SubscribeToGameplayManager();
-            BindToCurrentPlayer();
+            AutoFindReferences();
+            Subscribe();
+            BindToCurrentPlayerAndPullOnce();
         }
 
         private void OnDisable()
         {
-            UnsubscribeFromGameplayManager();
+            Unsubscribe();
             Unbind();
         }
 
         public override void UpdateUI(object data)
         {
-            // 兼容事件推送：传入 float 或 Vector2(current,max)
+            // 事件推送过来的是 currentEnergy(float)
             if (data is float f)
             {
                 SetEnergy(f, _max);
@@ -78,6 +88,7 @@ namespace UI
                 return;
             }
 
+            // 兼容 (current,max)
             if (data is Vector2 v2)
             {
                 SetEnergy(v2.x, Mathf.Max(1f, v2.y));
@@ -85,23 +96,22 @@ namespace UI
             }
         }
 
-        private void SubscribeToGameplayManager()
+        private void Subscribe()
         {
-            var gameplayManager = GameplayManager.Instance;
-            if (_gameplayManager == gameplayManager)
-                return;
+            UIEventManager.AddListener(EnergyChangedEventName, HandleEnergyChangedEvent);
 
-            UnsubscribeFromGameplayManager();
-            _gameplayManager = gameplayManager;
-
+            _gameplayManager = GameplayManager.Instance;
             if (_gameplayManager != null)
             {
+                _gameplayManager.OnPlayerChanged -= HandlePlayerChanged; // 防重复
                 _gameplayManager.OnPlayerChanged += HandlePlayerChanged;
             }
         }
 
-        private void UnsubscribeFromGameplayManager()
+        private void Unsubscribe()
         {
+            UIEventManager.RemoveListener(EnergyChangedEventName, HandleEnergyChangedEvent);
+
             if (_gameplayManager != null)
             {
                 _gameplayManager.OnPlayerChanged -= HandlePlayerChanged;
@@ -109,8 +119,17 @@ namespace UI
             }
         }
 
-        private void BindToCurrentPlayer()
+        private void HandleEnergyChangedEvent(object data)
         {
+            // 直接走统一解析入口
+            UpdateUI(data);
+        }
+
+        private void BindToCurrentPlayerAndPullOnce()
+        {
+            if (_gameplayManager == null)
+                _gameplayManager = GameplayManager.Instance;
+
             var player = _gameplayManager != null ? _gameplayManager.Player : null;
             HandlePlayerChanged(player);
         }
@@ -130,7 +149,7 @@ namespace UI
             if (_energy == null)
                 return;
 
-            // 立刻拉取一次，保证 UI 立即刷新
+            // 开局/切换玩家时立刻刷新一次（否则要等下一次事件推送才动）
             SetEnergy(_energy.CurrentEnergy, _energy.MaxEnergy);
         }
 
@@ -138,6 +157,39 @@ namespace UI
         {
             _energy = null;
             _boundPlayer = null;
+        }
+
+        private void AutoFindReferences()
+        {
+            // Slider
+            if (energySlider == null)
+            {
+                energySlider = FindChildByName<Slider>(sliderObjectName);
+                if (energySlider == null)
+                    energySlider = GetComponentInChildren<Slider>(true);
+            }
+
+            // TMP Text（可选，不强制）
+            if (energyText == null)
+            {
+                energyText = FindChildByName<TMP_Text>(textObjectName);
+                if (energyText == null)
+                    energyText = GetComponentInChildren<TMP_Text>(true);
+            }
+        }
+
+        private T FindChildByName<T>(string childName) where T : Component
+        {
+            if (string.IsNullOrWhiteSpace(childName))
+                return null;
+
+            var comps = GetComponentsInChildren<T>(true); // 包含未激活
+            for (int i = 0; i < comps.Length; i++)
+            {
+                if (comps[i] != null && comps[i].name == childName)
+                    return comps[i];
+            }
+            return null;
         }
 
         public void SetEnergy(float current, float max)
