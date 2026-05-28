@@ -5,28 +5,41 @@ namespace Player
 {
     public class PlayerBulletTimeSkill : MonoBehaviour
     {
-        [Header("Bullet Time Settings")]
-        public float bulletTimeDuration = 2f;
+        [Header("Input")]
         public InputController inputController;
+
+        [Header("Optional Duration Limit (set <=0 to ignore)")]
+        public float bulletTimeDuration = 0f;   // 设为 0 表示不使用固定时长，只由能量决定
+
+        [Header("Energy")]
+        public BulletTimeEnergy energy;         // 新增：拖拽同物体上的 BulletTimeEnergy
+
         private bool _isBulletTimeActive;
         private Coroutine _bulletTimeCoroutine;
-
         private bool _isPaused;
 
         private void OnEnable()
         {
             if (inputController != null)
                 inputController.OnBulletTimeSkillInputChanged += TryActivateBulletTime;
+
             if (GameplayManager.Instance != null)
                 GameplayManager.Instance.OnStatusChanged += OnGameplayStatusChanged;
+
+            if (energy != null)
+                energy.OnDepleted += HandleEnergyDepleted;
         }
 
         private void OnDisable()
         {
             if (inputController != null)
                 inputController.OnBulletTimeSkillInputChanged -= TryActivateBulletTime;
+
             if (GameplayManager.Instance != null)
                 GameplayManager.Instance.OnStatusChanged -= OnGameplayStatusChanged;
+
+            if (energy != null)
+                energy.OnDepleted -= HandleEnergyDepleted;
 
             AbortBulletTime();
         }
@@ -42,12 +55,23 @@ namespace Player
             _isPaused = (status == EGameplayStatus.Paused);
         }
 
+        private void HandleEnergyDepleted()
+        {
+            // 能量耗尽 -> 如果正在子弹时间，强制关闭
+            if (_isBulletTimeActive)
+            {
+                AbortBulletTime();
+                if (GameplayManager.Instance != null)
+                    GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
+            }
+        }
+
         private void TryActivateBulletTime()
         {
             if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
                 return;
 
-            // 如果当前处于子弹时间，再次按键则提前结束该技能
+            // 再按一次：手动关闭
             if (_isBulletTimeActive)
             {
                 AbortBulletTime();
@@ -56,31 +80,42 @@ namespace Player
                 return;
             }
 
-            // 否则尝试激活子弹时间
-            if (!_isBulletTimeActive)
+            // 尝试开启：先检查能量脚本
+            if (energy != null)
             {
-                _bulletTimeCoroutine = StartCoroutine(BulletTimeRoutine());
+                if (!energy.CanStartBulletTime) return;
+                if (!energy.TrySpendStartCost()) return;
             }
+
+            _bulletTimeCoroutine = StartCoroutine(BulletTimeRoutine());
         }
 
         private IEnumerator BulletTimeRoutine()
         {
             _isBulletTimeActive = true;
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.BulletTime);
-            
+
+            // 如果你还想保留“最长持续时间”，就用这个；否则 duration <= 0 就一直等能量耗尽或手动关闭
             float elapsed = 0f;
-            while (elapsed < bulletTimeDuration)
+
+            while (true)
             {
-                // 如果暂停，协程挂起，不累计时间
-                while (_isPaused)
+                while (_isPaused) yield return null;
+
+                if (bulletTimeDuration > 0f)
                 {
-                    yield return null;
+                    elapsed += Time.unscaledDeltaTime;
+                    if (elapsed >= bulletTimeDuration)
+                        break;
                 }
-                // 非暂停时累计时间
-                elapsed += Time.unscaledDeltaTime;
+
+                // 如果能量脚本存在且已经不能继续（比如 0 或锁定），也退出
+                if (energy != null && !energy.CanStartBulletTime && energy.CurrentEnergy <= 0f)
+                    break;
+
                 yield return null;
             }
-            
+
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
             _isBulletTimeActive = false;
             _bulletTimeCoroutine = null;
