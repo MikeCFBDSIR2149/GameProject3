@@ -4,7 +4,7 @@ namespace UI
 {
     public class HighlightRingUI : UIBase, IHighlightUI
     {
-        protected override void UpdateUI(object data)
+        public override void UpdateUI(object data)
         {
             
         }

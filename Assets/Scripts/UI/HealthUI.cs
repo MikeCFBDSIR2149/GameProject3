@@ -64,7 +64,7 @@ namespace UI
             Unbind();
         }
 
-        protected override void UpdateUI(object data)
+        public override void UpdateUI(object data)
         {
             // 仍保留“外部可推送”的能力（可选）
             // 支持 Vector2(current,max) 或 float(current)

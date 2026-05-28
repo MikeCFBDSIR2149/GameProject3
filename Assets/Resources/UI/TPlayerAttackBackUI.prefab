@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6309 WASD \u79FB\u52A8\u3002\n\u6309 Space \u8DF3\u8DC3\u3002\n\u9F20\u6807\u8F6C\u52A8\u89C6\u89D2\u65B9\u5411\uFF08\u7075\u654F\u5EA6\u53EF\u4EE5\u5728\u9009\u9879\u8BBE\u7F6E\u8C03\u6574\uFF09\u3002"
+  m_text: "\u73A9\u5BB6\u91CA\u653E\u201C\u65F6\u95F4\u51BB\u7ED3\u201D\u6280\u80FD\u65F6\uFF0C\u5C06\u53EF\u4EE5\u53CD\u5F39\u4E00\u5B9A\u8DDD\u79BB\u7684\u654C\u4EBA\u7684\u5B50\u5F39\u3002\n\u80FD\u53CD\u5F39\u7684\u5B50\u5F39\u4F1A\u9AD8\u4EAE\u6807\u51FA\uFF0C\u5C06\u51C6\u5FC3\u7784\u51C6\u5373\u53EF\u5C06\u5B50\u5F39\u63A7\u5236\u3002\n\u88AB\u63A7\u5236\u7684\u5B50\u5F39\u5C06\u5728\u65F6\u95F4\u6062\u590D\u6D41\u901D\u65F6\u56DE\u5F39\uFF0C\u5E76\u9020\u6210\u9AD8\u989D\u4F24\u5BB3\u3002"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35410713594b040eb94b1894087865a6, type: 2}
   m_sharedMaterial: {fileID: 2918490173803164528, guid: 35410713594b040eb94b1894087865a6, type: 2}
@@ -224,9 +224,9 @@ GameObject:
   - component: {fileID: 6606755149384693392}
   - component: {fileID: 8107636854733355191}
   - component: {fileID: 4824020670979037637}
-  - component: {fileID: -366589494985314583}
+  - component: {fileID: 2017935077525004171}
   m_Layer: 5
-  m_Name: TPlayerMotorUI
+  m_Name: TPlayerAttackBackUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,7 +251,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 800, y: 250}
+  m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8107636854733355191
 CanvasRenderer:
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-366589494985314583
+--- !u!114 &2017935077525004171
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,10 +300,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4509635239723835363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86a1b136bfca74083aa85d24ddc8634c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c95c66f8706e4a83aeb59ec10cf0322, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI.Tutorial.TPlayerMotorUI
-  uiName: TPlayerMotorUI
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Tutorial.TPlayerAttackBackUI
+  uiName: TPlayerAttackBackUI
   isPersistent: 0
   checkmarkObject: {fileID: 2462090355367579130}
 --- !u!1 &7570978706085517985

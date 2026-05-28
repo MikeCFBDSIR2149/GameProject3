@@ -1,54 +1,52 @@
 using System.Collections;
-using UnityEngine;
 using Player;
 using UI;
+using UnityEngine;
 
 namespace Tutorial
 {
-    public class TutorialPlayerMotor : PlayerMotor, ITutorialContext
+    public class TutorialPlayerGun : PlayerGun, ITutorialContext
     {
         public TutorialDirector Director => director;
         [SerializeField] private TutorialDirector director;
         public string ContextID => contextID;
-        [SerializeField] private string contextID = "PlayerMotor";
+        [SerializeField] private string contextID = "PlayerAttack";
         
         private bool _isFeatureUnlocked;
         private bool _isCompleted;
-
-        protected override void Awake()
+        
+        private void Awake()
         {
             director?.RegisterContext(this);
-            base.Awake();
         }
-
+        
         public void Enter()
         {
             _isFeatureUnlocked = true;
-            UIManager.Instance.ShowUI("TPlayerMotorUI");
+            UIManager.Instance.ShowUI("TPlayerAttackUI");
         }
 
         public void Exit()
         {
-            UIManager.Instance.HideUI("TPlayerMotorUI");
+            UIManager.Instance.HideUI("TPlayerAttackUI");
         }
-        
+
         public IEnumerator NextStepBuffer()
         {
-            UIManager.Instance.GetCurrentUI("TPlayerMotorUI")?.UpdateUI(true);
+            UIManager.Instance.GetCurrentUI("TPlayerAttackUI")?.UpdateUI(true);
             yield return new WaitForSecondsRealtime(3f);
             Director.NextStep();
         }
 
-        protected override void SetMoveInput(Vector2 input)
+        protected override void OnAttack()
         {
             if (!_isFeatureUnlocked) return;
-            if (input != Vector2.zero && !_isCompleted)
+            if (!_isCompleted)
             {
-                _isCompleted = true;
                 StartCoroutine(NextStepBuffer());
+                _isCompleted = true;
             }
-            base.SetMoveInput(input);
+            base.OnAttack();
         }
     }
 }
-

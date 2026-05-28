@@ -26,7 +26,7 @@ namespace UI
         public virtual void OnUpdate() { }
     
         // 更新UI数据
-        protected virtual void UpdateUI(object data)
+        public virtual void UpdateUI(object data)
         {
             // throw new System.NotImplementedException();
         }

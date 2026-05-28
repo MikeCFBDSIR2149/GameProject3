@@ -30,7 +30,7 @@ namespace Player
         }
 
 
-        private void OnAttack()
+        protected virtual void OnAttack()
         {
             if (cameraDetector != null)
             {

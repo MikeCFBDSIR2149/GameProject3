@@ -4,7 +4,7 @@ namespace UI.UserOptions
 {
     public class UserOptionsMain : UIBase
     {
-        protected override void UpdateUI(object data)
+        public override void UpdateUI(object data)
         {
         }
     }

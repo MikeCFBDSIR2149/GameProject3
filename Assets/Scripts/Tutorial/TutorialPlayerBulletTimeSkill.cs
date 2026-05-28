@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using Player;
+using UI;
 
 namespace Tutorial
 {
@@ -11,6 +13,7 @@ namespace Tutorial
         [SerializeField] private string contextID = "PlayerBulletTimeSkill";
         
         private bool _isFeatureUnlocked;
+        private (bool, bool) _isCompleted;
 
         private void Awake()
         {
@@ -20,18 +23,38 @@ namespace Tutorial
         public void Enter()
         {
             _isFeatureUnlocked = true;
+            UIManager.Instance.ShowUI("TPlayerBulletTimeSkillUI");
         }
 
         public void Exit()
         {
-            // 当步骤结束时保持解锁状态（教程结束后玩家应该保留该功能）
-            // 如果需要锁定，改为：_isFeatureUnlocked = false;
+            UIManager.Instance.HideUI("TPlayerBulletTimeSkillUI");
+        }
+
+        public IEnumerator NextStepBuffer()
+        {
+            yield return new WaitForSecondsRealtime(3f);
+            Director.NextStep();
         }
 
         protected override void TryActivateBulletTime()
         {
             if (!_isFeatureUnlocked)
                 return;
+
+            if (_isCompleted != (true, true))
+            {
+                if (!_isBulletTimeActive)
+                {
+                    _isCompleted.Item1 = true;
+                }
+                else
+                {
+                    _isCompleted.Item2 = true;
+                    if (_isCompleted == (true, true)) StartCoroutine(NextStepBuffer());
+                }
+                UIManager.Instance.GetCurrentUI("TPlayerBulletTimeSkillUI")?.UpdateUI(_isCompleted);
+            }
 
             base.TryActivateBulletTime();
         }

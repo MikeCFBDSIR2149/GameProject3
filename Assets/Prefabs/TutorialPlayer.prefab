@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 6835216494439621091}
   - component: {fileID: 6850187992675806197}
   - component: {fileID: 9135234848160596083}
-  - component: {fileID: 8765535849076225387}
+  - component: {fileID: 8216926489108900396}
   - component: {fileID: 8514242841801262915}
   - component: {fileID: 9137961191121664696}
   - component: {fileID: 4338246741107992499}
@@ -143,7 +143,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8765535849076225387
+--- !u!114 &8216926489108900396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,13 +152,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8284535474924839996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f51b75abe7789649b8bb39f351c6367, type: 3}
+  m_Script: {fileID: 11500000, guid: 236c7342c097048d48b281f66ba75761, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerGun
+  m_EditorClassIdentifier: Assembly-CSharp::Tutorial.TutorialPlayerGun
   inputController: {fileID: 1490091806887864891}
   cameraDetector: {fileID: 8987283102007461699}
   bulletPoolKey: PlayerBullet
   bulletSpeed: 3
+  director: {fileID: 0}
+  contextID: PlayerAttack
 --- !u!114 &8514242841801262915
 MonoBehaviour:
   m_ObjectHideFlags: 0

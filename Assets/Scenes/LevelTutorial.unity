@@ -5661,6 +5661,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8216926489108900396, guid: 5637ee5da2b18434bbf2e475f3f409cd, type: 3}
+      propertyPath: director
+      value: 
+      objectReference: {fileID: 1992671004}
     - target: {fileID: 8987283102007461699, guid: 5637ee5da2b18434bbf2e475f3f409cd, type: 3}
       propertyPath: Camera
       value: 
@@ -12611,7 +12615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1674946373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15001,7 +15005,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tutorial.TutorialDirector
   contextOrder:
   - PlayerMotor
+  - PlayerAttack
   - PlayerBulletTimeSkill
+  - PlayerAttackBack
 --- !u!4 &1992671005
 Transform:
   m_ObjectHideFlags: 0
