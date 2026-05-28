@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 241369497665660080}
   - component: {fileID: 5292533620165620759}
   - component: {fileID: 1800447084970689246}
+  - component: {fileID: 1613141230105581115}
   - component: {fileID: 8640133991071844081}
   - component: {fileID: 2184931393513638048}
   - component: {fileID: 3828470344084671792}
@@ -98,6 +99,25 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1613141230105581115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040245136191476402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0455bc308c8b54788ddb23964f1687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.ParriedBulletHitFlash
+  parriedBulletTag: ParriedBullet
+  renderersRoot: {fileID: 241369497665660080}
+  flashColor: {r: 1, g: 0.55, b: 0.55, a: 1}
+  flashDuration: 0.3
+  colorIntensity: 0.85
+  useEmissionFlash: 1
+  emissionIntensity: 2
 --- !u!135 &8640133991071844081
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -158,11 +178,6 @@ MonoBehaviour:
   patrolRadius: 5
   patrolWaitTime: 2
   canMove: 0
-  meleeHitbox: {fileID: 3102477846950832424}
-  meleeAttackDuration: 0.6
-  meleeSpinDegrees: 360
-  parryKnockbackDistance: 2
-  parryStunTime: 0.8
   meleeEnterDistance: 2
   meleeExitDistance: 5
   shootDistance: 8
@@ -172,7 +187,12 @@ MonoBehaviour:
   bulletSpeed: 10
   meleeWeaponObject: {fileID: 4223690461461507339}
   rangedWeaponObject: {fileID: 8777901874625178039}
+  meleeHitbox: {fileID: 3102477846950832424}
   meleeAttackInterval: 1.2
+  meleeAttackDuration: 0.6
+  meleeSpinDegrees: 360
+  parryKnockbackDistance: 2
+  parryStunTime: 0.8
 --- !u!114 &4679757752842218400
 MonoBehaviour:
   m_ObjectHideFlags: 0

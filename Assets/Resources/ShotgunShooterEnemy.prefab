@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2833582543435950256}
   - component: {fileID: 860910602288411413}
   - component: {fileID: 1757572440324224902}
+  - component: {fileID: 1872058831956423764}
   - component: {fileID: 1435030002385753436}
   - component: {fileID: 5316709883730346173}
   m_Layer: 0
@@ -138,6 +139,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1872058831956423764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102826843422094571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0455bc308c8b54788ddb23964f1687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.ParriedBulletHitFlash
+  parriedBulletTag: ParriedBullet
+  renderersRoot: {fileID: 3626671248167666100}
+  flashColor: {r: 1, g: 0.55, b: 0.55, a: 1}
+  flashDuration: 0.3
+  colorIntensity: 0.85
+  useEmissionFlash: 1
+  emissionIntensity: 2
 --- !u!114 &1435030002385753436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aba4db67e1d52b45b4801b141712465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.ShotgunShooterEnemy
+  destroyOnDeath: 0
   detectRange: 10
   patrolRadius: 5
   patrolWaitTime: 2

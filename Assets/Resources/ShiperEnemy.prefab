@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 308444848328584119}
   - component: {fileID: 5674824920285549461}
   - component: {fileID: 7700373700735403754}
+  - component: {fileID: 5616371322448843709}
   - component: {fileID: 6387910274035343670}
   - component: {fileID: 4028315026285010028}
   - component: {fileID: -3840727948029883128}
@@ -148,6 +149,25 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5616371322448843709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656163645207786766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0455bc308c8b54788ddb23964f1687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.ParriedBulletHitFlash
+  parriedBulletTag: ParriedBullet
+  renderersRoot: {fileID: 5769652512950072730}
+  flashColor: {r: 1, g: 0.55, b: 0.55, a: 1}
+  flashDuration: 0.3
+  colorIntensity: 0.85
+  useEmissionFlash: 1
+  emissionIntensity: 2
 --- !u!195 &6387910274035343670
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -182,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d079aedb49191734899f3384ac24ba84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.SniperEnemy
+  destroyOnDeath: 0
   detectRange: 10
   patrolRadius: 5
   patrolWaitTime: 2

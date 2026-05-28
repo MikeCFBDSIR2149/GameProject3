@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3468111711924273172}
   - component: {fileID: 7312622967660440322}
   - component: {fileID: 7093747368439873311}
+  - component: {fileID: 3326218456240614705}
   - component: {fileID: 1028310999144250070}
   - component: {fileID: 4355994062344870291}
   - component: {fileID: 7889389278874034892}
@@ -54,7 +55,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254477405537947299}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -71,7 +72,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7223ead8721b2f34caa86732e80bc8c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,6 +96,25 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3326218456240614705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254477405537947299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0455bc308c8b54788ddb23964f1687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.ParriedBulletHitFlash
+  parriedBulletTag: ParriedBullet
+  renderersRoot: {fileID: 3468111711924273172}
+  flashColor: {r: 1, g: 0.55, b: 0.55, a: 1}
+  flashDuration: 0.3
+  colorIntensity: 0.85
+  useEmissionFlash: 1
+  emissionIntensity: 2
 --- !u!135 &1028310999144250070
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -150,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3c5cb7617c87b4d83b03d14f9da2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.ShooterEnemy
+  destroyOnDeath: 0
   detectRange: 15
   patrolRadius: 5
   patrolWaitTime: 2

@@ -8779,6 +8779,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
       value: -431.285
@@ -19273,6 +19277,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1613141230105581115, guid: 1402246e1138b2d489279fba3474edd2, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4040245136191476402, guid: 1402246e1138b2d489279fba3474edd2, type: 3}
       propertyPath: m_Name
       value: HybridEnemy
@@ -20723,17 +20731,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy (8)
       objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20774,30 +20774,6 @@ PrefabInstance:
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7093747368439873311, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d4c4e02bcae041c49a43b2f7a048cbec, type: 2}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: canMove
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: detectRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootDistance
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootInterval
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21403,17 +21379,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21454,30 +21422,6 @@ PrefabInstance:
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7093747368439873311, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d4c4e02bcae041c49a43b2f7a048cbec, type: 2}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: canMove
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: detectRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootDistance
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootInterval
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23632,17 +23576,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23683,22 +23619,6 @@ PrefabInstance:
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: detectRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootDistance
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootInterval
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29059,17 +28979,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29110,22 +29022,6 @@ PrefabInstance:
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: detectRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootDistance
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootInterval
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30034,17 +29930,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30085,30 +29973,6 @@ PrefabInstance:
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7093747368439873311, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d4c4e02bcae041c49a43b2f7a048cbec, type: 2}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: canMove
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: detectRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootDistance
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootInterval
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38734,17 +38598,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38785,22 +38641,6 @@ PrefabInstance:
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: detectRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootDistance
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootInterval
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39519,17 +39359,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1752601365 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4528453008131985975, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-  m_PrefabInstance: {fileID: 1888356450}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1759458053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41196,22 +41025,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 761706871}
     m_Modifications:
-    - target: {fileID: 779382882554473935, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 779382882554473935, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 779382882554473935, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1184120784615761189, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 77.6
-      objectReference: {fileID: 0}
     - target: {fileID: 2377880412435887772, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
       propertyPath: m_Name
       value: HealthUI
@@ -41296,14 +41109,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4377468285218113397, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 6981313912850023898, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7868713634860777264, guid: c592f7ae32cbdee47b0b3f79df820107, type: 3}
-      propertyPath: healthText
-      value: 
-      objectReference: {fileID: 1752601365}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41843,17 +41652,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
@@ -41894,22 +41695,6 @@ PrefabInstance:
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: detectRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootDistance
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootInterval
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -47364,17 +47149,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47416,22 +47193,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: detectRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6580481515957927727, guid: 010312c4e65afbd499d6e68012e37316, type: 3}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootDistance
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7889389278874034892, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: shootInterval
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -47445,6 +47206,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 868560458}
     m_Modifications:
+    - target: {fileID: 5616371322448843709, guid: 23cc928223118b746953f34330f01256, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5656163645207786766, guid: 23cc928223118b746953f34330f01256, type: 3}
       propertyPath: m_Name
       value: ShiperEnemy
@@ -47502,6 +47267,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 868560458}
     m_Modifications:
+    - target: {fileID: 1872058831956423764, guid: bf014cfe54023e54ca76681f91d68ab0, type: 3}
+      propertyPath: flashDuration
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 2102826843422094571, guid: bf014cfe54023e54ca76681f91d68ab0, type: 3}
       propertyPath: m_Name
       value: ShotgunShooterEnemy
