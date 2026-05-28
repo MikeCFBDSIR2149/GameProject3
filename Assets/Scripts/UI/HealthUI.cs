@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Globalization;
 using CharacterUniversal;
 using TMPro;
@@ -9,7 +8,7 @@ namespace UI
 {
     /// <summary>
     /// 滑动条血量UI（上限可为100或任意值）：
-    /// - 开局自动寻找 Player，并从 Player 物体上读取 Health
+    /// - 通过 GameplayManager 提供的 Player 引用绑定 Health
     /// - 订阅 Health.OnHealthChanged 实时更新
     /// - 不依赖外部“手动传值”
     /// </summary>
@@ -24,8 +23,9 @@ namespace UI
         [SerializeField] private bool showAsInt = true;
 
         // runtime
+        private GameplayManager _gameplayManager;
+        private Player.Player _boundPlayer;
         private Health _playerHealth;
-        private Coroutine _bindCoroutine;
 
         private float _current;
         private float _max = 100f;
@@ -48,18 +48,19 @@ namespace UI
         {
             base.OnShow(data);
 
-            // 每次显示都确保绑定（如果之前没绑定上）
-            EnsureBindToPlayerHealth();
+            SubscribeToGameplayManager();
+            BindToCurrentPlayer();
         }
 
         private void OnEnable()
         {
-            // 某些UI系统可能只 SetActive，这里也补一层绑定
-            EnsureBindToPlayerHealth();
+            SubscribeToGameplayManager();
+            BindToCurrentPlayer();
         }
 
         private void OnDisable()
         {
+            UnsubscribeFromGameplayManager();
             Unbind();
         }
 
@@ -89,65 +90,67 @@ namespace UI
             {
                 showNumbers = hd.showNumbers;
                 SetHealth(hd.currentHealth, hd.maxHealth);
+            }
+        }
+
+        private void SubscribeToGameplayManager()
+        {
+            var gameplayManager = GameplayManager.Instance;
+            if (_gameplayManager == gameplayManager)
                 return;
-            }
-        }
 
-        private void EnsureBindToPlayerHealth()
-        {
-            // 已绑定就不重复
-            if (_playerHealth != null) return;
+            UnsubscribeFromGameplayManager();
+            _gameplayManager = gameplayManager;
 
-            // 若已有协程在跑就不重复开
-            if (_bindCoroutine == null)
-                _bindCoroutine = StartCoroutine(BindWhenPlayerReady());
-        }
-
-        private IEnumerator BindWhenPlayerReady()
-        {
-            // 反复等待直到能拿到 Player，并从 Player 身上 GetComponent<Health>()
-            while (_playerHealth == null)
+            if (_gameplayManager != null)
             {
-                // 优先走 GameplayManager 注册的 Player（它在 Player.Awake 注册）
-                var player = GameplayManager.Instance != null ? GameplayManager.Instance.Player : null;
-
-                // 如果 GameplayManager 还没拿到，也可以用 Find（作为兜底）
-                if (player == null)
-                    player = FindFirstObjectByType<Player.Player>();
-
-                if (player != null)
-                {
-                    // 关键：直接从“玩家物体”上取 Health（你要求的点）
-                    _playerHealth = player.GetComponent<Health>();
-                    if (_playerHealth != null)
-                    {
-                        _playerHealth.OnHealthChanged += HandlePlayerHealthChanged;
-
-                        // 立刻刷新一次，保证开局有值
-                        HandlePlayerHealthChanged(_playerHealth.CurrentHealth, _playerHealth.MaxHealth);
-                        break;
-                    }
-                }
-
-                yield return null; // 下一帧再试
+                _gameplayManager.OnPlayerChanged += HandlePlayerChanged;
             }
+        }
 
-            _bindCoroutine = null;
+        private void UnsubscribeFromGameplayManager()
+        {
+            if (_gameplayManager != null)
+            {
+                _gameplayManager.OnPlayerChanged -= HandlePlayerChanged;
+                _gameplayManager = null;
+            }
+        }
+
+        private void BindToCurrentPlayer()
+        {
+            var player = _gameplayManager != null ? _gameplayManager.Player : null;
+            HandlePlayerChanged(player);
+        }
+
+        private void HandlePlayerChanged(Player.Player player)
+        {
+            if (_boundPlayer == player && _playerHealth != null)
+                return;
+
+            Unbind();
+
+            _boundPlayer = player;
+            if (_boundPlayer == null)
+                return;
+
+            _playerHealth = _boundPlayer.GetComponent<Health>();
+            if (_playerHealth == null)
+                return;
+
+            _playerHealth.OnHealthChanged += HandlePlayerHealthChanged;
+            HandlePlayerHealthChanged(_playerHealth.CurrentHealth, _playerHealth.MaxHealth);
         }
 
         private void Unbind()
         {
-            if (_bindCoroutine != null)
-            {
-                StopCoroutine(_bindCoroutine);
-                _bindCoroutine = null;
-            }
-
             if (_playerHealth != null)
             {
                 _playerHealth.OnHealthChanged -= HandlePlayerHealthChanged;
                 _playerHealth = null;
             }
+
+            _boundPlayer = null;
         }
 
         private void HandlePlayerHealthChanged(float current, float max)

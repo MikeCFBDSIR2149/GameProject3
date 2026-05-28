@@ -84,7 +84,9 @@ namespace Player
             }
         }
 
-        private void FixedUpdate()
+        // 将 FixedUpdate 标记为 protected virtual，允许子类（例如教程版本）在必要时覆写运动逻辑。
+        // 注意：不改变现有行为，仅放宽访问修饰以支持继承扩展。
+        protected virtual void FixedUpdate()
         {
             // 暂停时不旋转且清空 lookDelta，防止累积
             if (isPaused)

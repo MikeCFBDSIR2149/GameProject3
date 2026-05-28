@@ -1,75 +1,47 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class UIManager : MonoSingleton<UIManager>
     {
-        
-        private Dictionary<string, UIBase> uiDictionary = new Dictionary<string, UIBase>();
-        private Dictionary<string, GameObject> uiPrefabDictionary = new Dictionary<string, GameObject>();
-        
-        private Canvas mainCanvas;
-        public HealthUI healthUI;
+        private readonly Dictionary<string, UIBase> _uiDictionary = new Dictionary<string, UIBase>();
+        private readonly Dictionary<string, GameObject> _uiPrefabDictionary = new Dictionary<string, GameObject>();
+
+        private Canvas _mainCanvas;
         
         protected override void Awake()
         {
             base.Awake();
             Initialize();
         }
-        //调用血量UI变化
-        public void SetPlayerHealth(float current, float max)
-        {
-            if (healthUI != null)
-                healthUI.SetHealth(current, max);
-        }
-
-        // 示例角色血量变化时
-        // UIManager.Instance.SetPlayerHealth(newHealthValue);
         private void Initialize()
         {
-            
             // 确保Canvas存在
             EnsureCanvas();
-            
-            // Debug.Log($"UIManager初始化完成，已加载 {uiPrefabDictionary.Count} 个UI预制体");
-        }
-        
-        private void RegisterUIPrefab(string uiName, GameObject prefab)
-        {
-            if (prefab != null)
-            {
-                uiPrefabDictionary[uiName] = prefab;
-            }
         }
         
         // 显示UI（增强版）
         public UIBase ShowUI(string uiName, object data = null, bool asRootCanvas = false)
         {
             Debug.Log($"尝试显示UI: {uiName}");
-            
-            
+
             // 如果UI已经存在，直接显示
-            if (uiDictionary.TryGetValue(uiName, out UIBase existingUI))
+            if (_uiDictionary.TryGetValue(uiName, out UIBase existingUI))
             {
                 existingUI.OnShow(data);
-                
-                // existing UI: simply show it
-                
                 return existingUI;
             }
-            
+
             // 动态创建UI
             return CreateUI(uiName, data, asRootCanvas);
         }
         
         private UIBase CreateUI(string uiName, object data = null, bool asRootCanvas = false)
         {
-            if (!uiPrefabDictionary.TryGetValue(uiName, out GameObject prefab))
+            if (!_uiPrefabDictionary.TryGetValue(uiName, out GameObject prefab))
             {
-               
                 // 尝试从 Resources 里加载：约定路径为 "UI/<uiName>"
                 prefab = Resources.Load<GameObject>($"UI/{uiName}");
                 if (prefab == null)
@@ -78,9 +50,9 @@ namespace UI
                     return null;
                 }
                 // 缓存起来，避免下次重复加载
-                uiPrefabDictionary[uiName] = prefab;
+                _uiPrefabDictionary[uiName] = prefab;
             }
-            
+
             // 确保有Canvas
             EnsureCanvas();
             GameObject uiObj;
@@ -92,33 +64,31 @@ namespace UI
             else
             {
                 // 默认作为mainCanvas子物体
-                uiObj = Instantiate(prefab, mainCanvas.transform);
+                uiObj = Instantiate(prefab, _mainCanvas.transform);
             }
             UIBase ui = uiObj.GetComponent<UIBase>();
-            
+
             if (ui == null)
             {
                 Debug.LogError($"UI预制体没有UIBase组件: {uiName}");
                 Destroy(uiObj);
                 return null;
             }
-            
+
             // 注册UI
-            uiDictionary[uiName] = ui;
-            
+            _uiDictionary[uiName] = ui;
+
             // 初始化并显示
             ui.OnInit();
             ui.OnShow(data);
-            
-            // created UI: initialized and shown
-            
+
             Debug.Log($"成功创建UI: {uiName}");
             return ui;
         }
         public UIBase CreateUIInstance(string uiName, object data = null, Transform parent = null, bool asRootCanvas = false)
         {
             // 1. 从缓存字典或 Resources 里拿到 prefab
-            if (!uiPrefabDictionary.TryGetValue(uiName, out GameObject prefab) || prefab == null)
+            if (!_uiPrefabDictionary.TryGetValue(uiName, out GameObject prefab) || prefab == null)
             {
                 prefab = Resources.Load<GameObject>($"UI/{uiName}");
                 if (prefab == null)
@@ -126,12 +96,12 @@ namespace UI
                     Debug.LogError($"[UIManager] 未在Resources/UI下找到 {uiName} 预制体");
                     return null;
                 }
-                uiPrefabDictionary[uiName] = prefab;
+                _uiPrefabDictionary[uiName] = prefab;
             }
 
             // 2. 确保Canvas，或者允许传入自定义 parent
             EnsureCanvas();
-            Transform targetParent = parent != null ? parent : mainCanvas.transform;
+            Transform targetParent = parent != null ? parent : _mainCanvas.transform;
             GameObject uiObj;
             if (asRootCanvas && prefab.GetComponent<Canvas>() != null)
             {
@@ -158,11 +128,9 @@ namespace UI
         // 隐藏UI
         public void HideUI(string uiName)
         {
-            if (uiDictionary.TryGetValue(uiName, out UIBase ui))
+            if (_uiDictionary.TryGetValue(uiName, out UIBase ui))
             {
                 ui.OnHide();
-                
-                // simply hide the UI
             }
         }
         
@@ -170,10 +138,10 @@ namespace UI
         public void HideAllMenus()
         {
             // Hide all UI entries that are currently tracked
-            List<string> toHide = new List<string>(uiDictionary.Keys);
-            foreach (var name in toHide)
+            List<string> toHide = new List<string>(_uiDictionary.Keys);
+            foreach (var uiName in toHide)
             {
-                HideUI(name);
+                HideUI(uiName);
             }
             Debug.Log("隐藏所有UI");
         }
@@ -193,19 +161,15 @@ namespace UI
         // 获取当前顶层菜单
         public UIBase GetCurrentUI(string uiName)
         {
-            if (uiDictionary.TryGetValue(uiName, out UIBase ui))
-            {
-                return ui;
-            }
-            return null;
+            return _uiDictionary.GetValueOrDefault(uiName);
         }
         
         private void EnsureCanvas()
         {
-            if (mainCanvas == null)
+            if (_mainCanvas == null)
             {
-                mainCanvas = FindFirstObjectByType<Canvas>();
-                if (mainCanvas == null)
+                _mainCanvas = FindFirstObjectByType<Canvas>();
+                if (_mainCanvas == null)
                 {
                     CreateCanvas();
                 }
@@ -215,18 +179,18 @@ namespace UI
         private void CreateCanvas()
         {
             GameObject canvasObj = new GameObject("MainCanvas");
-            mainCanvas = canvasObj.AddComponent<Canvas>();
-            mainCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            _mainCanvas = canvasObj.AddComponent<Canvas>();
+            _mainCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvasObj.AddComponent<CanvasScaler>();
             canvasObj.AddComponent<GraphicRaycaster>();
-            
+
             Debug.Log("创建了新的Canvas");
         }
         
         // 获取UI实例
         public T GetUI<T>(string uiName) where T : UIBase
         {
-            if (uiDictionary.TryGetValue(uiName, out UIBase ui))
+            if (_uiDictionary.TryGetValue(uiName, out UIBase ui))
             {
                 return ui as T;
             }
@@ -236,11 +200,11 @@ namespace UI
         // 销毁UI
         public void DestroyUI(string uiName)
         {
-            if (uiDictionary.TryGetValue(uiName, out UIBase ui))
+            if (_uiDictionary.TryGetValue(uiName, out UIBase ui))
             {
                 ui.OnHide();
                 Destroy(ui.gameObject);
-                uiDictionary.Remove(uiName);
+                _uiDictionary.Remove(uiName);
                 Debug.Log($"销毁UI: {uiName}");
             }
         }
@@ -250,7 +214,7 @@ namespace UI
 
             // 如果是通过 ShowUI 创建的单例 UI，还需要从 uiDictionary 里移除
             string keyToRemove = null;
-            foreach (var kv in uiDictionary)
+            foreach (var kv in _uiDictionary)
             {
                 if (kv.Value == ui)
                 {
@@ -260,7 +224,7 @@ namespace UI
             }
             if (keyToRemove != null)
             {
-                uiDictionary.Remove(keyToRemove);
+                _uiDictionary.Remove(keyToRemove);
             }
 
             ui.OnHide();
@@ -273,10 +237,10 @@ namespace UI
         public void ClearAllCachedUI()
         {
             // 隐藏所有 UI
-            List<string> toHide = new List<string>(uiDictionary.Keys);
-            foreach (var name in toHide)
+            List<string> toHide = new List<string>(_uiDictionary.Keys);
+            foreach (var uiName in toHide)
             {
-                if (uiDictionary.TryGetValue(name, out var ui))
+                if (_uiDictionary.TryGetValue(uiName, out var ui))
                 {
                     try
                     {
@@ -284,14 +248,14 @@ namespace UI
                     }
                     catch (System.Exception e)
                     {
-                        Debug.LogWarning($"[UIManager] Error hiding UI {name}: {e}");
+                        Debug.LogWarning($"[UIManager] Error hiding UI {uiName}: {e}");
                     }
                 }
             }
             
             // 清空字典
-            uiDictionary.Clear();
-            uiPrefabDictionary.Clear();
+            _uiDictionary.Clear();
+            _uiPrefabDictionary.Clear();
             
             Debug.Log("[UIManager] Cleared all cached UI references");
         }

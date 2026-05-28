@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55556f74b966c4cecba536752a548b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBulletTimeSkill
-  bulletTimeDuration: 5
+  bulletTimeDuration: 8
   inputController: {fileID: 1490091806887864891}
 --- !u!114 &5569616931202969223
 MonoBehaviour:
@@ -384,7 +384,7 @@ Rigidbody:
   m_GameObject: {fileID: 9184655428823888042}
   serializedVersion: 5
   m_Mass: 0.001
-  m_LinearDamping: 0.5
+  m_LinearDamping: 1
   m_AngularDamping: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

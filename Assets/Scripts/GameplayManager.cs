@@ -13,12 +13,24 @@ public class GameplayManager : MonoSingleton<GameplayManager>
 {
     private TimeScaleController _timeScaleController;
     private EnergyController _energyController;
+    private Player.Player _player;
 
     public EGameplayStatus Status { get; private set; } = EGameplayStatus.Default;
     public EGameplayStatus PreviousStatus { get; private set; } = EGameplayStatus.Default;
     public event Action<EGameplayStatus> OnStatusChanged;
-    
-    public Player.Player Player { get; set; }
+    public event Action<Player.Player> OnPlayerChanged;
+
+    public Player.Player Player
+    {
+        get => _player;
+        set
+        {
+            if (_player == value) return;
+
+            _player = value;
+            OnPlayerChanged?.Invoke(_player);
+        }
+    }
 
     [Header("Time Scale Settings")]
     private const float DefaultTimeScale = 5f;
@@ -108,6 +120,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
 
     private void HandleBeforeSceneLoad()
     {
+        Player = null;
         SetGameplayStatus(EGameplayStatus.Default, true);
     }
 }

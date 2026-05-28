@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -8,9 +7,9 @@ namespace UI
 {
     /// <summary>
     /// 能量UI（滑动条）：
-    /// - 自动绑定 Player 身上的 Player.BulletTimeEnergy
-    /// - 监听 UIEventManager "OnEnergyChanged"（兼容事件推送）
-    /// - UI 即使晚创建也会主动拉取一次当前能量，避免“开局没值/不更新”
+    /// - 通过 GameplayManager 提供的 Player 引用绑定 BulletTimeEnergy
+    /// - 监听 BulletTimeEnergy 实时更新
+    /// - 不依赖外部"手动传值"
     /// </summary>
     public class EnergyUI : UIBase
     {
@@ -23,8 +22,9 @@ namespace UI
         [SerializeField] private bool showAsInt = true;
 
         // runtime
+        private GameplayManager _gameplayManager;
+        private Player.Player _boundPlayer;
         private Player.BulletTimeEnergy _energy;
-        private Coroutine _bindCoroutine;
 
         private float _current;
         private float _max = 100f;
@@ -46,27 +46,26 @@ namespace UI
         public override void OnShow(object data = null)
         {
             base.OnShow(data);
-            EnsureBindToEnergy();
+
+            SubscribeToGameplayManager();
+            BindToCurrentPlayer();
         }
 
         private void OnEnable()
         {
-            // 监听事件（BulletTimeEnergy 每次变化会 TriggerEvent）
-            UIEventManager.AddListener("OnEnergyChanged", UpdateUI);
-
-            // 绑定并立刻拉一次当前值（解决“UI没变化/开局没值”）
-            EnsureBindToEnergy();
+            SubscribeToGameplayManager();
+            BindToCurrentPlayer();
         }
 
         private void OnDisable()
         {
-            UIEventManager.RemoveListener("OnEnergyChanged", UpdateUI);
+            UnsubscribeFromGameplayManager();
             Unbind();
         }
 
         public override void UpdateUI(object data)
         {
-            // 兼容事件推送：OnEnergyChanged 传入 float
+            // 兼容事件推送：传入 float 或 Vector2(current,max)
             if (data is float f)
             {
                 SetEnergy(f, _max);
@@ -79,7 +78,6 @@ namespace UI
                 return;
             }
 
-            // 也兼容 Vector2(current,max)（如果你以后想推 max）
             if (data is Vector2 v2)
             {
                 SetEnergy(v2.x, Mathf.Max(1f, v2.y));
@@ -87,58 +85,59 @@ namespace UI
             }
         }
 
-        private void EnsureBindToEnergy()
+        private void SubscribeToGameplayManager()
         {
-            if (_energy != null) return;
+            var gameplayManager = GameplayManager.Instance;
+            if (_gameplayManager == gameplayManager)
+                return;
 
-            if (_bindCoroutine == null)
-                _bindCoroutine = StartCoroutine(BindWhenReady());
+            UnsubscribeFromGameplayManager();
+            _gameplayManager = gameplayManager;
+
+            if (_gameplayManager != null)
+            {
+                _gameplayManager.OnPlayerChanged += HandlePlayerChanged;
+            }
         }
 
-        private IEnumerator BindWhenReady()
+        private void UnsubscribeFromGameplayManager()
         {
-            while (_energy == null)
+            if (_gameplayManager != null)
             {
-                // 优先从 GameplayManager 的 Player 拿（如果它已注册）
-                var player = GameplayManager.Instance != null ? GameplayManager.Instance.Player : null;
-
-                // 兜底：场景里找 Player.Player
-                if (player == null)
-                    player = FindFirstObjectByType<Player.Player>();
-
-                if (player != null)
-                {
-                    // 关键：从“玩家物体”上取 BulletTimeEnergy
-                    _energy = player.GetComponent<Player.BulletTimeEnergy>();
-                    if (_energy != null)
-                    {
-                        // 立刻拉取一次，保证 UI 立即刷新
-                        SetEnergy(_energy.CurrentEnergy, _energy.MaxEnergy);
-                        break;
-                    }
-                }
-
-                yield return null;
+                _gameplayManager.OnPlayerChanged -= HandlePlayerChanged;
+                _gameplayManager = null;
             }
+        }
 
-            _bindCoroutine = null;
+        private void BindToCurrentPlayer()
+        {
+            var player = _gameplayManager != null ? _gameplayManager.Player : null;
+            HandlePlayerChanged(player);
+        }
+
+        private void HandlePlayerChanged(Player.Player player)
+        {
+            if (_boundPlayer == player && _energy != null)
+                return;
+
+            Unbind();
+
+            _boundPlayer = player;
+            if (_boundPlayer == null)
+                return;
+
+            _energy = _boundPlayer.GetComponent<Player.BulletTimeEnergy>();
+            if (_energy == null)
+                return;
+
+            // 立刻拉取一次，保证 UI 立即刷新
+            SetEnergy(_energy.CurrentEnergy, _energy.MaxEnergy);
         }
 
         private void Unbind()
         {
-            if (_bindCoroutine != null)
-            {
-                StopCoroutine(_bindCoroutine);
-                _bindCoroutine = null;
-            }
-
             _energy = null;
-        }
-
-        // 对外（可选）初始化接口：如果你想在创建UI时手动喂值也可以用
-        public void Init(float max, float current)
-        {
-            SetEnergy(current, max);
+            _boundPlayer = null;
         }
 
         public void SetEnergy(float current, float max)
