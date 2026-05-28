@@ -2,7 +2,7 @@ namespace UI.Menu
 {
     public class PauseMenu : UIBase
     {
-        public override void UpdateUI(object data)
+        protected override void UpdateUI(object data)
         {
         
         }

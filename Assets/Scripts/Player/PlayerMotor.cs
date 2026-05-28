@@ -19,7 +19,7 @@ namespace Player
         [SerializeField] private bool _isGrounded;
         private bool isPaused;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
             SyncFromOptions();
@@ -63,7 +63,7 @@ namespace Player
             }
         }
 
-        private void SetMoveInput(Vector2 input)
+        protected virtual void SetMoveInput(Vector2 input)
         {
             _moveInput = input;
         }

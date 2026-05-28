@@ -4,52 +4,87 @@ using UnityEngine;
 namespace Tutorial
 {
     // 场景中的教程控制器（不要使用单例）
-    // 在 Inspector 中按顺序将实现了 ITutorialContext 的组件拖入 `tutorialSteps` 列表
+    // 各个 ITutorialContext 实现在自己的 Awake 时调用 RegisterContext 注册
+    // 在 Inspector 中指定教程步骤的执行顺序（按 ContextID）
     public class TutorialDirector : MonoBehaviour
     {
-        [Tooltip("在 Inspector 中按顺序拖入实现了 ITutorialContext 的组件（使用 Component 类型，因为 Inspector 不支持接口列表）")]
-        [SerializeField] private List<MonoBehaviour> tutorialSteps = new List<MonoBehaviour>();
+        [Tooltip("教程步骤的执行顺序（按 ContextID 填写，如 \"Movement\", \"Attack\", \"Dodge\"）")]
+        [SerializeField] private List<string> contextOrder = new List<string>();
 
-        // 运行时转换后的接口列表
-        private readonly List<ITutorialContext> _contexts = new List<ITutorialContext>();
+        // 存储已注册的所有 Context（key 为 ContextID）
+        private readonly Dictionary<string, ITutorialContext> _registeredContexts = new Dictionary<string, ITutorialContext>();
+        
         private int _currentIndex = -1;
 
-        private void Awake()
+        // 允许 Context 在自己的 Awake 时注册到 Director
+        public void RegisterContext(ITutorialContext context)
         {
-            // 手动转换并忽略不匹配的条目（避免依赖 LINQ）
-            _contexts.Clear();
-            foreach (var mb in tutorialSteps)
+            if (context == null)
             {
-                if (mb is ITutorialContext ctx)
-                {
-                    _contexts.Add(ctx);
-                    // 将自身注入到每个 Context，使其可以在需要时回调或推进教程
-                    ctx.SetDirector(this);
-                }
+                Debug.LogError("[TutorialDirector] 尝试注册 null context");
+                return;
             }
+
+            _registeredContexts[context.ContextID] = context;
+        }
+
+        private void Start()
+        {
+            StartTutorial();
+        }
+
+        // 根据 contextOrder 中的索引获取对应的 Context（如果已注册则返回，否则返回 null）
+        private ITutorialContext GetContextByIndex(int index)
+        {
+            if (index < 0 || index >= contextOrder.Count)
+                return null;
+
+            var contextID = contextOrder[index];
+            if (_registeredContexts.TryGetValue(contextID, out var ctx))
+            {
+                return ctx;
+            }
+
+            Debug.LogWarning($"[TutorialDirector] 找不到已注册的 ContextID 为 '{contextID}' 的教程步骤");
+            return null;
         }
 
         // 启动教程，从第 0 步开始
-        public void StartTutorial()
+        private void StartTutorial()
         {
-            if (_contexts.Count == 0) return;
+            if (contextOrder.Count == 0)
+            {
+                Debug.LogWarning("[TutorialDirector] No context order configured");
+                return;
+            }
+
             _currentIndex = 0;
-            _contexts[_currentIndex].Enter();
+            var context = GetContextByIndex(_currentIndex);
+            if (context != null)
+            {
+                context.Enter();
+                Debug.Log($"[TutorialDirector] Tutorial started.");
+            }
         }
 
         // 推进到下一步：调用当前的 Exit，然后进入下一步的 Enter
         public void NextStep()
         {
-            if (_currentIndex < 0 || _currentIndex >= _contexts.Count) return;
+            if (_currentIndex < 0) return;
 
-            _contexts[_currentIndex].Exit();
+            var currentContext = GetContextByIndex(_currentIndex);
+            if (currentContext != null)
+            {
+                currentContext.Exit();
+            }
 
             _currentIndex++;
-            if (_currentIndex < _contexts.Count)
+            var nextContext = GetContextByIndex(_currentIndex);
+            if (nextContext != null)
             {
-                _contexts[_currentIndex].Enter();
+                nextContext.Enter();
             }
-            else
+            else if (_currentIndex >= contextOrder.Count)
             {
                 // 教程结束（可选行为）
                 Debug.Log("Tutorial finished.");
@@ -59,9 +94,10 @@ namespace Tutorial
         // 可用于重置或重新开始
         public void ResetTutorial()
         {
-            if (_currentIndex >= 0 && _currentIndex < _contexts.Count)
+            var currentContext = GetContextByIndex(_currentIndex);
+            if (currentContext != null)
             {
-                _contexts[_currentIndex].Exit();
+                currentContext.Exit();
             }
             _currentIndex = -1;
         }

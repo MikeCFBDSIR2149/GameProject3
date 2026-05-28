@@ -73,7 +73,7 @@ namespace UI
             Unbind();
         }
 
-        public override void UpdateUI(object data)
+        protected override void UpdateUI(object data)
         {
             // 事件推送过来的是 currentEnergy(float)
             if (data is float f)

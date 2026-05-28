@@ -20,7 +20,7 @@ namespace UI
         // 缓存最后一次启动的数据，避免“暂停恢复/重启”时数据丢字段
         private CountdownData _lastData;
 
-        public override void UpdateUI(object data)
+        protected override void UpdateUI(object data)
         {
             if (data is CountdownData countdownData)
             {

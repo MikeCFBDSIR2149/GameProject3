@@ -14,11 +14,11 @@ namespace Player
         [Header("Energy")]
         public BulletTimeEnergy energy;         // 新增：拖拽同物体上的 BulletTimeEnergy
 
-        private bool _isBulletTimeActive;
-        private Coroutine _bulletTimeCoroutine;
-        private bool _isPaused;
+        protected bool _isBulletTimeActive;
+        protected Coroutine _bulletTimeCoroutine;
+        protected bool _isPaused;
 
-        private void OnEnable()
+        protected void OnEnable()
         {
             if (inputController != null)
                 inputController.OnBulletTimeSkillInputChanged += TryActivateBulletTime;
@@ -30,7 +30,7 @@ namespace Player
                 energy.OnDepleted += HandleEnergyDepleted;
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
             if (inputController != null)
                 inputController.OnBulletTimeSkillInputChanged -= TryActivateBulletTime;
@@ -66,7 +66,7 @@ namespace Player
             }
         }
 
-        private void TryActivateBulletTime()
+        protected virtual void TryActivateBulletTime()
         {
             if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
                 return;
@@ -90,7 +90,7 @@ namespace Player
             _bulletTimeCoroutine = StartCoroutine(BulletTimeRoutine());
         }
 
-        private IEnumerator BulletTimeRoutine()
+        protected IEnumerator BulletTimeRoutine()
         {
             _isBulletTimeActive = true;
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.BulletTime);
@@ -121,7 +121,7 @@ namespace Player
             _bulletTimeCoroutine = null;
         }
 
-        private void AbortBulletTime()
+        protected void AbortBulletTime()
         {
             if (_bulletTimeCoroutine != null)
             {

@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace UI
 {
-    public abstract class UIBase : MonoBehaviour
+    public class UIBase : MonoBehaviour
     {
         [Header("UI基本信息")]
         [SerializeField] protected string uiName;
-        [SerializeField] protected bool isPersistent = false; // 是否持久化
+        [SerializeField] protected bool isPersistent; // 是否持久化
     
         public string UIName => uiName;
     
@@ -26,8 +26,11 @@ namespace UI
         public virtual void OnUpdate() { }
     
         // 更新UI数据
-        public abstract void UpdateUI(object data);
-    
+        protected virtual void UpdateUI(object data)
+        {
+            // throw new System.NotImplementedException();
+        }
+
         // 查找UI组件
         protected T FindComponent<T>(string path) where T : Component
         {

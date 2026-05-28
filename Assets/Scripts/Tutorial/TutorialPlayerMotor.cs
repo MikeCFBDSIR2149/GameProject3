@@ -1,63 +1,42 @@
 using UnityEngine;
 using Player;
+using UI;
 
 namespace Tutorial
 {
     public class TutorialPlayerMotor : PlayerMotor, ITutorialContext
     {
-        private TutorialDirector _tutorialDirector;
-
+        public TutorialDirector Director => director;
+        [SerializeField] private TutorialDirector director;
+        public string ContextID => contextID;
+        [SerializeField] private string contextID = "PlayerMotor";
+        
         private bool _isFeatureUnlocked;
 
-        private bool _isTutorialActive;
+        protected override void Awake()
+        {
+            director?.RegisterContext(this);
+            base.Awake();
+        }
 
-        // ITutorialContext 标识
-        [SerializeField] private string _contextID = "PlayerMotor";
-        public string ContextID => _contextID;
-
-        // 当步骤开始时调用：同时解锁功能并标记步骤激活
         public void Enter()
         {
             _isFeatureUnlocked = true;
-            _isTutorialActive = true;
+            UIManager.Instance.ShowUI("TPlayerMotorUI");
         }
 
-        // 当步骤结束时调用：保持功能解锁，但标记步骤不再激活
         public void Exit()
         {
-            _isTutorialActive = false;
+            UIManager.Instance.HideUI("TPlayerMotorUI");
         }
 
-        // 从 TutorialDirector 注入引用（由 TutorialDirector 在初始化时调用）
-        public void SetDirector(TutorialDirector director)
+        protected override void SetMoveInput(Vector2 input)
         {
-            _tutorialDirector = director;
-        }
-
-        // 重写 FixedUpdate：按照提示要求实现拦截逻辑，并保持与基类 FixedUpdate 的调用关系
-        protected override void FixedUpdate()
-        {
-            if (!_isFeatureUnlocked)
+            if (input != Vector2.zero)
             {
-                // 功能未解锁，拦截行为
-                return;
+                Director.NextStep();
             }
-
-            // 执行基类的 FixedUpdate 中的移动逻辑
-            base.FixedUpdate();
-
-            // 在教程进行时，检查 WASD 是否被按下（任意一个键）
-            if (_isTutorialActive)
-            {
-                if (Input.GetKeyDown(KeyCode.W) ||
-                    Input.GetKeyDown(KeyCode.A) ||
-                    Input.GetKeyDown(KeyCode.S) ||
-                    Input.GetKeyDown(KeyCode.D))
-                {
-                    // 使用注入的 Director 引用推进到下一步骤
-                    _tutorialDirector?.NextStep();
-                }
-            }
+            base.SetMoveInput(input);
         }
     }
 }
