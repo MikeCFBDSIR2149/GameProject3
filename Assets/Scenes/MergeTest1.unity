@@ -47149,10 +47149,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShooterEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 3326218456240614705, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
-      propertyPath: flashDuration
-      value: 0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 3468111711924273172, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
       propertyPath: m_LocalPosition.x
       value: -440.325

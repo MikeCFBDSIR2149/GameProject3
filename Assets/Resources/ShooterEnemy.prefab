@@ -111,7 +111,7 @@ MonoBehaviour:
   parriedBulletTag: ParriedBullet
   renderersRoot: {fileID: 3468111711924273172}
   flashColor: {r: 1, g: 0.55, b: 0.55, a: 1}
-  flashDuration: 0.3
+  flashDuration: 0.6
   colorIntensity: 0.85
   useEmissionFlash: 1
   emissionIntensity: 2
@@ -220,7 +220,7 @@ Transform:
   m_GameObject: {fileID: 8507570420934095657}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.5658692, z: -0, w: 0.8244951}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.168, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
