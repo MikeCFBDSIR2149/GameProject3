@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 6850187992675806197}
   - component: {fileID: 9135234848160596083}
   - component: {fileID: 8216926489108900396}
-  - component: {fileID: 8514242841801262915}
+  - component: {fileID: 9024338745411624434}
   - component: {fileID: 9137961191121664696}
   - component: {fileID: 4338246741107992499}
   - component: {fileID: 173598498611628897}
@@ -161,7 +161,7 @@ MonoBehaviour:
   bulletSpeed: 3
   director: {fileID: 0}
   contextID: PlayerAttack
---- !u!114 &8514242841801262915
+--- !u!114 &9024338745411624434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,11 +170,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8284535474924839996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0a1bf35cda44da98a98ec34c8abeec, type: 3}
+  m_Script: {fileID: 11500000, guid: faa1013d18a244171915d1b36f5a96e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAttackBack
+  m_EditorClassIdentifier: Assembly-CSharp::Tutorial.TutorialPlayerAttackBack
   bulletTrackingPoolKey: PlayerBulletTracking
   bulletSpeed: 5
+  director: {fileID: 0}
+  contextID: PlayerAttackBack
 --- !u!114 &9137961191121664696
 MonoBehaviour:
   m_ObjectHideFlags: 0

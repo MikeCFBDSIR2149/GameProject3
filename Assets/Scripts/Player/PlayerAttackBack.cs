@@ -23,7 +23,7 @@ namespace Player
             GameplayManager.Instance.OnStatusChanged -= OnStatusChanged;
         }
 
-        public void RegisterBulletReturn(ISender sender, Vector3 spawnPosition)
+        public virtual void RegisterBulletReturn(ISender sender, Vector3 spawnPosition)
         {
             if (sender == null)
                 return;

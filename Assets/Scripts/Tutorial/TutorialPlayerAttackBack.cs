@@ -1,6 +1,8 @@
 using System.Collections;
+using CharacterUniversal;
 using UnityEngine;
 using Player;
+using UI;
 
 namespace Tutorial
 {
@@ -12,6 +14,7 @@ namespace Tutorial
         [SerializeField] private string contextID = "PlayerAttackBack";
         
         private bool _isFeatureUnlocked;
+        private bool _isCompleted;
 
         private void Awake()
         {
@@ -21,17 +24,30 @@ namespace Tutorial
         public void Enter()
         {
             _isFeatureUnlocked = true;
+            UIManager.Instance.ShowUI("TPlayerAttackBackUI");
         }
 
         public void Exit()
         {
-            // 当步骤结束时保持解锁状态（教程结束后玩家应该保留该功能）
-            // 如果需要锁定，改为：_isFeatureUnlocked = false;
+            UIManager.Instance.HideUI("TPlayerAttackBackUI");
         }
 
         public IEnumerator NextStepBuffer()
         {
-            throw new System.NotImplementedException();
+            UIManager.Instance.GetCurrentUI("TPlayerAttackBackUI")?.UpdateUI(true);
+            yield return new WaitForSecondsRealtime(3f);
+            Director.NextStep();
+        }
+
+        public override void RegisterBulletReturn(ISender sender, Vector3 spawnPosition)
+        {
+            if (!_isFeatureUnlocked) return;
+            if (!_isCompleted)
+            {
+                StartCoroutine(NextStepBuffer());
+                _isCompleted = true;
+            }
+            base.RegisterBulletReturn(sender, spawnPosition);
         }
     }
 }
