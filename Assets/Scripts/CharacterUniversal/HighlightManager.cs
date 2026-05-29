@@ -22,7 +22,7 @@ namespace CharacterUniversal
     
         private void OnGameplayStatusChanged(EGameplayStatus status)
         {
-            if (status == EGameplayStatus.Default || status == EGameplayStatus.GameOver)
+            if (status == EGameplayStatus.Default || (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState))
             {
                 ClearAllHighlights();
             }

@@ -88,6 +88,7 @@ namespace Tutorial
             {
                 // 教程结束（可选行为）
                 Debug.Log("Tutorial finished.");
+                GameplayManager.Instance.RequestGameWin();
             }
         }
 

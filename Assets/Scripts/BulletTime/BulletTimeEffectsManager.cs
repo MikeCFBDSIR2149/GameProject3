@@ -71,7 +71,7 @@ namespace BulletTime
             return;
         }
 
-        if (status == EGameplayStatus.GameOver)
+        if (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState)
         {
             _isPaused = false;
             _isBulletTime = false;

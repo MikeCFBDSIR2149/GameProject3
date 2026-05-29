@@ -1,11 +1,10 @@
-using UI;
 using UnityEngine;
 
-namespace UI.Menu
+namespace UI.Starter
 {
-    public class GameOverUIController : MonoBehaviour
+    public class GameWinUIController : MonoBehaviour
     {
-        [SerializeField] private string gameOverUIName = "GameOverMenu";
+        [SerializeField] private string gameWinUIName = "GameWinMenu";
 
         private bool _isVisible;
 
@@ -28,31 +27,31 @@ namespace UI.Menu
 
         private void HandleGameplayStatusChanged(EGameplayStatus status)
         {
-            if (status == EGameplayStatus.GameOver)
+            if (status == EGameplayStatus.GameWin)
             {
-                ShowGameOverUI();
+                ShowGameWinUI();
                 MousePointerManager.Instance?.UnlockCursor();
                 return;
             }
 
-            HideGameOverUI();
+            HideGameWinUI();
         }
 
-        private void ShowGameOverUI()
+        private void ShowGameWinUI()
         {
             if (_isVisible || UIManager.Instance == null)
                 return;
 
-            UIManager.Instance.ShowUI(gameOverUIName, asRootCanvas: true);
+            UIManager.Instance.ShowUI(gameWinUIName, asRootCanvas: true);
             _isVisible = true;
         }
 
-        private void HideGameOverUI()
+        private void HideGameWinUI()
         {
             if (!_isVisible || UIManager.Instance == null)
                 return;
 
-            UIManager.Instance.HideUI(gameOverUIName);
+            UIManager.Instance.HideUI(gameWinUIName);
             _isVisible = false;
         }
     }

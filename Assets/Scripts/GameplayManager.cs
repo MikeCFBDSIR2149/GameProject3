@@ -6,7 +6,15 @@ public enum EGameplayStatus
     Default,
     BulletTime,
     Paused,
-    GameOver
+    GameOver,
+    GameWin
+}
+
+public enum EGameplayStatusLevel
+{
+    Playable,
+    Suspended,
+    Terminal
 }
 
 public class GameplayManager : MonoSingleton<GameplayManager>
@@ -17,6 +25,11 @@ public class GameplayManager : MonoSingleton<GameplayManager>
 
     public EGameplayStatus Status { get; private set; } = EGameplayStatus.Default;
     public EGameplayStatus PreviousStatus { get; private set; } = EGameplayStatus.Default;
+    public EGameplayStatusLevel StatusLevel { get; private set; } = EGameplayStatusLevel.Playable;
+    
+    public bool CanPerformGameplayActions => StatusLevel == EGameplayStatusLevel.Playable;
+    public bool IsTerminalState => StatusLevel == EGameplayStatusLevel.Terminal;
+    
     public event Action<EGameplayStatus> OnStatusChanged;
     public event Action<Player.Player> OnPlayerChanged;
 
@@ -58,6 +71,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         if (Status == targetStatus && !forceSwitch) return;
         PreviousStatus = Status;
         Status = targetStatus;
+        StatusLevel = ResolveStatusLevel(targetStatus);
         OnStatusChanged?.Invoke(Status);
         
         switch (targetStatus)
@@ -78,14 +92,35 @@ public class GameplayManager : MonoSingleton<GameplayManager>
                 _timeScaleController.UseGameOverTimeScale();
                 // 游戏结束后不再消耗能量
                 break;
+            case EGameplayStatus.GameWin:
+                _timeScaleController.UseGameOverTimeScale();
+                // 游戏胜利后不再消耗能量
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(targetStatus), targetStatus, null);
+        }
+    }
+
+    private static EGameplayStatusLevel ResolveStatusLevel(EGameplayStatus status)
+    {
+        switch (status)
+        {
+            case EGameplayStatus.Default:
+            case EGameplayStatus.BulletTime:
+                return EGameplayStatusLevel.Playable;
+            case EGameplayStatus.Paused:
+                return EGameplayStatusLevel.Suspended;
+            case EGameplayStatus.GameOver:
+            case EGameplayStatus.GameWin:
+                return EGameplayStatusLevel.Terminal;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(status), status, null);
         }
     }
     
     public void SetToPreviousStatus()
     {
-        if (Status == EGameplayStatus.GameOver)
+        if (IsTerminalState)
             return;
 
         SetGameplayStatus(PreviousStatus);
@@ -94,11 +129,20 @@ public class GameplayManager : MonoSingleton<GameplayManager>
 
     public void RequestGameOver()
     {
-        if (Status == EGameplayStatus.GameOver)
+        if (IsTerminalState)
             return;
         Debug.Log("[GameplayManager] Requesting GameOver");
 
         SetGameplayStatus(EGameplayStatus.GameOver, true);
+    }
+
+    public void RequestGameWin()
+    {
+        if (IsTerminalState)
+            return;
+        Debug.Log("[GameplayManager] Requesting GameWin");
+
+        SetGameplayStatus(EGameplayStatus.GameWin, true);
     }
 
     private void OnEnable()

@@ -113,9 +113,7 @@ namespace UI
         {
             // 只要 GameplayManager 存在且处于 Paused，就认为暂停
             // 这样不依赖 timeScale（因为你 bulletTime/默认状态会改变 timeScale）
-            return GameplayManager.Instance != null &&
-                   (GameplayManager.Instance.Status == EGameplayStatus.Paused ||
-                    GameplayManager.Instance.Status == EGameplayStatus.GameOver);
+            return GameplayManager.Instance != null && !GameplayManager.Instance.CanPerformGameplayActions;
         }
 
         private IEnumerator FlashTextOnce()

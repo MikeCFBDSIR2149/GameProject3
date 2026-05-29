@@ -46,7 +46,7 @@ namespace Player
 
         private void OnGameplayStatusChanged(EGameplayStatus status)
         {
-            if (status == EGameplayStatus.GameOver)
+            if (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState)
             {
                 AbortBulletTime();
                 return;
@@ -68,7 +68,7 @@ namespace Player
 
         protected virtual void TryActivateBulletTime()
         {
-            if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
+            if (GameplayManager.Instance != null && !GameplayManager.Instance.CanPerformGameplayActions)
                 return;
 
             // 再按一次：手动关闭

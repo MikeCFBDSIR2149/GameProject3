@@ -108,7 +108,7 @@ public class LevelTimer : MonoBehaviour
 
     private void HandleGameplayStatusChanged(EGameplayStatus status)
     {
-        if (status == EGameplayStatus.GameOver)
+        if (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState)
         {
             _isRunning = false;
             _isPaused = false;

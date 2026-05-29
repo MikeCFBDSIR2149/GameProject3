@@ -5486,6 +5486,65 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
+--- !u!1 &788514435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 788514437}
+  - component: {fileID: 788514436}
+  - component: {fileID: 788514438}
+  m_Layer: 0
+  m_Name: GameStatusUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &788514436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788514435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832b1e42c9a64c21af8eb44a60ad0bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.GameOverUIController
+  gameOverUIName: GameOverMenu
+--- !u!4 &788514437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788514435}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &788514438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788514435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2297885fb49941c0ae9a9e15a27aefb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Starter.GameWinUIController
+  gameWinUIName: GameWinMenu
 --- !u!1 &798143428
 GameObject:
   m_ObjectHideFlags: 0
@@ -12612,7 +12671,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1674946374}
   - component: {fileID: 1674946373}
-  - component: {fileID: 1674946375}
   m_Layer: 0
   m_Name: Timer
   m_TagString: Untagged
@@ -12649,19 +12707,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1674946375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1674946372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 832b1e42c9a64c21af8eb44a60ad0bdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.GameOverUIController
-  gameOverUIName: GameOverMenu
 --- !u!1 &1703258738
 GameObject:
   m_ObjectHideFlags: 0
@@ -15701,3 +15746,4 @@ SceneRoots:
   - {fileID: 798143432}
   - {fileID: 1674946374}
   - {fileID: 1992671005}
+  - {fileID: 788514437}

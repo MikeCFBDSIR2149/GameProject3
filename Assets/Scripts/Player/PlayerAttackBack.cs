@@ -28,7 +28,7 @@ namespace Player
             if (sender == null)
                 return;
 
-            if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
+            if (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState)
                 return;
 
             GameObject bullet = ObjectPoolManager.Instance.Get(bulletTrackingPoolKey, spawnPosition, Quaternion.identity);
@@ -57,7 +57,7 @@ namespace Player
                 return;
             }
 
-            if (gameplayStatus == EGameplayStatus.GameOver)
+            if (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState)
             {
                 ClearQueuedBullets();
             }

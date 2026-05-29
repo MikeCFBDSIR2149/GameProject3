@@ -58,8 +58,7 @@ namespace Player
             bool isBulletTime = GameplayManager.Instance != null &&
                                 GameplayManager.Instance.Status == EGameplayStatus.BulletTime;
 
-            if (GameplayManager.Instance != null &&
-                GameplayManager.Instance.Status == EGameplayStatus.GameOver)
+            if (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState)
             {
                 return;
             }

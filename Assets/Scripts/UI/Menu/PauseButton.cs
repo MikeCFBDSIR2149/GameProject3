@@ -43,7 +43,7 @@ namespace UI.Menu
         public void OpenPausePanel()
         {
             if (_isOpen) return;
-            if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.GameOver)
+            if (GameplayManager.Instance != null && !GameplayManager.Instance.CanPerformGameplayActions)
                 return;
             UIManager.Instance.ShowUI("PauseMenu", asRootCanvas: true);
             GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Paused);
