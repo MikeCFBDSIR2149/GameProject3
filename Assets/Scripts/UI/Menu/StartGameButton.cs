@@ -6,7 +6,8 @@ namespace UI.Menu
     {
         public void StartGame()
         {
-            LevelManager.Instance.LoadNextScene();
+            // LevelManager.Instance.LoadNextScene();
+            UIManager.Instance.ShowUI("LevelSelectionPanel");
         }
     }
 }

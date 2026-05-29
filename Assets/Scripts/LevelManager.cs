@@ -1,9 +1,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Config;
 
 public class LevelManager : MonoSingleton<LevelManager>
 {
+    [Header("关卡配置")]
+    [SerializeField] private string levelDisplayNameConfigPath = "LevelDisplayNameConfig";
+
+    private LevelDisplayNameConfig _displayNameConfig;
+
     /// <summary>
     /// 在场景加载前触发。推荐其他单例或管理器订阅这个事件来执行自身清理逻辑。
     /// 如果没有订阅者，则会回退到当前的直接清理实现以保证兼容性。
@@ -16,6 +22,43 @@ public class LevelManager : MonoSingleton<LevelManager>
     /// 获取当前激活场景名称。
     /// </summary>
     public string CurrentSceneName => SceneManager.GetActiveScene().name;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        LoadDisplayNameConfig();
+    }
+
+    private void LoadDisplayNameConfig()
+    {
+        _displayNameConfig = Resources.Load<LevelDisplayNameConfig>(levelDisplayNameConfigPath);
+        if (_displayNameConfig == null)
+        {
+            Debug.LogWarning($"[LevelManager] LevelDisplayNameConfig not found at path: Resources/{levelDisplayNameConfigPath}");
+        }
+    }
+
+    /// <summary>
+    /// 获取可用于选关界面的关卡总数（默认排除第一个场景）。
+    /// </summary>
+    public int GetSelectableLevelCount()
+    {
+        return Mathf.Max(SceneManager.sceneCountInBuildSettings - 1, 0);
+    }
+
+    /// <summary>
+    /// 根据关卡序号（1, 2, 3...）获取显示名称；找不到映射时直接返回序号字符串。
+    /// </summary>
+    public string GetLevelDisplayName(int levelIndex)
+    {
+        if (_displayNameConfig != null)
+        {
+            return _displayNameConfig.GetDisplayName(levelIndex);
+        }
+
+        return levelIndex.ToString();
+    }
+
 
     /// <summary>
     /// 按场景名切换场景。
