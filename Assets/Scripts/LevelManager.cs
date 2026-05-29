@@ -66,7 +66,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     /// <summary>
     /// 以单例对象入口进行下一场景切换（当前场景索引 + 1）。
     /// </summary>
-    public void LoadNextScene()
+    public bool LoadNextScene()
     {
         Scene activeScene = SceneManager.GetActiveScene();
         int nextIndex = activeScene.buildIndex + 1;
@@ -74,11 +74,12 @@ public class LevelManager : MonoSingleton<LevelManager>
         if (nextIndex >= SceneManager.sceneCountInBuildSettings)
         {
             Debug.LogWarning($"[LevelManager] Next scene index out of range: {nextIndex}");
-            return;
+            return false;
         }
 
         ClearBeforeSceneLoad();
         SceneManager.LoadScene(nextIndex);
+        return true;
     }
     
     /// <summary>
