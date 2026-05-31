@@ -348,8 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55556f74b966c4cecba536752a548b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBulletTimeSkill
-  bulletTimeDuration: 8
   inputController: {fileID: 1490091806887864891}
+  bulletTimeDuration: 10
+  energy: {fileID: 0}
 --- !u!114 &5569616931202969223
 MonoBehaviour:
   m_ObjectHideFlags: 0

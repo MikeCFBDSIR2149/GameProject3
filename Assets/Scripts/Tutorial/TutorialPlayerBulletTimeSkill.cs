@@ -7,6 +7,7 @@ namespace Tutorial
 {
     public class TutorialPlayerBulletTimeSkill : PlayerBulletTimeSkill, ITutorialContext
     {
+        [Header("Tutorial Context Settings")]
         public TutorialDirector Director => director;
         [SerializeField] private TutorialDirector director;
         public string ContextID => contextID;

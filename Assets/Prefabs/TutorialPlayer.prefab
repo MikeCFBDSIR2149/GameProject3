@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tutorial.TutorialPlayerBulletTimeSkill
   inputController: {fileID: 1490091806887864891}
-  bulletTimeDuration: 8
+  bulletTimeDuration: 10
   energy: {fileID: 0}
   director: {fileID: 0}
   contextID: PlayerBulletTimeSkill

@@ -38,7 +38,7 @@ Material:
     - _MinAlpha: 0.1
     - _WaveIntensity: 0.5
     - _WaveMaxRadius: 0.5
-    - _WaveSpeed: 1.5
+    - _WaveSpeed: 1.8
     - _WaveThickness: 0.05
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
