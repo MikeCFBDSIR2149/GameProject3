@@ -27,11 +27,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _WaveIntensity: 0.54
-    - _WaveMaxRadius: 0.57
-    - _WaveSpeed: 1
+    - _CircleRadius: 0.5
+    - _MaxAlpha: 0.7
+    - _MinAlpha: 0.1
+    - _WaveIntensity: 0.5
+    - _WaveMaxRadius: 0.5
+    - _WaveSpeed: 1.5
     - _WaveThickness: 0.05
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

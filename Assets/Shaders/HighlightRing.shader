@@ -3,12 +3,15 @@ Shader "Custom/HighlightRing"
     Properties
     {
         // BaseColor and BaseMap removed as requested; shader renders only the wave highlight
+        // Keep a _MainTex property so Unity UI system doesn't warn (Canvas expects _MainTex)
+        _MainTex("Main Texture", 2D) = "white" {}
         _WaveColor("Wave Color", Color) = (1, 1, 1, 1)
         _WaveSpeed("Wave Speed", Float) = 1
         _WaveMaxRadius("Wave Max Radius", Range(0,1)) = 0.5
-        _WaveThickness("Wave Thickness", Float) = 0.05
         _WaveCenter("Wave Center", Vector) = (0.5, 0.5, 0, 0)
-        _WaveIntensity("Wave Intensity", Float) = 1
+        _MinAlpha("Min Alpha", Range(0,1)) = 0.1
+        _MaxAlpha("Max Alpha", Range(0,1)) = 0.8
+        _CircleRadius("Circle Radius", Range(0,1)) = 0.5
     }
 
     SubShader
@@ -40,7 +43,9 @@ Shader "Custom/HighlightRing"
                 float2 uv : TEXCOORD0;
             };
 
-            // no base texture
+            // keep a MainTex declaration so UI/CanvasRenderer stops warning; we won't sample it.
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
 
             CBUFFER_START(UnityPerMaterial)
                 // removed _BaseColor and _BaseMap_ST
@@ -48,8 +53,9 @@ Shader "Custom/HighlightRing"
                 float4 _WaveCenter;
                 float _WaveSpeed;
                 float _WaveMaxRadius;
-                float _WaveThickness;
-                float _WaveIntensity;
+                float _MinAlpha;
+                float _MaxAlpha;
+                float _CircleRadius;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -68,29 +74,41 @@ Shader "Custom/HighlightRing"
                 float2 center = _WaveCenter.xy;
                 float dist = distance(IN.uv, center);
 
-                // Time-driven ping-pong wave position (0 -> _WaveMaxRadius -> 0)
-                float t = frac(_Time.y * _WaveSpeed);
-                float wavePos = abs(t * 2.0 - 1.0) * _WaveMaxRadius;
+                // Hard clip outside a circle so the UI never shows a square silhouette.
+                clip(_CircleRadius - dist);
 
-                // Inner-to-wave alpha: highest at center, lower at the wave edge
-                float inner = 0.0;
-                if (wavePos > 0.0001)
+                // Time-driven sawtooth wave position: expand from 0 -> _WaveMaxRadius, then jump back to 0
+                float t = frac(_Time.y * _WaveSpeed);
+                // Ensure the wave peak never exceeds the circle radius
+                float maxR = min(_WaveMaxRadius, _CircleRadius);
+                float wavePos = t * maxR;
+
+                // (removed previous inner/edgeFalloff attenuation - using only user formula below)
+
+                // User-specified alpha behavior:
+                // radius = _CircleRadius, x* = wavePos, x = dist
+                float radius = _CircleRadius;
+                float x = dist;
+                float xStar = wavePos;
+                float baseAlpha;
+                if (x <= xStar)
                 {
-                    inner = saturate((wavePos - dist) / wavePos);
+                    // lerp(minAlpha, maxAlpha, (radius-x*+x)/radius)
+                    float fracVal = (radius - xStar + x) / radius;
+                    baseAlpha = lerp(_MinAlpha, _MaxAlpha, saturate(fracVal));
+                }
+                else
+                {
+                    baseAlpha = _MinAlpha;
                 }
 
-                // Make the wave edge have a softer falloff based on thickness
-                float edgeFalloff = 1.0 - smoothstep(wavePos - _WaveThickness, wavePos, dist);
+                // Use only the user's baseAlpha as final alpha (optionally modulated by wave color alpha)
+                float finalAlpha = baseAlpha;
 
-                // Combined alpha for the wave: stronger near center, weaker at the ring
-                float waveAlpha = inner * edgeFalloff * _WaveIntensity;
-
-                // Compute final color and alpha. Since we render to a transparent target,
-                // output alpha should represent wave visibility so blending works.
                 half4 waveCol = _WaveColor;
-                half3 rgb = waveCol.rgb * waveAlpha * waveCol.a;
-                float alpha = waveAlpha * waveCol.a;
-                half4 outCol = half4(rgb, alpha);
+                half3 rgb = waveCol.rgb * finalAlpha;
+                float outA = finalAlpha * waveCol.a;
+                half4 outCol = half4(rgb, outA);
 
                 return outCol;
             }

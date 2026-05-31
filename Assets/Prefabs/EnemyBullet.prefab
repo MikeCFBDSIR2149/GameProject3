@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.BulletHighlight
   highlightMinDistance: 1
-  highlightMaxDistance: 5
+  highlightMaxDistance: 8
   referencePoolKey: EnemyBullet
   useOcclusionCheck: 1
   occlusionMask:
