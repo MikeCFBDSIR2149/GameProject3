@@ -1,15 +1,17 @@
+using System.Collections;
 using CharacterUniversal;
 using UnityEngine;
 using UnityEngine.AI;
+
 namespace Enemy
 {
     public class EnemyController : MonoBehaviour, ISender
     {
         [Header("Health (optional)")]
-        [SerializeField] private bool destroyOnDeath = false; // 你希望“消失”，这里给你可选：Destroy 或 SetActive(false)
+        [SerializeField] private bool destroyOnDeath = false; // Destroy 或 SetActive(false)
         private Health _health;
         private bool _isDead;
-        
+
         [Header("Perception")]
         public float detectRange = 10f;         // 感知主角的范围
 
@@ -27,6 +29,33 @@ namespace Enemy
         protected Vector3 patrolTarget;
         protected float patrolTimer;
 
+        // =========================
+        // Animation (optional)
+        // =========================
+        [Header("Animation (optional)")]
+        [Tooltip("可在 Inspector 手动拖，也可勾 autoFindAnimator 自动在子物体中查找")]
+        [SerializeField] protected Animator animator;
+
+        [SerializeField] private bool autoFindAnimator = true;
+
+        [Header("Death Animation (optional)")]
+        [Tooltip("开启后：死亡时先触发 Die，再等待 deathAnimWaitTime 后再消失（用于播放死亡动画）。不开启则保持原逻辑：立刻消失")]
+        [SerializeField] private bool useDeathAnimation = true;
+
+        [Tooltip("死亡动画等待时间（按你的动画长度调）")]
+        [SerializeField] private float deathAnimWaitTime = 1.2f;
+
+        // 参数名约定（统一全敌人 Animator Controller 参数）
+        protected static readonly int AnimIsMoving = Animator.StringToHash("IsMoving");
+        protected static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
+        protected static readonly int AnimDie = Animator.StringToHash("Die");
+        protected static readonly int AnimShoot = Animator.StringToHash("Shoot");
+
+        // 预留：未来近战/技能等
+        protected static readonly int AnimMelee = Animator.StringToHash("Melee");
+
+        private Coroutine _deathRoutine;
+
         protected virtual void Start()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -37,12 +66,37 @@ namespace Enemy
 
             // 初始化时根据 canMove 同步 agent 状态
             ApplyMoveState();
-            _health = GetComponent<Health>(); // 没挂则为 null，不影响
+
+            // 读取可选血量脚本
+            _health = GetComponent<Health>();
+
+            // 动画：自动找 Animator（常见是模型在子物体）
+            if (autoFindAnimator && animator == null)
+                animator = GetComponentInChildren<Animator>();
+        }
+
+        protected virtual void LateUpdate()
+        {
+            UpdateMoveAnim();
+        }
+
+        protected virtual void UpdateMoveAnim()
+        {
+            if (animator == null) return;
+
+            float speed = 0f;
+
+            if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh && !agent.isStopped)
+                speed = agent.velocity.magnitude;
+
+            animator.SetBool(AnimIsMoving, speed > 0.05f);
+            animator.SetFloat(AnimMoveSpeed, speed);
         }
 
         protected virtual void Update()
         {
             if (CheckAndHandleDeath()) return;
+
             if (player != null && Vector3.Distance(transform.position, player.position) < detectRange)
             {
                 OnPlayerDetected();
@@ -52,6 +106,7 @@ namespace Enemy
                 Patrol();
             }
         }
+
         protected virtual bool CheckAndHandleDeath()
         {
             if (_isDead) return true;
@@ -67,6 +122,7 @@ namespace Enemy
 
         protected virtual void Die()
         {
+            if (_isDead) return;
             _isDead = true;
 
             // 停止移动
@@ -76,7 +132,37 @@ namespace Enemy
                 agent.ResetPath();
             }
 
-            // 你说“消失”：两种做法二选一
+            // 有动画则优先播动画再消失；没动画则保持原逻辑立刻消失
+            bool canPlayDeathAnim = (useDeathAnimation && animator != null && deathAnimWaitTime > 0.01f);
+
+            if (canPlayDeathAnim)
+            {
+                // 触发死亡动画
+                animator.ResetTrigger(AnimShoot);
+                animator.ResetTrigger(AnimMelee);
+                animator.SetTrigger(AnimDie);
+
+                // 延迟消失（避免立刻 Destroy/Disable 导致看不到动画）
+                if (_deathRoutine != null) StopCoroutine(_deathRoutine);
+                _deathRoutine = StartCoroutine(DieRoutine(deathAnimWaitTime));
+                return;
+            }
+
+            // 原有功能：立刻消失
+            DisappearNow();
+        }
+
+        private IEnumerator DieRoutine(float waitTime)
+        {
+            // 等待死亡动画播完
+            yield return new WaitForSeconds(waitTime);
+
+            DisappearNow();
+        }
+
+        private void DisappearNow()
+        {
+            // 你原有“消失”：Destroy 或 SetActive(false)
             if (destroyOnDeath)
             {
                 Destroy(gameObject);
@@ -86,6 +172,7 @@ namespace Enemy
                 gameObject.SetActive(false);
             }
         }
+
         /// <summary>
         /// 外部/子类都可以调用，控制该敌人是否允许移动
         /// </summary>
@@ -181,5 +268,37 @@ namespace Enemy
         }
 
         public bool IsAlive => !_isDead && this != null;
+
+        // =========================
+        // Animation trigger points (for subclasses)
+        // =========================
+
+        /// <summary>
+        /// 子类在“真正射出子弹的瞬间”调用它，触发射击动画。没配 Animator 不会影响任何功能。
+        /// </summary>
+        protected void TriggerShootAnim()
+        {
+            if (animator == null) return;
+            animator.SetTrigger(AnimShoot);
+        }
+
+        /// <summary>
+        /// 预留：子类在近战攻击开始瞬间调用，触发近战动画。
+        /// </summary>
+        protected void TriggerMeleeAnim()
+        {
+            if (animator == null) return;
+            animator.SetTrigger(AnimMelee);
+        }
+
+        /// <summary>
+        /// 预留：你未来想用自定义Trigger名，也可以走这个通道（例如 "Reload" / "Skill"）。
+        /// </summary>
+        protected void TriggerAttackAnim(string triggerName)
+        {
+            if (animator == null) return;
+            if (string.IsNullOrEmpty(triggerName)) return;
+            animator.SetTrigger(triggerName);
+        }
     }
 }
