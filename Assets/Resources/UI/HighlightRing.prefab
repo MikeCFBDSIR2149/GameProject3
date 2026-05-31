@@ -90,3 +90,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HighlightRingUI
   uiName: HighlightRing
   isPersistent: 0
+  rectTransform: {fileID: 92689482099613406}
+  minSize: {x: 70, y: 70}
+  maxSize: {x: 150, y: 150}
+  distanceScaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.49998343
+      value: 0.99986434
+      inSlope: -0.008870667
+      outSlope: -0.008870667
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23922126
+    - serializedVersion: 3
+      time: 0.9999551
+      value: -0.00025277608
+      inSlope: -0.0055806306
+      outSlope: -0.0055806306
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33771676
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

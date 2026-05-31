@@ -5,7 +5,8 @@ namespace Player
 {
     public class BulletHighlight : MonoBehaviour, IHighlightInViewport
     {
-        public float highlightDistance = 10f;
+        public float highlightMinDistance;
+        public float highlightMaxDistance = 5f;
         public string referencePoolKey;
         // 是否使用遮挡检测（射线）
         public bool useOcclusionCheck = true;
@@ -19,6 +20,8 @@ namespace Player
         private bool _isHighlighted = false;
         public string highlightUIPrefabName = "HighlightRing";
         public string HighlightUIPrefabName => highlightUIPrefabName;
+        public float HighlightMinDistance => Mathf.Max(0f, highlightMinDistance);
+        public float HighlightMaxDistance => Mathf.Max(HighlightMinDistance, highlightMaxDistance);
 
         private void Update()
         {
@@ -67,8 +70,10 @@ namespace Player
         {
             Player player = GameplayManager.Instance?.Player;
             if (!player) return false;
+            float minDistance = HighlightMinDistance;
+            float maxDistance = HighlightMaxDistance;
             float dist = Vector3.Distance(transform.position, player.GetWorldPosition());
-            if (dist > highlightDistance)
+            if (dist < minDistance || dist > maxDistance)
                 return false;
 
             // 如果不开启遮挡检测，则仅基于距离判断

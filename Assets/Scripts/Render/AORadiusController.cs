@@ -10,11 +10,11 @@ namespace Render
         public ScriptableRendererData rendererData;
 
         [Header("半径数值")]
-        public float radiusMin = 0.22f;
-        public float radiusMax = 1.5f;
+        public float radiusMin = 0f;
+        public float radiusMax = 10f;
     
         [Header("平滑速度")]
-        public float changeSpeed = 3f;
+        public float changeSpeed = 10f;
 
         // 内部状态
         private float currentRadius;
@@ -72,15 +72,14 @@ namespace Render
         }
 
 
-
-        void Update()
+        private void Update()
         {
             if (ssaoFeature == null || radiusField == null) return;
 
             // 平滑数值
             if (!Mathf.Approximately(currentRadius, targetRadius))
             {
-                currentRadius = Mathf.MoveTowards(currentRadius, targetRadius, Time.deltaTime * changeSpeed);
+                currentRadius = Mathf.MoveTowards(currentRadius, targetRadius, Time.unscaledDeltaTime * changeSpeed);
                 ApplyValue(currentRadius);
             }
         }

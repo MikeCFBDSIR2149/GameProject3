@@ -31,6 +31,8 @@ namespace CharacterUniversal
         // 更新和创建高亮 UI
         public void UpdateHighlight(IHighlightInViewport highlightObj, Vector3 screenPos)
         {
+            float distanceRatio = CalculateDistanceRatio(highlightObj);
+
             if (!_highlightUIDict.TryGetValue(highlightObj, out IHighlightUI value))
             {
                 // 用多实例接口，而不是 ShowUI（单例）
@@ -43,11 +45,35 @@ namespace CharacterUniversal
 
                 _highlightUIDict[highlightObj] = ui;
                 ui.SetPosition(screenPos);
+                ui.SetDistanceRatio(distanceRatio);
             }
             else
             {
                 value.SetPosition(screenPos);
+                value.SetDistanceRatio(distanceRatio);
             }
+        }
+
+        private static float CalculateDistanceRatio(IHighlightInViewport highlightObj)
+        {
+            if (GameplayManager.Instance == null)
+                return 0f;
+
+            var player = GameplayManager.Instance.Player;
+            if (!player)
+                return 0f;
+
+            if (highlightObj is not Component highlightComponent)
+                return 0f;
+
+            float minDistance = Mathf.Max(0f, highlightObj.HighlightMinDistance);
+            float maxDistance = Mathf.Max(minDistance, highlightObj.HighlightMaxDistance);
+            float distance = Vector3.Distance(highlightComponent.transform.position, player.GetWorldPosition());
+
+            if (Mathf.Approximately(minDistance, maxDistance))
+                return 0f;
+
+            return Mathf.Clamp01(Mathf.InverseLerp(minDistance, maxDistance, distance));
         }
 
         // 关闭高亮 UI

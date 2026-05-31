@@ -8,9 +8,12 @@ namespace Enemy.Melee
     /// </summary>
     public class MeleeAttackHighlight : MonoBehaviour, IHighlightInViewport
     {
-        public float highlightDistance = 10f;
+        public float highlightMinDistance;
+        public float highlightMaxDistance = 3f;
         public string highlightUIPrefabName = "HighlightRing";
         public string HighlightUIPrefabName => highlightUIPrefabName;
+        public float HighlightMinDistance => Mathf.Max(0f, highlightMinDistance);
+        public float HighlightMaxDistance => Mathf.Max(HighlightMinDistance, highlightMaxDistance);
 
         [Tooltip("关联的近战攻击判定盒（用于判断是否处于攻击窗口）")]
         public MeleeAttackHitbox hitbox;
@@ -72,8 +75,10 @@ namespace Enemy.Melee
             var player = GameplayManager.Instance?.Player;
             if (!player) return false;
 
+            float minDistance = HighlightMinDistance;
+            float maxDistance = HighlightMaxDistance;
             float dist = Vector3.Distance(transform.position, player.GetWorldPosition());
-            return dist <= highlightDistance;
+            return dist >= minDistance && dist <= maxDistance;
         }
 
         public Vector3 GetScreenPosition(Camera cam)
