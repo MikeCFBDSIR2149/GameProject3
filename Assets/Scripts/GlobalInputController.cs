@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UserOptions;
@@ -6,6 +7,10 @@ public class GlobalInputController : MonoSingleton<GlobalInputController>
 {
     private PlayerInputActions _inputActions;
     public event System.Action OnCancelInputChanged;
+    public event System.Action OnSubmitInputChanged;
+
+    private readonly List<InputController> _registeredInputControllers = new List<InputController>();
+    private bool _inputControllersDisabled = false;
 
     protected override void Awake()
     {
@@ -17,11 +22,13 @@ public class GlobalInputController : MonoSingleton<GlobalInputController>
     {
         _inputActions.Enable();
         _inputActions.UI.Cancel.performed += OnCancel;
+        _inputActions.UI.Submit.performed += OnSubmit;
     }
 
     private void OnDisable()
     {
         _inputActions.UI.Cancel.performed -= OnCancel;
+        _inputActions.UI.Submit.performed -= OnSubmit;
         _inputActions.Disable();
     }
 
@@ -30,6 +37,70 @@ public class GlobalInputController : MonoSingleton<GlobalInputController>
         if (context.performed)
         {
             OnCancelInputChanged?.Invoke();
+        }
+    }
+
+    private void OnSubmit(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnSubmitInputChanged?.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Register an InputController to be managed by this GlobalInputController.
+    /// </summary>
+    public void RegisterInputController(InputController inputController)
+    {
+        if (inputController != null && !_registeredInputControllers.Contains(inputController))
+        {
+            _registeredInputControllers.Add(inputController);
+            if (_inputControllersDisabled)
+            {
+                inputController.SetEnabled(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Unregister an InputController from being managed by this GlobalInputController.
+    /// </summary>
+    public void UnregisterInputController(InputController inputController)
+    {
+        if (inputController != null)
+        {
+            _registeredInputControllers.Remove(inputController);
+        }
+    }
+
+    /// <summary>
+    /// Disable all registered InputControllers.
+    /// </summary>
+    public void DisableInputControllers()
+    {
+        _inputControllersDisabled = true;
+        foreach (var controller in _registeredInputControllers)
+        {
+            if (controller != null)
+            {
+                controller.SetEnabled(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Enable all registered InputControllers.
+    /// </summary>
+    public void EnableInputControllers()
+    {
+        _inputControllersDisabled = false;
+        foreach (var controller in _registeredInputControllers)
+        {
+            if (controller != null)
+            {
+                controller.SetEnabled(true);
+            }
         }
     }
 }

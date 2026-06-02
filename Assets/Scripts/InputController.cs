@@ -7,6 +7,7 @@ public class InputController : MonoBehaviour
     private PlayerInputActions _inputActions;
     private Vector2 _moveInput;
     private Vector2 _lookInput;
+    private bool _isEnabled = true;
 
     public event System.Action<Vector2> OnMoveInputChanged;
     public event System.Action<Vector2> OnLookInputChanged;
@@ -22,6 +23,12 @@ public class InputController : MonoBehaviour
     private void OnEnable()
     {
         _inputActions.Enable();
+        // Register to GlobalInputController
+        if (GlobalInputController.Instance != null)
+        {
+            GlobalInputController.Instance.RegisterInputController(this);
+        }
+
         _inputActions.Player.Move.performed += OnMove;
         _inputActions.Player.Move.canceled += OnMove;
         _inputActions.Player.Look.performed += OnLook;
@@ -34,6 +41,12 @@ public class InputController : MonoBehaviour
 
     private void OnDisable()
     {
+        // Unregister from GlobalInputController
+        if (GlobalInputController.Instance != null)
+        {
+            GlobalInputController.Instance.UnregisterInputController(this);
+        }
+
         _inputActions.Player.Move.performed -= OnMove;
         _inputActions.Player.Move.canceled -= OnMove;
         _inputActions.Player.Look.performed -= OnLook;
@@ -138,4 +151,21 @@ public class InputController : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Called by GlobalInputController to enable/disable this input controller externally.
+    /// </summary>
+    public void SetEnabled(bool isEnabled)
+    {
+        _isEnabled = isEnabled;
+        if (_isEnabled)
+        {
+            _inputActions.Enable();
+        }
+        else
+        {
+            _inputActions.Disable();
+        }
+    }
 }
+
