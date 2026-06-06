@@ -31,15 +31,16 @@ namespace Enemy
         {
             isPaused = GameplayManager.Instance != null && !GameplayManager.Instance.CanPerformGameplayActions;
 
-            // 如果进入暂停，建议立刻停下（不然还会沿着旧路径走一段）
-            if (isPaused && agent != null && agent.isActiveAndEnabled)
+            if (agent == null || !agent.isActiveAndEnabled || !agent.isOnNavMesh)
+                return;
+
+            if (isPaused)
             {
                 agent.isStopped = true;
                 agent.ResetPath();
             }
-            else if (!isPaused && agent != null && agent.isActiveAndEnabled)
+            else
             {
-                // 恢复时不强制走，后续逻辑会 TrySetDestination
                 agent.isStopped = false;
             }
         }
@@ -89,17 +90,18 @@ namespace Enemy
                 Debug.LogWarning("[ShooterEnemy] firePoint is null!");
                 return;
             }
+            TriggerShootAnim();
+            // 发射方向（以 firePoint 为起点）
+            Vector3 baseDir = (player.position - firePoint.position).normalized;
+            Vector3 shootDir = GetRandomDirectionInCone(baseDir, aimConeAngle, horizontalOnly);
+            Vector3 velocity = shootDir * bulletSpeed;
 
-            GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, transform.position, Quaternion.identity);
+            // 使用 firePoint.position 作为 spawn 位置，并用朝向来初始化子弹旋转（可视更自然）
+            Quaternion rot = Quaternion.LookRotation(shootDir);
+            GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, firePoint.position, rot);
+            if (bullet == null) return;
             EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
             if (bulletScript == null) return;
-
-            Vector3 baseDir = (player.position - firePoint.position).normalized;
-
-            // 在 baseDir 周围做随机偏移
-            Vector3 shootDir = GetRandomDirectionInCone(baseDir, aimConeAngle, horizontalOnly);
-
-            Vector3 velocity = shootDir * bulletSpeed;
 
             bulletScript.Init(velocity);
             bulletScript.SetSender(this);
