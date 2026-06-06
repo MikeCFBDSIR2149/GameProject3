@@ -23,6 +23,10 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     private EnergyController _energyController;
     private Player.Player _player;
 
+    // Pending pause flag: set this to true when you want to pause, and GameplayManager will handle it in Update
+    private bool _pendingPause;
+
+
     public EGameplayStatus Status { get; private set; } = EGameplayStatus.Default;
     public EGameplayStatus PreviousStatus { get; private set; } = EGameplayStatus.Default;
     public EGameplayStatusLevel StatusLevel { get; private set; } = EGameplayStatusLevel.Playable;
@@ -66,10 +70,26 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         SetGameplayStatus(EGameplayStatus.Default, true);
     }
 
+    private void Update()
+    {
+        // Check if a pause was requested via RequestPause()
+        if (_pendingPause)
+        {
+            SetGameplayStatus(EGameplayStatus.Paused, true);
+            _pendingPause = false;
+        }
+    }
+
     public void SetGameplayStatus(EGameplayStatus targetStatus, bool forceSwitch = false)
     {
         if (Status == targetStatus && !forceSwitch) return;
-        PreviousStatus = Status;
+        
+        // Only update PreviousStatus if the status is actually changing
+        if (Status != targetStatus)
+        {
+            PreviousStatus = Status;
+        }
+        
         Status = targetStatus;
         StatusLevel = ResolveStatusLevel(targetStatus);
         OnStatusChanged?.Invoke(Status);
@@ -99,6 +119,16 @@ public class GameplayManager : MonoSingleton<GameplayManager>
             default:
                 throw new ArgumentOutOfRangeException(nameof(targetStatus), targetStatus, null);
         }
+
+        // Centralized input enabling/disabling: when gameplay is paused, disable game input; otherwise enable.
+        if (Status == EGameplayStatus.Paused)
+        {
+            GlobalInputController.Instance?.DisableInputControllers();
+        }
+        else
+        {
+            GlobalInputController.Instance?.EnableInputControllers();
+        }
     }
 
     private static EGameplayStatusLevel ResolveStatusLevel(EGameplayStatus status)
@@ -117,7 +147,16 @@ public class GameplayManager : MonoSingleton<GameplayManager>
                 throw new ArgumentOutOfRangeException(nameof(status), status, null);
         }
     }
-    
+
+    /// <summary>
+    /// Request a gameplay pause. The pause will be applied in the next Update.
+    /// This avoids state conflicts when multiple systems try to change status simultaneously.
+    /// </summary>
+    public void RequestPause()
+    {
+        _pendingPause = true;
+    }
+
     public void SetToPreviousStatus()
     {
         if (IsTerminalState)

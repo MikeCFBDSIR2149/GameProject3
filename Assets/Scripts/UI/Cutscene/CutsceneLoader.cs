@@ -14,6 +14,8 @@ namespace UI.Cutscene
         [SerializeField] private List<CutsceneStep> steps = new List<CutsceneStep>();
 
         private int _currentIndex = -1;
+        // Track whether this loader has requested a pause that needs to be restored
+        private bool _requestedPause;
 
         private void OnEnable()
         {
@@ -28,13 +30,24 @@ namespace UI.Cutscene
         {
             if (GlobalInputController.Instance != null)
                 GlobalInputController.Instance.OnSubmitInputChanged -= OnAdvanceRequested;
+
+            // If this loader requested a pause but is being disabled before finishing,
+            // restore gameplay to its previous state.
+            if (_requestedPause && GameplayManager.Instance != null)
+            {
+                GameplayManager.Instance.SetToPreviousStatus();
+                _requestedPause = false;
+            }
         }
 
         private void StartCutscene()
         {
-            // Disable game input during cutscene
-            if (GlobalInputController.Instance != null)
-                GlobalInputController.Instance.DisableInputControllers();
+            // Request gameplay pause via GameplayManager (will be applied in its Update).
+            if (GameplayManager.Instance != null)
+            {
+                GameplayManager.Instance.RequestPause();
+                _requestedPause = true;
+            }
 
             // ensure all steps start inactive
             foreach (var s in steps)
@@ -59,16 +72,22 @@ namespace UI.Cutscene
             {
                 var cur = steps[_currentIndex];
                 if (cur != null)
-                    cur.Exit();
+                {
+                    if (!cur.Exit())
+                        return;
+                }
             }
 
             _currentIndex++;
 
             if (_currentIndex >= steps.Count)
             {
-                // Re-enable game input when cutscene finishes
-                if (GlobalInputController.Instance != null)
-                    GlobalInputController.Instance.EnableInputControllers();
+                // Restore gameplay state when cutscene finishes
+                if (_requestedPause && GameplayManager.Instance != null)
+                {
+                    GameplayManager.Instance.SetToPreviousStatus();
+                    _requestedPause = false;
+                }
 
                 // finished
                 gameObject.SetActive(false);

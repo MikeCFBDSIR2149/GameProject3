@@ -14,9 +14,10 @@ namespace UI.Cutscene
 			gameObject.SetActive(true);
 		}
 
-		public virtual void Exit()
+		public virtual bool Exit()
 		{
 			gameObject.SetActive(false);
+			return true;
 		}
 	}
 }

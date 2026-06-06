@@ -263,7 +263,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 1600, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2358181837185436924
 CanvasRenderer:
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u793A\u4F8B\u6587\u5B57\n"
+  m_text: "\u6B22\u8FCE\u4F7F\u7528 <b>\u65F6\u7A7A\u8B66\u5BDF\u7EC8\u7AEF</b>\u3002\n\n\u4F5C\u4E3A<b>\u65F6\u7A7A\u8B66\u5BDF</b>\uFF0C\u4F60\u9700\u8981\u534F\u52A9\u6CBB\u7406\u65F6\u7A7A\u6DF7\u4E71\u7684\u95EE\u9898\u3002\n\u4F60\u7684\u76EE\u6807\u662F\uFF0C\u64CD\u63A7<b>\u673A\u5668\u4EBA</b>\u6D88\u706D\u5BFC\u81F4\u65F6\u7A7A\u6DF7\u4E71\u7684\u53DB\u4E71\u5206\u5B50\u3002\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35410713594b040eb94b1894087865a6, type: 2}
   m_sharedMaterial: {fileID: 2918490173803164528, guid: 35410713594b040eb94b1894087865a6, type: 2}
@@ -320,8 +320,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

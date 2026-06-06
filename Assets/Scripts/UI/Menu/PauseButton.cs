@@ -43,6 +43,9 @@ namespace UI.Menu
         public void OpenPausePanel()
         {
             if (_isOpen) return;
+            // If already paused (e.g., by cutscene), don't open the pause menu
+            if (GameplayManager.Instance != null && GameplayManager.Instance.Status == EGameplayStatus.Paused)
+                return;
             if (GameplayManager.Instance != null && !GameplayManager.Instance.CanPerformGameplayActions)
                 return;
             UIManager.Instance.ShowUI("PauseMenu", asRootCanvas: true);
