@@ -110,7 +110,7 @@ namespace Enemy
             }
 
             Vector3 baseDir = (player.position - firePoint.position).normalized;
-
+            TriggerShootAnim();
             // 一次射多发
             int count = Mathf.Max(1, pelletsPerShot);
             for (int i = 0; i < count; i++)

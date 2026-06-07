@@ -300,6 +300,7 @@ namespace Enemy
                 return;
             }
 
+            TriggerShootAnim();
             if (ObjectPoolManager.Instance == null) return;
 
             GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, firePoint.position, Quaternion.identity);

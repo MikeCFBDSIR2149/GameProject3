@@ -257,7 +257,7 @@ namespace Enemy
             // 开枪时你也可以瞬间闪一下激光/改颜色，这里先保持简单
             GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, firePoint.position, Quaternion.identity);
             if (bullet == null) return;
-
+            TriggerShootAnim();
             EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
             if (bulletScript == null) return;
 
