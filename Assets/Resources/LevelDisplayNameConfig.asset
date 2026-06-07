@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Config.LevelDisplayNameConfig
   entries:
   - levelIndex: 1
-    displayName: "\u6559\u7A0B"
+    displayName: "\u8BAD\u7EC3"
   - levelIndex: 2
-    displayName: "\u5173\u53611"
+    displayName: "\u4EFB\u52A1A"
