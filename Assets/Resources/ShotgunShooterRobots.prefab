@@ -187,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.12
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
       propertyPath: m_LocalRotation.w
@@ -246,6 +246,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 8008682878205826264}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2840828292729161059}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
       insertIndex: -1
@@ -271,6 +274,35 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
   m_PrefabInstance: {fileID: 823389485354510143}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8008682878205826264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552866943214148206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aba4db67e1d52b45b4801b141712465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.ShotgunShooterEnemy
+  destroyOnDeath: 0
+  detectRange: 10
+  patrolRadius: 5
+  patrolWaitTime: 2
+  canMove: 1
+  animator: {fileID: 1640870665949449370}
+  autoFindAnimator: 1
+  useDeathAnimation: 1
+  deathAnimWaitTime: 12
+  shootDistance: 8
+  shootInterval: 2.5
+  firePoint: {fileID: 2529280371520588565}
+  bulletPoolKey: EnemyBullet
+  bulletSpeed: 10
+  pelletsPerShot: 6
+  spreadAngle: 18
+  horizontalOnly: 1
 --- !u!114 &2840828292729161059
 MonoBehaviour:
   m_ObjectHideFlags: 0

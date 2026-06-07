@@ -29050,11 +29050,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 671ceff308a8eea45bf6e6a8e0a0a895, type: 3}
---- !u!1 &1239776527 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7974167539164019763, guid: 110a3ad553401a943907406f351a0878, type: 3}
-  m_PrefabInstance: {fileID: 5666974569016636056}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1243818163
 Mesh:
   m_ObjectHideFlags: 0
@@ -47137,16 +47132,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a69890d40028e7409675ad018ae7275, type: 3}
---- !u!95 &2484381138019030426 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1640870665949449370, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-  m_PrefabInstance: {fileID: 6139960298316373785}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4913330636570136247 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2529280371520588565, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-  m_PrefabInstance: {fileID: 6139960298316373785}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5666974569016636056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47155,22 +47140,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 868560458}
     m_Modifications:
-    - target: {fileID: 802443756729464548, guid: 110a3ad553401a943907406f351a0878, type: 3}
-      propertyPath: meleeWeaponObject
-      value: 
-      objectReference: {fileID: 1239776527}
-    - target: {fileID: 802443756729464548, guid: 110a3ad553401a943907406f351a0878, type: 3}
-      propertyPath: rangedWeaponObject
-      value: 
-      objectReference: {fileID: 5666974569016636058}
-    - target: {fileID: 802443756729464548, guid: 110a3ad553401a943907406f351a0878, type: 3}
-      propertyPath: meleeAttackDuration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 802443756729464548, guid: 110a3ad553401a943907406f351a0878, type: 3}
-      propertyPath: meleeAttackInterval
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6290832492490383161, guid: 110a3ad553401a943907406f351a0878, type: 3}
       propertyPath: m_Name
       value: HybridRobots
@@ -47220,11 +47189,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 110a3ad553401a943907406f351a0878, type: 3}
---- !u!1 &5666974569016636058 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5401931385733392180, guid: 110a3ad553401a943907406f351a0878, type: 3}
-  m_PrefabInstance: {fileID: 5666974569016636056}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5704914121472760560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47294,10 +47258,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShotgunShooterRobots
       objectReference: {fileID: 0}
-    - target: {fileID: 552866943214148206, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 929990173312516308, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
       propertyPath: m_LocalPosition.x
       value: -435.0171
@@ -47345,16 +47305,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 552866943214148206, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 7204542103104858482}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
---- !u!1 &6139960298316373786 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 552866943214148206, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-  m_PrefabInstance: {fileID: 6139960298316373785}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6459633297237889413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47416,35 +47368,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23cc928223118b746953f34330f01256, type: 3}
---- !u!114 &7204542103104858482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6139960298316373786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aba4db67e1d52b45b4801b141712465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy.ShotgunShooterEnemy
-  destroyOnDeath: 0
-  detectRange: 10
-  patrolRadius: 5
-  patrolWaitTime: 2
-  canMove: 1
-  animator: {fileID: 2484381138019030426}
-  autoFindAnimator: 1
-  useDeathAnimation: 1
-  deathAnimWaitTime: 12
-  shootDistance: 8
-  shootInterval: 2.5
-  firePoint: {fileID: 4913330636570136247}
-  bulletPoolKey: EnemyBullet
-  bulletSpeed: 10
-  pelletsPerShot: 6
-  spreadAngle: 18
-  horizontalOnly: 1
 --- !u!1001 &7707241690722274252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47514,14 +47437,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 868560458}
     m_Modifications:
-    - target: {fileID: 1347334455144823883, guid: ae2fa0d078f1014439fa65651a077ee4, type: 3}
-      propertyPath: aimDuration
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1347334455144823883, guid: ae2fa0d078f1014439fa65651a077ee4, type: 3}
-      propertyPath: shootCooldown
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5165016563792000413, guid: ae2fa0d078f1014439fa65651a077ee4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -435.0171
@@ -47565,10 +47480,6 @@ PrefabInstance:
     - target: {fileID: 5541120375601295143, guid: ae2fa0d078f1014439fa65651a077ee4, type: 3}
       propertyPath: m_Name
       value: ShiperRobots
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541120375601295143, guid: ae2fa0d078f1014439fa65651a077ee4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7368956904462648116, guid: ae2fa0d078f1014439fa65651a077ee4, type: 3}
       propertyPath: renderersRoot

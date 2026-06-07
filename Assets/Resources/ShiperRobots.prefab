@@ -194,14 +194,14 @@ MonoBehaviour:
   detectRange: 10
   patrolRadius: 5
   patrolWaitTime: 2
-  canMove: 1
+  canMove: 0
   animator: {fileID: 4874594821465280249}
   autoFindAnimator: 1
   useDeathAnimation: 1
   deathAnimWaitTime: 12
   shootDistance: 15
-  aimDuration: 3
-  shootCooldown: 2
+  aimDuration: 9
+  shootCooldown: 6
   firePoint: {fileID: 2691588569276144266}
   bulletPoolKey: EnemyBullet
   bulletSpeed: 40

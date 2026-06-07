@@ -407,11 +407,11 @@ MonoBehaviour:
   firePoint: {fileID: 1314362701806405450}
   bulletPoolKey: EnemyBullet
   bulletSpeed: 10
-  meleeWeaponObject: {fileID: 5401931385733392180}
-  rangedWeaponObject: {fileID: 7974167539164019763}
+  meleeWeaponObject: {fileID: 7974167539164019763}
+  rangedWeaponObject: {fileID: 5401931385733392180}
   meleeHitbox: {fileID: 2420597038220285363}
   meleeAttackInterval: 3
-  meleeAttackDuration: 0.6
+  meleeAttackDuration: 1
   meleeSpinDegrees: 360
   parryKnockbackDistance: 2
   parryStunTime: 0.8
