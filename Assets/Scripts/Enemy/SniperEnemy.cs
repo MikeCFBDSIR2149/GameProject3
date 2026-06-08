@@ -1,3 +1,4 @@
+using CharacterUniversal;
 using UnityEngine;
 
 namespace Enemy
@@ -37,29 +38,52 @@ namespace Enemy
         [Tooltip("激光颜色")]
         public Color laserColor = Color.red;
 
+        [Header("Health Fallback")]
+        [Tooltip("兜底查找 Health。父类没直接读到时，这里仍可让敌人正常死亡。")]
+        [SerializeField] private bool searchHealthInChildren = true;
+
         private float _aimTimer = 0f;
         private float _cooldownTimer = 0f;
         private bool _isPaused = false;
+
+        private Health _localHealth;
 
         private void OnEnable()
         {
             if (GameplayManager.Instance != null)
                 GameplayManager.Instance.OnStatusChanged += OnStatusChanged;
+
+            CacheLocalHealth();
         }
 
         private void OnDisable()
         {
             if (GameplayManager.Instance != null)
                 GameplayManager.Instance.OnStatusChanged -= OnStatusChanged;
+
+            SetLaserVisible(false);
+            _aimTimer = 0f;
+            _cooldownTimer = 0f;
         }
 
         protected override void Start()
         {
-            // 保留 EnemyController.Start() 初始化 player/agent/patrol
+            // 保留 EnemyController.Start() 初始化 player / agent / patrol / animator
             base.Start();
 
+            CacheLocalHealth();
             SetupLaserIfNeeded();
             SetLaserVisible(false);
+        }
+
+        private void CacheLocalHealth()
+        {
+            if (_localHealth != null) return;
+
+            if (!TryGetComponent(out _localHealth) && searchHealthInChildren)
+            {
+                _localHealth = GetComponentInChildren<Health>(true);
+            }
         }
 
         private void SetupLaserIfNeeded()
@@ -72,7 +96,6 @@ namespace Enemy
             laser.startColor = laserColor;
             laser.endColor = laserColor;
             laser.enabled = false;
-            // 你也可以在 inspector 里直接设置材质，比如 Unlit/Color 红色
         }
 
         private void OnStatusChanged(EGameplayStatus status)
@@ -89,8 +112,41 @@ namespace Enemy
                 agent.isStopped = false;
             }
 
-            // 暂停时隐藏激光（可选）
-            if (_isPaused) SetLaserVisible(false);
+            if (_isPaused)
+                SetLaserVisible(false);
+        }
+
+        protected override void Update()
+        {
+            // 先检查死亡，保证血量归零一定会执行死亡动画 / 消失
+            if (CheckAndHandleDeath())
+            {
+                SetLaserVisible(false);
+                return;
+            }
+
+            // 父类没读到 Health 时，这里再兜底一次
+            if (_localHealth != null && _localHealth.CurrentHealth <= 0f)
+            {
+                SetLaserVisible(false);
+                Die();
+                return;
+            }
+
+            if (_isPaused) return;
+
+            bool playerInDetectRange = (player != null && Vector3.Distance(transform.position, player.position) < detectRange);
+
+            if (playerInDetectRange)
+            {
+                OnPlayerDetected();
+            }
+            else
+            {
+                // 玩家离开范围后，重新锁定前的状态必须清掉，避免激光残留
+                ResetLockAndLaser();
+                Patrol();
+            }
         }
 
         protected override void OnPlayerDetected()
@@ -121,7 +177,7 @@ namespace Enemy
             // 水平朝向玩家（避免上下点头导致看起来怪）
             transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
 
-            // 冷却中：只显示激光 or 不显示都行，这里选择不显示并清空锁定
+            // 冷却中：不显示激光，重新开始锁定
             if (_cooldownTimer > 0f)
             {
                 _cooldownTimer -= Time.deltaTime;
@@ -130,7 +186,7 @@ namespace Enemy
                 return;
             }
 
-            // 更新激光、并判断是否“无障碍命中玩家”
+            // 更新激光并判断是否视野畅通
             bool hasClearShotToPlayer = UpdateLaserAndCheckClearShot();
 
             if (hasClearShotToPlayer)
@@ -139,7 +195,7 @@ namespace Enemy
 
                 if (_aimTimer >= aimDuration)
                 {
-                    // 开枪前最后确认一次（防止临界帧穿墙）
+                    // 开枪前最后确认一次，防止临界帧穿墙
                     if (UpdateLaserAndCheckClearShot())
                     {
                         Shoot();
@@ -151,26 +207,8 @@ namespace Enemy
             }
             else
             {
-                // 视线被挡住/没指到玩家：锁定进度归零
+                // 视线被挡住 / 没指到玩家：锁定进度归零
                 _aimTimer = 0f;
-            }
-        }
-        protected override void Update()
-        {
-            if (_isPaused) return;
-
-            bool playerInDetectRange = (player != null && Vector3.Distance(transform.position, player.position) < detectRange);
-
-            if (playerInDetectRange)
-            {
-                OnPlayerDetected();
-            }
-            else
-            {
-                // 关键：玩家离开 detectRange 或 player 为 null 时，必须清理狙击状态，否则激光会残留
-                ResetLockAndLaser();
-
-                Patrol();
             }
         }
 
@@ -179,9 +217,10 @@ namespace Enemy
             SetLaserVisible(false);
             _aimTimer = 0f;
 
-            // 如果你希望“玩家脱离视野后，连冷却都需要重新来”，可以也清掉冷却：
-             _cooldownTimer = 0f;
+            // 你如果希望玩家离开范围后，连冷却也重置，就保留这一句
+            _cooldownTimer = 0f;
         }
+
         private void StopAgentMovement()
         {
             if (agent == null) return;
@@ -203,35 +242,21 @@ namespace Enemy
             Vector3 origin = firePoint.position;
             Vector3 dir = (player.position - origin).normalized;
 
-            // 关键点：我们希望“碰到障碍物就算挡住”
-            // 所以用 Raycast：如果命中障碍物，则激光终点在障碍物点，并返回 false
-            // 如果不命中障碍物，则激光拉到玩家方向最大距离 or 到玩家位置，并返回 true（还要确认前方就是玩家）
-            //
-            // 更严格的方式：RaycastAll 排序，或用两个 Ray：
-            // 1) Raycast obstacleMask，看最近障碍点
-            // 2) 再判断玩家是否在障碍点之前
-            //
-            // 这里用“到玩家距离范围内的障碍检测”实现：只要玩家与 origin 之间存在 obstacle，就算遮挡。
             float distToPlayer = Vector3.Distance(origin, player.position);
 
             bool blocked = Physics.Raycast(origin, dir, out RaycastHit hitObstacle, distToPlayer, obstacleMask, QueryTriggerInteraction.Ignore);
 
             if (blocked)
             {
-                // 激光打在障碍物上
                 laser.SetPosition(0, origin);
                 laser.SetPosition(1, hitObstacle.point);
                 return false;
             }
 
-            // 没被 obstacle 挡住：激光直接指到“玩家方向”
-            // 终点你可以用玩家位置（有红点感），也可以打到更远（更像镭射）
-            Vector3 end = player.position; // 推荐：直接落在玩家身上
+            Vector3 end = player.position;
             laser.SetPosition(0, origin);
             laser.SetPosition(1, end);
 
-            // 这里还可以做一个“玩家层命中确认”（可选但更严谨）
-            // 因为上面只保证没有障碍物，理论上就是 clear shot
             return true;
         }
 
@@ -240,6 +265,8 @@ namespace Enemy
         /// </summary>
         private bool CheckClearShotOnly()
         {
+            if (firePoint == null || player == null) return false;
+
             Vector3 origin = firePoint.position;
             Vector3 dir = (player.position - origin).normalized;
             float distToPlayer = Vector3.Distance(origin, player.position);
@@ -254,10 +281,17 @@ namespace Enemy
 
         private void Shoot()
         {
-            // 开枪时你也可以瞬间闪一下激光/改颜色，这里先保持简单
+            if (firePoint == null)
+            {
+                Debug.LogWarning("[SniperEnemy] firePoint is null!");
+                return;
+            }
+
+            TriggerShootAnim();
+
             GameObject bullet = ObjectPoolManager.Instance.Get(bulletPoolKey, firePoint.position, Quaternion.identity);
             if (bullet == null) return;
-            TriggerShootAnim();
+
             EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
             if (bulletScript == null) return;
 
