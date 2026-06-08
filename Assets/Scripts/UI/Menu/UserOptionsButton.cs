@@ -7,6 +7,11 @@ namespace UI.Menu
     {
         private static bool _isOpen;
 
+        public static void ResetOpenState()
+        {
+            _isOpen = false;
+        }
+
         public void OpenUserOptionsPanel()
         {
             if (_isOpen) return;
