@@ -1,6 +1,6 @@
 using System;
-using System.IO;
 using UnityEngine;
+using Tools;
 
 namespace UserOptions
 {
@@ -18,11 +18,6 @@ namespace UserOptions
 
         public event Action OnOptionsChanged;
 
-        private string GetFilePath()
-        {
-            return Path.Combine(Application.persistentDataPath, fileName);
-        }
-
         protected override void Awake()
         {
             base.Awake();
@@ -31,24 +26,23 @@ namespace UserOptions
 
         public void LoadOptions()
         {
-            string path = GetFilePath();
-            if (File.Exists(path))
+            if (!PersistentJsonStorage.TryLoad(fileName, out _optionsData) || _optionsData == null)
             {
-                string jsonString = File.ReadAllText(path);
-                _optionsData = JsonUtility.FromJson<OptionsData>(jsonString);
+                _optionsData = new OptionsData();
+                PersistentJsonStorage.Save(fileName, _optionsData);
             }
-            else
-            {
-                ResetToDefault();
-            }
+
             OnOptionsChanged?.Invoke();
         }
 
         public void SaveOptions()
         {
-            string path = GetFilePath();
-            string jsonString = JsonUtility.ToJson(_optionsData, true);
-            File.WriteAllText(path, jsonString);
+            if (_optionsData == null)
+            {
+                _optionsData = new OptionsData();
+            }
+
+            PersistentJsonStorage.Save(fileName, _optionsData);
             OnOptionsChanged?.Invoke();
         }
 

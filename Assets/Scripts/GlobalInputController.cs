@@ -8,6 +8,7 @@ public class GlobalInputController : MonoSingleton<GlobalInputController>
     private PlayerInputActions _inputActions;
     public event System.Action OnCancelInputChanged;
     public event System.Action OnSubmitInputChanged;
+    public event System.Action OnReservedKeyInputChanged;
 
     private readonly List<InputController> _registeredInputControllers = new List<InputController>();
     private bool _inputControllersDisabled = false;
@@ -23,12 +24,14 @@ public class GlobalInputController : MonoSingleton<GlobalInputController>
         _inputActions.Enable();
         _inputActions.UI.Cancel.performed += OnCancel;
         _inputActions.UI.Submit.performed += OnSubmit;
+        _inputActions.UI.ReservedKey.performed += OnReservedKey;
     }
 
     private void OnDisable()
     {
         _inputActions.UI.Cancel.performed -= OnCancel;
         _inputActions.UI.Submit.performed -= OnSubmit;
+        _inputActions.UI.ReservedKey.performed -= OnReservedKey;
         _inputActions.Disable();
     }
 
@@ -45,6 +48,14 @@ public class GlobalInputController : MonoSingleton<GlobalInputController>
         if (context.performed)
         {
             OnSubmitInputChanged?.Invoke();
+        }
+    }
+
+    private void OnReservedKey(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnReservedKeyInputChanged?.Invoke();
         }
     }
 

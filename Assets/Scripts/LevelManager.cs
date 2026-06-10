@@ -23,6 +23,15 @@ public class LevelManager : MonoSingleton<LevelManager>
     /// </summary>
     public string CurrentSceneName => SceneManager.GetActiveScene().name;
 
+    /// <summary>
+    /// 获取当前场景的构建索引（供进度系统使用）。
+    /// </summary>
+    public int GetCurrentLevelIndex()
+    {
+        Scene active = SceneManager.GetActiveScene();
+        return active.IsValid() ? active.buildIndex : -1;
+    }
+
     protected override void Awake()
     {
         base.Awake();
