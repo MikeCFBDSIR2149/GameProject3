@@ -11,7 +11,7 @@ namespace Render
 
         [Header("半径数值")]
         public float radiusMin = 0f;
-        public float radiusMax = 10f;
+        public float radiusMax = 1f;
     
         [Header("平滑速度")]
         public float changeSpeed = 10f;
