@@ -126,7 +126,7 @@ namespace Enemy
             _isDead = true;
 
             // 停止移动
-            if (agent != null && agent.isActiveAndEnabled)
+            if (agent && agent.isActiveAndEnabled)
             {
                 agent.isStopped = true;
                 agent.ResetPath();
