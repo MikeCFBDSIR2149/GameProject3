@@ -12,6 +12,23 @@ namespace Player
         public LayerMask groundMask;
         public float groundCheckDistance;
 
+        [Header("Animation")]
+        [SerializeField] private Animator animator;
+        [SerializeField] private bool autoFindAnimator = true;
+
+        [Tooltip("Animator 里的移动参数名")]
+        [SerializeField] private string walkBoolName = "walk";
+
+        [Tooltip("Animator 里的跳跃参数名")]
+        [SerializeField] private string jumpTriggerName = "jump";
+
+        [Tooltip("判定为走路的最小输入阈值")]
+        [SerializeField] private float moveAnimThreshold = 0.01f;
+
+        private int _walkHash;
+        private int _jumpHash;
+        private bool _animatorReady;
+
         private Vector2 _moveInput;
         private float _lookDeltaX;
         private float _pendingLookDeltaX;
@@ -23,6 +40,7 @@ namespace Player
         {
             _rigidbody = GetComponent<Rigidbody>();
             SyncFromOptions();
+            CacheAnimator();
         }
 
         private void OnEnable()
@@ -33,14 +51,15 @@ namespace Player
                 inputController.OnLookInputChanged += SetLookInput;
                 inputController.OnJumpInputChanged += OnJumpInput;
             }
+
             if (OptionsManager.Instance != null)
             {
                 OptionsManager.Instance.OnOptionsChanged += SyncFromOptions;
             }
+
             if (GameplayManager.Instance != null)
             {
                 GameplayManager.Instance.OnStatusChanged += OnGameplayStatusChanged;
-                // 初始化 isPaused 状态
                 isPaused = (GameplayManager.Instance.Status == EGameplayStatus.Paused);
             }
         }
@@ -53,13 +72,39 @@ namespace Player
                 inputController.OnLookInputChanged -= SetLookInput;
                 inputController.OnJumpInputChanged -= OnJumpInput;
             }
+
             if (OptionsManager.Instance != null)
             {
                 OptionsManager.Instance.OnOptionsChanged -= SyncFromOptions;
             }
+
             if (GameplayManager.Instance != null)
             {
                 GameplayManager.Instance.OnStatusChanged -= OnGameplayStatusChanged;
+            }
+
+            if (animator != null && _animatorReady)
+            {
+                animator.SetBool(_walkHash, false);
+            }
+        }
+
+        private void CacheAnimator()
+        {
+            if (autoFindAnimator && animator == null)
+            {
+                animator = GetComponentInChildren<Animator>(true);
+            }
+
+            if (animator != null)
+            {
+                _walkHash = Animator.StringToHash(walkBoolName);
+                _jumpHash = Animator.StringToHash(jumpTriggerName);
+                _animatorReady = true;
+            }
+            else
+            {
+                _animatorReady = false;
             }
         }
 
@@ -77,6 +122,7 @@ namespace Player
         {
             OptionsManager optionsMgr = OptionsManager.Instance;
             if (!optionsMgr) return;
+
             OptionsData options = optionsMgr.GetOptions();
             if (options != null)
             {
@@ -84,19 +130,16 @@ namespace Player
             }
         }
 
-        // 将 FixedUpdate 标记为 protected virtual，允许子类（例如教程版本）在必要时覆写运动逻辑。
-        // 注意：不改变现有行为，仅放宽访问修饰以支持继承扩展。
         protected virtual void FixedUpdate()
         {
-            // 暂停时不旋转且清空 lookDelta，防止累积
             if (isPaused)
             {
                 _pendingLookDeltaX = 0f;
                 ForceUprightRotation();
+                UpdateWalkAnimation(false);
                 return;
             }
 
-            // 旋转（刚体模式，消耗_pendingLookDeltaX）
             if (Mathf.Abs(_pendingLookDeltaX) > 0.0001f && _rigidbody)
             {
                 float yRotation = _pendingLookDeltaX * horizontalLookSensitivity * Time.fixedDeltaTime * 0.5f;
@@ -106,10 +149,8 @@ namespace Player
                 ForceUprightRotation();
             }
 
-            // 检查是否在地面
             _isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundMask);
-            
-            // 移动逻辑
+
             if (_moveInput != Vector2.zero && _rigidbody)
             {
                 Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
@@ -117,6 +158,15 @@ namespace Player
                 Vector3 targetPosition = _rigidbody.position + move;
                 _rigidbody.MovePosition(targetPosition);
             }
+
+            bool isWalking = _isGrounded && _moveInput.sqrMagnitude > moveAnimThreshold;
+            UpdateWalkAnimation(isWalking);
+        }
+
+        private void UpdateWalkAnimation(bool isWalking)
+        {
+            if (animator == null || !_animatorReady) return;
+            animator.SetBool(_walkHash, isWalking);
         }
 
         private void ForceUprightRotation()
@@ -127,13 +177,21 @@ namespace Player
             _rigidbody.MoveRotation(Quaternion.Euler(0f, euler.y, 0f));
         }
 
-
         private void OnJumpInput()
         {
             if (_isGrounded && _rigidbody)
             {
                 _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+
+                if (animator != null && _animatorReady)
+                {
+                    animator.ResetTrigger(_jumpHash);
+                    animator.SetTrigger(_jumpHash);
+                }
+
+                UpdateWalkAnimation(false);
+                _isGrounded = false;
             }
         }
 
