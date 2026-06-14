@@ -7,6 +7,7 @@ namespace Enemy
     {
         [Header("Physics")]
         [SerializeField] private Rigidbody rb;
+
         [Header("Pool")]
         [Tooltip("必须与 ObjectPool.poolKey 一致，否则无法回收到对象池")]
         public string referencePoolKey = "EnemyBullet";
@@ -14,6 +15,7 @@ namespace Enemy
         [Header("Lifetime")]
         [SerializeField] private float lifeTime = 5f;
         [SerializeField] private float damage = 10f;
+
         public ISender Sender { get; set; }
 
         private float _lifeTimer;
@@ -29,7 +31,7 @@ namespace Enemy
             // 复用对象时重置计时
             _lifeTimer = 0f;
 
-            // 保险：避免上一次的速度残留（看你需求，可保留/可清空）
+            // 保险：避免上一次的速度残留
             if (rb != null)
             {
                 rb.linearVelocity = Vector3.zero;
@@ -74,12 +76,22 @@ namespace Enemy
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other == null) return;
+
+            // 命中玩家：造成伤害并回收
             if (other.CompareTag("Player"))
             {
                 other.GetComponentInParent<IDamageable>()?.TakeDamage(damage);
                 ReturnToPool();
+                return;
             }
-            
+
+            // 命中墙：直接回收
+            if (other.CompareTag("Wall"))
+            {
+                ReturnToPool();
+                return;
+            }
         }
 
         private void ReturnToPool()

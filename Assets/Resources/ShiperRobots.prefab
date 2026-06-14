@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d079aedb49191734899f3384ac24ba84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.SniperEnemy
-  destroyOnDeath: 0
+  destroyOnDeath: 1
   detectRange: 10
   patrolRadius: 5
   patrolWaitTime: 2
@@ -217,6 +217,7 @@ MonoBehaviour:
     m_Bits: 64
   laserWidth: 0.02
   laserColor: {r: 1, g: 0, b: 0, a: 1}
+  searchHealthInChildren: 1
 --- !u!114 &3096692394151023168
 MonoBehaviour:
   m_ObjectHideFlags: 0
