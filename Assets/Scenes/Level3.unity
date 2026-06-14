@@ -1926,6 +1926,18 @@ Transform:
   - {fileID: 1696963357}
   - {fileID: 2118946315}
   - {fileID: 5697023}
+  - {fileID: 1505879291}
+  - {fileID: 392457477}
+  - {fileID: 1575629103}
+  - {fileID: 1475475105}
+  - {fileID: 774162735}
+  - {fileID: 1440973378}
+  - {fileID: 740899488}
+  - {fileID: 452137641}
+  - {fileID: 196365801}
+  - {fileID: 1552698744}
+  - {fileID: 1989378918}
+  - {fileID: 1037195208}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &45048647
@@ -3601,7 +3613,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &211205256
 GameObject:
@@ -6996,7 +7008,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -25.005}
 --- !u!1 &409783551
 GameObject:
@@ -8064,7 +8076,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &477381267
 Mesh:
@@ -13114,7 +13126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &744696967
 Mesh:
@@ -13899,7 +13911,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &774894792
 Mesh:
@@ -17606,7 +17618,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1046886199
 Mesh:
@@ -18676,6 +18688,152 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1125483025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1125483026}
+  - component: {fileID: 1125483028}
+  - component: {fileID: 1125483027}
+  m_Layer: 0
+  m_Name: MusicBulid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1125483026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125483025}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -21.11739, y: 6.92487, z: -12.62392}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1125483027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125483025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aaef6e2696f99241b93657f60f59f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicBulider
+  sceneMusic: {fileID: 8300000, guid: fc92fb135c0e1084b93d8166cc4d9797, type: 3}
+  playOnStart: 1
+  loop: 1
+  pauseDuringBulletTime: 1
+--- !u!82 &1125483028
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125483025}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!43 &1148147342
 Mesh:
   m_ObjectHideFlags: 0
@@ -23567,7 +23725,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1442059857
 GameObject:
@@ -24856,7 +25014,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -25.005}
 --- !u!1 &1505879285
 GameObject:
@@ -25212,7 +25370,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -33.18}
 --- !u!1 &1522838505
 GameObject:
@@ -26102,7 +26260,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1567110892
 GameObject:
@@ -26858,7 +27016,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -25.005}
 --- !u!1 &1581106433
 GameObject:
@@ -29603,7 +29761,11 @@ PrefabInstance:
       objectReference: {fileID: 997022539}
     - target: {fileID: 5569616931202969223, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
       propertyPath: maxHealth
-      value: 10000
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769470976598894858, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 7062980978883373678, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32789,7 +32951,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 45048646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2007422738
 GameObject:
@@ -34793,15 +34955,4 @@ SceneRoots:
   - {fileID: 286828512}
   - {fileID: 868560458}
   - {fileID: 1572935655}
-  - {fileID: 1505879291}
-  - {fileID: 392457477}
-  - {fileID: 1575629103}
-  - {fileID: 1475475105}
-  - {fileID: 774162735}
-  - {fileID: 1440973378}
-  - {fileID: 740899488}
-  - {fileID: 452137641}
-  - {fileID: 196365801}
-  - {fileID: 1552698744}
-  - {fileID: 1989378918}
-  - {fileID: 1037195208}
+  - {fileID: 1125483026}
