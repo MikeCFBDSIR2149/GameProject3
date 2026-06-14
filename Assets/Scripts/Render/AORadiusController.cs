@@ -144,7 +144,7 @@ namespace Render
 
             if (ssaoFeature != null && radiusField != null)
             {
-                Debug.Log("[AO] 初始化成功！</color>");
+                // Debug.Log("[AO] 初始化成功！</color>");
                 return true;
             }
             return false;

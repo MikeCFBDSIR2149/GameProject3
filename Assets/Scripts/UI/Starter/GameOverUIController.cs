@@ -27,6 +27,7 @@ namespace UI.Starter
 
         private void HandleGameplayStatusChanged(EGameplayStatus status)
         {
+            if (GameplayManager.Instance.doNotTriggerListener) return;
             if (status == EGameplayStatus.GameOver)
             {
                 ShowGameOverUI();

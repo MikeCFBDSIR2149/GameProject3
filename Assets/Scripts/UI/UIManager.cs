@@ -25,7 +25,7 @@ namespace UI
         // 显示UI（增强版）
         public UIBase ShowUI(string uiName, object data = null, bool asRootCanvas = false)
         {
-            Debug.Log($"尝试显示UI: {uiName}");
+            // Debug.Log($"尝试显示UI: {uiName}");
 
             // 如果UI已经存在，直接显示
             if (_uiDictionary.TryGetValue(uiName, out UIBase existingUI))
@@ -82,7 +82,7 @@ namespace UI
             ui.OnInit();
             ui.OnShow(data);
 
-            Debug.Log($"成功创建UI: {uiName}");
+            // Debug.Log($"成功创建UI: {uiName}");
             return ui;
         }
         public UIBase CreateUIInstance(string uiName, object data = null, Transform parent = null, bool asRootCanvas = false)
@@ -257,7 +257,7 @@ namespace UI
             _uiDictionary.Clear();
             _uiPrefabDictionary.Clear();
             
-            Debug.Log("[UIManager] Cleared all cached UI references");
+            // Debug.Log("[UIManager] Cleared all cached UI references");
         }
 
         private void OnEnable()

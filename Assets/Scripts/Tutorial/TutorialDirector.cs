@@ -63,7 +63,7 @@ namespace Tutorial
             if (context != null)
             {
                 context.Enter();
-                Debug.Log($"[TutorialDirector] Tutorial started.");
+                // Debug.Log($"[TutorialDirector] Tutorial started.");
             }
         }
 

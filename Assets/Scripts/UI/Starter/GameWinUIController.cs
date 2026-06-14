@@ -27,8 +27,10 @@ namespace UI.Starter
 
         private void HandleGameplayStatusChanged(EGameplayStatus status)
         {
+            if (GameplayManager.Instance.doNotTriggerListener) return;
             if (status == EGameplayStatus.GameWin)
             {
+                Debug.Log("Game win");
                 ShowGameWinUI();
                 MousePointerManager.Instance?.UnlockCursor();
                 return;

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum EGameplayStatus
 {
@@ -37,6 +38,8 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     public event Action<EGameplayStatus> OnStatusChanged;
     public event Action<Player.Player> OnPlayerChanged;
 
+    public bool doNotTriggerListener;
+
     public Player.Player Player
     {
         get => _player;
@@ -68,6 +71,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     {
         Debug.Log("GameplayManager Start");
         SetGameplayStatus(EGameplayStatus.Default, true);
+        doNotTriggerListener = false;
     }
 
     private void Update()
@@ -99,6 +103,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
             case EGameplayStatus.Default:
                 _timeScaleController.UseDefaultTimeScale();
                 _energyController.UseDefaultTimeEnergyConsumption();
+                SetDoNotTriggerListener(false);
                 break;
             case EGameplayStatus.BulletTime:
                 _timeScaleController.UseBulletTimeScale();
@@ -110,10 +115,12 @@ public class GameplayManager : MonoSingleton<GameplayManager>
                 break;
             case EGameplayStatus.GameOver:
                 _timeScaleController.UseGameOverTimeScale();
+                SetDoNotTriggerListener(true);
                 // 游戏结束后不再消耗能量
                 break;
             case EGameplayStatus.GameWin:
                 _timeScaleController.UseGameOverTimeScale();
+                SetDoNotTriggerListener(true);
                 // 游戏胜利后不再消耗能量
                 break;
             default:
@@ -161,6 +168,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     {
         if (IsTerminalState)
             return;
+        if (ResolveStatusLevel(PreviousStatus) == EGameplayStatusLevel.Terminal) return;
 
         SetGameplayStatus(PreviousStatus);
         PreviousStatus = Status;
@@ -182,6 +190,11 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         Debug.Log("[GameplayManager] Requesting GameWin");
 
         SetGameplayStatus(EGameplayStatus.GameWin, true);
+    }
+
+    private void SetDoNotTriggerListener(bool value)
+    {
+        doNotTriggerListener = value;
     }
 
     private void OnEnable()

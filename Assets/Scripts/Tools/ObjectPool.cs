@@ -56,6 +56,6 @@ public class ObjectPool : MonoBehaviour
             }
         }
         
-        Debug.Log($"[ObjectPool] Cleared pool for key: {poolKey}");
+        // Debug.Log($"[ObjectPool] Cleared pool for key: {poolKey}");
     }
 }

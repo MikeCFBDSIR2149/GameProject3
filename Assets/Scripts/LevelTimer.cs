@@ -33,7 +33,7 @@ public class LevelTimer : MonoBehaviour
     private void Start()
     {
         StartLevelCountdown(levelTimeSeconds);
-        Debug.Log("LevelCountdownToGameOver Start");
+        // Debug.Log("LevelCountdownToGameOver Start");
     }
 
     public void StartLevelCountdown(int seconds)

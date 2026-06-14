@@ -75,6 +75,7 @@ namespace UI.Menu
 
         public override void OnHide()
         {
+            if (GameplayManager.Instance.doNotTriggerListener) return;
             KillCurrentTween();
             // Ensure the PauseButton static state is reset and gameplay/cursor restored
             PauseButton.ResetPauseState();
