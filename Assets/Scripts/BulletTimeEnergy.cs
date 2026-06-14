@@ -48,11 +48,13 @@ namespace Player
 
         private void OnEnable()
         {
+            if (!GameplayManager.Instance) return;
             GameplayManager.Instance.OnStatusChanged += OnGameplayStatusChanged;
         }
 
         private void OnDisable()
         {
+            if (!GameplayManager.Instance) return;
             GameplayManager.Instance.OnStatusChanged -= OnGameplayStatusChanged;
         }
         

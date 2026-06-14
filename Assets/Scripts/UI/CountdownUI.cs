@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,8 @@ namespace UI
     public class CountdownUI : UIBase
     {
         [Header("倒计时UI组件")]
-        [SerializeField] private Text countdownText;
-        [SerializeField] private Text messageText;
+        [SerializeField] private TextMeshProUGUI countdownText;
+        [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private GameObject countdownPanel;
 
         private Coroutine _countdownCoroutine;

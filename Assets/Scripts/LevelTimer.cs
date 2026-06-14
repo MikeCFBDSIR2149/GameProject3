@@ -48,7 +48,7 @@ public class LevelTimer : MonoBehaviour
             var data = new CountdownData
             {
                 startTime = Mathf.CeilToInt(_remaining),
-                message = "剩余时间",
+                message = "安全执行任务倒计时",
                 completeMessage = "时间到！",
                 autoHide = false,
                 tickInterval = 1f
@@ -57,7 +57,7 @@ public class LevelTimer : MonoBehaviour
             UIManager.Instance.ShowUI(countdownUIName, data);
             _countdownUI = UIManager.Instance.GetUI<CountdownUI>(countdownUIName);
             _countdownUI?.ResumeCountdown();
-            _countdownUI?.SetTime(_lastWholeSecond, "剩余时间");
+            _countdownUI?.SetTime(_lastWholeSecond, "安全执行任务倒计时");
         }
     }
 
@@ -85,7 +85,7 @@ public class LevelTimer : MonoBehaviour
         if (whole != _lastWholeSecond)
         {
             _lastWholeSecond = whole;
-            _countdownUI?.SetTime(whole, "剩余时间");
+            _countdownUI?.SetTime(whole, "安全执行任务倒计时");
         }
     }
 

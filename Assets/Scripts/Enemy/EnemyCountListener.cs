@@ -28,6 +28,10 @@ namespace Enemy
 
 			if (_instance._enemyCount <= 0)
 			{
+				if (GameplayManager.Instance == null)
+				{
+					return;
+				}
 				GameplayManager.Instance.RequestGameWin();
 			}
 		}
