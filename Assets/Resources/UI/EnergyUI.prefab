@@ -59,7 +59,7 @@ MonoBehaviour:
   energyText: {fileID: 9220046219855828222}
   showNumbers: 1
   showAsInt: 1
-  defaultMaxEnergy: 100
+  defaultMaxEnergy: 300
 --- !u!1 &3157978441899055851
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.387
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -10,8 +10,8 @@ namespace Player
     public class BulletTimeEnergy : MonoBehaviour
     {
         [Header("Energy")]
-        public float maxEnergy = 100f;
-        [SerializeField] private float currentEnergy = 100f;
+        public float maxEnergy = 300f;
+        [SerializeField] private float currentEnergy = 300f;
 
         [Header("Drain / Regen (per second)")]
         public float drainPerSecond = 30f;   // 子弹时间每秒消耗
@@ -33,6 +33,8 @@ namespace Player
 
         private float _lockTimer;
 
+        private bool _doNotUpdate;
+
         private void Awake()
         {
             currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
@@ -44,8 +46,24 @@ namespace Player
             PushEnergyUI();
         }
 
+        private void OnEnable()
+        {
+            GameplayManager.Instance.OnStatusChanged += OnGameplayStatusChanged;
+        }
+
+        private void OnDisable()
+        {
+            GameplayManager.Instance.OnStatusChanged -= OnGameplayStatusChanged;
+        }
+        
+        private void OnGameplayStatusChanged(EGameplayStatus newStatus)
+        {
+            _doNotUpdate = !GameplayManager.Instance.CanPerformGameplayActions;
+        }
+
         private void Update()
         {
+            if (_doNotUpdate) return;
             // 用 unscaled，保证慢动作/子弹时间不影响“能量逻辑的真实速度”
             float dt = Time.unscaledDeltaTime;
 
@@ -57,11 +75,6 @@ namespace Player
 
             bool isBulletTime = GameplayManager.Instance != null &&
                                 GameplayManager.Instance.Status == EGameplayStatus.BulletTime;
-
-            if (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState)
-            {
-                return;
-            }
 
             float before = currentEnergy;
 
