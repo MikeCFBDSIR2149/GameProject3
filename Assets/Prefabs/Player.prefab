@@ -5399,6 +5399,7 @@ GameObject:
   - component: {fileID: 1490091806887864891}
   - component: {fileID: 5769470976598894858}
   - component: {fileID: 8987283102007461699}
+  - component: {fileID: 4372298040169993628}
   - component: {fileID: 8142919764066135409}
   - component: {fileID: 970431049373893496}
   - component: {fileID: 5569616931202969223}
@@ -5473,7 +5474,7 @@ MonoBehaviour:
   jumpForce: 8
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   groundCheckDistance: 1.5
   animator: {fileID: 7581781418947878859}
   autoFindAnimator: 1
@@ -5502,6 +5503,24 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9
   IgnoreTag: Player
+--- !u!114 &4372298040169993628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184655428823888042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dfbf8e6a22be8f4b8d348dc9eed47ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.BulletTimeEnergy
+  maxEnergy: 100
+  currentEnergy: 100
+  drainPerSecond: 30
+  regenPerSecond: 15
+  depletedLockSeconds: 2
+  startCost: 0
 --- !u!114 &8142919764066135409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5534,7 +5553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBulletTimeSkill
   inputController: {fileID: 1490091806887864891}
   bulletTimeDuration: 10
-  energy: {fileID: 8142919764066135409}
+  energy: {fileID: 4372298040169993628}
 --- !u!114 &5569616931202969223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5547,7 +5566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7671622b1c143959713b0ced313e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUniversal.Health
-  maxHealth: 10000
+  maxHealth: 1000
 --- !u!114 &6048392021370005172
 MonoBehaviour:
   m_ObjectHideFlags: 0
