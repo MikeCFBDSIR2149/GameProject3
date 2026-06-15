@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.GameOverUIController
   gameOverUIName: GameOverMenu
+  globalVolumeController: {fileID: 2055629411}
 --- !u!4 &140363388
 Transform:
   m_ObjectHideFlags: 0
@@ -11837,6 +11838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c50b92cec6b142fb9307f96ea0cf1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyCounter
+  triggerListener: 1
 --- !u!1 &1439265186
 GameObject:
   m_ObjectHideFlags: 0
@@ -13336,6 +13338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c50b92cec6b142fb9307f96ea0cf1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyCounter
+  triggerListener: 1
 --- !u!1 &1716968825
 GameObject:
   m_ObjectHideFlags: 0
@@ -15748,6 +15751,69 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: d38ebc3f608684c289f380de720ba7fb, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1 &2055629408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2055629410}
+  - component: {fileID: 2055629409}
+  - component: {fileID: 2055629411}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2055629409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055629408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: bd523924d8d564614a838ee7994860d6, type: 2}
+--- !u!4 &2055629410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055629408}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2055629411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055629408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c938c3a3db54d85aad48d4665211a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Render.GlobalVolumeController
+  globalVolume: {fileID: 2055629409}
 --- !u!1 &2122271817
 GameObject:
   m_ObjectHideFlags: 0
@@ -16156,3 +16222,4 @@ SceneRoots:
   - {fileID: 808504771}
   - {fileID: 140363388}
   - {fileID: 597384460}
+  - {fileID: 2055629410}

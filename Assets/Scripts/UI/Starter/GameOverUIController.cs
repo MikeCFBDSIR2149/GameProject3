@@ -1,3 +1,4 @@
+using Render;
 using UnityEngine;
 
 namespace UI.Starter
@@ -5,6 +6,7 @@ namespace UI.Starter
     public class GameOverUIController : MonoBehaviour
     {
         [SerializeField] private string gameOverUIName = "GameOverMenu";
+        [SerializeField] private GlobalVolumeController globalVolumeController;
 
         private bool _isVisible;
 
@@ -45,6 +47,7 @@ namespace UI.Starter
 
             UIManager.Instance.ShowUI(gameOverUIName, asRootCanvas: true);
             _isVisible = true;
+            if (globalVolumeController != null) globalVolumeController.GameOverEffect(true);
         }
 
         private void HideGameOverUI()
@@ -54,6 +57,7 @@ namespace UI.Starter
 
             UIManager.Instance.HideUI(gameOverUIName);
             _isVisible = false;
+            if (globalVolumeController != null) globalVolumeController.GameOverEffect(false);
         }
     }
 }
