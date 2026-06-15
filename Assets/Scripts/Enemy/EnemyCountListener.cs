@@ -21,13 +21,13 @@ namespace Enemy
 		public static void RegisterEnemy()
 		{
 			_instance._enemyCount++;
-			// Debug.Log($"Enemy Count: {_instance._enemyCount}");
+			Debug.Log($"Enemy Count: {_instance._enemyCount}");
 		}
 
-		public static void DestroyEnemy()
+		public static void DestroyEnemy(bool triggerListener = true)
 		{
+			if (!triggerListener) _allowTrigger = false;
 			_instance._enemyCount--;
-			// Debug.Log($"Enemy Count: {_instance._enemyCount}");
 
 			if (_instance._enemyCount <= 0)
 			{

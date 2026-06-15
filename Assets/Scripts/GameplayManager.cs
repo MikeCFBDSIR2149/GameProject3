@@ -69,7 +69,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
 
     private void Start()
     {
-        Debug.Log("GameplayManager Start");
+        // Debug.Log("GameplayManager Start");
         SetGameplayStatus(EGameplayStatus.Default, true);
         doNotTriggerListener = false;
     }

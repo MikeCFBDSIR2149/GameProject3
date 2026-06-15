@@ -5515,8 +5515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfbf8e6a22be8f4b8d348dc9eed47ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.BulletTimeEnergy
-  maxEnergy: 100
-  currentEnergy: 100
+  maxEnergy: 300
+  currentEnergy: 300
   drainPerSecond: 30
   regenPerSecond: 15
   depletedLockSeconds: 2

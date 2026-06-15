@@ -18369,6 +18369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c50b92cec6b142fb9307f96ea0cf1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyCounter
+  triggerListener: 0
 --- !u!1 &1808322641
 GameObject:
   m_ObjectHideFlags: 0
