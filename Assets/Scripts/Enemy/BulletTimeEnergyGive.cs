@@ -7,7 +7,7 @@ namespace Player
     /// <summary>
     /// 子弹时间能量池：BulletTime 时持续消耗；耗尽后强制关闭，并进入冷却锁定。
     /// </summary>
-    public class BulletTimeEnergy : MonoBehaviour
+    public class BulletTimeEnergyGive : MonoBehaviour
     {
         [Header("Energy")]
         public float maxEnergy = 300f;

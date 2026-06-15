@@ -12816,6 +12816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.GameOverUIController
   gameOverUIName: GameOverMenu
+  globalVolumeController: {fileID: 0}
 --- !u!4 &726685235
 Transform:
   m_ObjectHideFlags: 0

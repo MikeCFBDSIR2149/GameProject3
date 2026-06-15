@@ -79,7 +79,18 @@ namespace Enemy
         {
             UpdateMoveAnim();
         }
+        private void RewardPlayerEnergy()
+        {
+            var gameplay = GameplayManager.Instance;
+            if (gameplay == null || gameplay.Player == null)
+                return;
 
+            var energy = gameplay.Player.GetComponent<Player.BulletTimeEnergy>();
+            if (energy != null)
+            {
+                energy.AddEnergy(50f);
+            }
+        }
         protected virtual void UpdateMoveAnim()
         {
             if (animator == null) return;
@@ -131,7 +142,8 @@ namespace Enemy
                 agent.isStopped = true;
                 agent.ResetPath();
             }
-
+             // 击杀敌人后给玩家回 50 能量
+            RewardPlayerEnergy();
             // 有动画则优先播动画再消失；没动画则保持原逻辑立刻消失
             bool canPlayDeathAnim = (useDeathAnimation && animator != null && deathAnimWaitTime > 0.01f);
 

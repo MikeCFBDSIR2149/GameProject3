@@ -5400,7 +5400,6 @@ GameObject:
   - component: {fileID: 5769470976598894858}
   - component: {fileID: 8987283102007461699}
   - component: {fileID: 4372298040169993628}
-  - component: {fileID: 8142919764066135409}
   - component: {fileID: 970431049373893496}
   - component: {fileID: 5569616931202969223}
   - component: {fileID: 6048392021370005172}
@@ -5504,24 +5503,6 @@ MonoBehaviour:
     m_Bits: 73
   IgnoreTag: Player
 --- !u!114 &4372298040169993628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9184655428823888042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dfbf8e6a22be8f4b8d348dc9eed47ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player.BulletTimeEnergy
-  maxEnergy: 300
-  currentEnergy: 300
-  drainPerSecond: 30
-  regenPerSecond: 15
-  depletedLockSeconds: 2
-  startCost: 0
---- !u!114 &8142919764066135409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
