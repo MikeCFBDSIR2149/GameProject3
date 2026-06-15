@@ -5501,7 +5501,7 @@ MonoBehaviour:
   maxDistance: 100
   LayerFilter:
     serializedVersion: 2
-    m_Bits: 9
+    m_Bits: 73
   IgnoreTag: Player
 --- !u!114 &4372298040169993628
 MonoBehaviour:

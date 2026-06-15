@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Player
@@ -9,7 +10,9 @@ namespace Player
         public PlayerCameraDetector cameraDetector;
         public string bulletPoolKey = "PlayerBullet";
         public float bulletSpeed;
-        
+
+        private Coroutine _attackCooldownCoroutine;
+        private bool _allowAttack = true;
 
         private void OnEnable()
         {
@@ -32,6 +35,7 @@ namespace Player
 
         protected virtual void OnAttack()
         {
+            if (!_allowAttack) return;
             if (cameraDetector != null)
             {
                 Vector3 hitPoint = cameraDetector.DetectAimPosition();
@@ -41,11 +45,23 @@ namespace Player
                     return;
                 Vector3 velocity = (hitPoint - transform.position).normalized * bulletSpeed;
                 bulletScript.Init(velocity);
+                if (_attackCooldownCoroutine != null)
+                {
+                    StopCoroutine(_attackCooldownCoroutine);
+                }
+                _attackCooldownCoroutine = StartCoroutine(CooldownCoroutine());
             }
             else
             {
                 Debug.LogWarning("[PlayerGun] No PlayerCameraDetector found!");
             }
+        }
+        
+        private IEnumerator CooldownCoroutine()
+        {
+            _allowAttack = false;
+            yield return new WaitForSecondsRealtime(1f);
+            _allowAttack = true;
         }
     }
 }

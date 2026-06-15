@@ -17,10 +17,10 @@ namespace Player
         [SerializeField] private bool autoFindAnimator = true;
 
         [Tooltip("Animator 里的移动参数名")]
-        [SerializeField] private string walkBoolName = "walk";
+        [SerializeField] private string walkBoolName = "Walk";
 
         [Tooltip("Animator 里的跳跃参数名")]
-        [SerializeField] private string jumpTriggerName = "jump";
+        [SerializeField] private string jumpTriggerName = "Jump";
 
         [Tooltip("判定为走路的最小输入阈值")]
         [SerializeField] private float moveAnimThreshold = 0.01f;
