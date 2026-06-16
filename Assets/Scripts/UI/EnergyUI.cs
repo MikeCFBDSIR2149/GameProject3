@@ -10,6 +10,7 @@ namespace UI
     /// - 自动在自身子物体中寻找 Slider / TMP_Text（无需手动拖引用）
     /// - 订阅 UIEventManager: "OnEnergyChanged" 实时更新（由 BulletTimeEnergy 推送）
     /// - 开局会从 GameplayManager.Player 的 BulletTimeEnergy 拉一次当前值，避免不显示/显示旧值
+    /// - 能量归零或锁定期间，文字会变红提醒
     /// </summary>
     public class EnergyUI : UIBase
     {
@@ -27,6 +28,10 @@ namespace UI
         [Header("Display")]
         [SerializeField] private bool showNumbers = true;
         [SerializeField] private bool showAsInt = true;
+
+        [Header("Colors")]
+        [SerializeField] private Color normalTextColor = Color.white;
+        [SerializeField] private Color warningTextColor = Color.red;
 
         [Header("Defaults (used before binding)")]
         [SerializeField] private float defaultMaxEnergy = 100f;
@@ -48,7 +53,7 @@ namespace UI
             _current = _max;
 
             AutoFindReferences();
-            Apply(); // 防止UI空白
+            Apply();
         }
 
         public override void OnShow(object data = null)
@@ -103,7 +108,7 @@ namespace UI
             _gameplayManager = GameplayManager.Instance;
             if (_gameplayManager != null)
             {
-                _gameplayManager.OnPlayerChanged -= HandlePlayerChanged; // 防重复
+                _gameplayManager.OnPlayerChanged -= HandlePlayerChanged;
                 _gameplayManager.OnPlayerChanged += HandlePlayerChanged;
             }
         }
@@ -121,7 +126,6 @@ namespace UI
 
         private void HandleEnergyChangedEvent(object data)
         {
-            // 直接走统一解析入口
             UpdateUI(data);
         }
 
@@ -149,7 +153,7 @@ namespace UI
             if (_energy == null)
                 return;
 
-            // 开局/切换玩家时立刻刷新一次（否则要等下一次事件推送才动）
+            // 开局/切换玩家时立刻刷新一次
             SetEnergy(_energy.CurrentEnergy, _energy.MaxEnergy);
         }
 
@@ -169,7 +173,7 @@ namespace UI
                     energySlider = GetComponentInChildren<Slider>(true);
             }
 
-            // TMP Text（可选，不强制）
+            // TMP Text（可选）
             if (energyText == null)
             {
                 energyText = FindChildByName<TMP_Text>(textObjectName);
@@ -183,12 +187,13 @@ namespace UI
             if (string.IsNullOrWhiteSpace(childName))
                 return null;
 
-            var comps = GetComponentsInChildren<T>(true); // 包含未激活
+            var comps = GetComponentsInChildren<T>(true);
             for (int i = 0; i < comps.Length; i++)
             {
                 if (comps[i] != null && comps[i].name == childName)
                     return comps[i];
             }
+
             return null;
         }
 
@@ -207,6 +212,8 @@ namespace UI
                 energySlider.value = _current;
             }
 
+            bool shouldWarn = _energy != null && (_energy.CurrentEnergy <= 0f || _energy.IsDepletedLocked);
+
             if (energyText != null)
             {
                 energyText.gameObject.SetActive(showNumbers);
@@ -224,6 +231,8 @@ namespace UI
                     string m = _max.ToString("0.#", CultureInfo.InvariantCulture);
                     energyText.text = $"{c}/{m}";
                 }
+
+                energyText.color = shouldWarn ? warningTextColor : normalTextColor;
             }
         }
     }

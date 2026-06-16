@@ -9,17 +9,26 @@ namespace Player
         public InputController inputController;
 
         [Header("Optional Duration Limit (set <=0 to ignore)")]
-        public float bulletTimeDuration = 0f;   // 设为 0 表示不使用固定时长，只由能量决定
+        public float bulletTimeDuration = 0f;
 
         [Header("Energy")]
-        public BulletTimeEnergy energy;         // 新增：拖拽同物体上的 BulletTimeEnergy
+        public BulletTimeEnergy energy;
 
         protected bool _isBulletTimeActive;
         protected Coroutine _bulletTimeCoroutine;
         protected bool _isPaused;
 
+        private void Awake()
+        {
+            if (energy == null)
+                energy = GetComponent<BulletTimeEnergy>();
+        }
+
         protected void OnEnable()
         {
+            if (energy == null)
+                energy = GetComponent<BulletTimeEnergy>();
+
             if (inputController != null)
                 inputController.OnBulletTimeSkillInputChanged += TryActivateBulletTime;
 
@@ -57,13 +66,14 @@ namespace Player
 
         private void HandleEnergyDepleted()
         {
-            // 能量耗尽 -> 如果正在子弹时间，强制关闭
-            if (_isBulletTimeActive)
-            {
-                AbortBulletTime();
-                if (GameplayManager.Instance != null)
-                    GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
-            }
+            // 能量归零时，如果正在子弹时间，强制结束
+            if (!_isBulletTimeActive)
+                return;
+
+            AbortBulletTime();
+
+            if (GameplayManager.Instance != null)
+                GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default, true);
         }
 
         protected virtual void TryActivateBulletTime()
@@ -75,17 +85,27 @@ namespace Player
             if (_isBulletTimeActive)
             {
                 AbortBulletTime();
+
                 if (GameplayManager.Instance != null)
-                    GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
+                    GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default, true);
+
                 return;
             }
 
-            // 尝试开启：先检查能量脚本
-            if (energy != null)
+            if (energy == null)
+                energy = GetComponent<BulletTimeEnergy>();
+
+            if (energy == null)
             {
-                if (!energy.CanStartBulletTime) return;
-                if (!energy.TrySpendStartCost()) return;
+                Debug.LogWarning("[PlayerBulletTimeSkill] 找不到 BulletTimeEnergy，无法开启子弹时间。");
+                return;
             }
+
+            if (!energy.CanStartBulletTime)
+                return;
+
+            if (!energy.TrySpendStartCost())
+                return;
 
             _bulletTimeCoroutine = StartCoroutine(BulletTimeRoutine());
         }
@@ -93,14 +113,16 @@ namespace Player
         protected IEnumerator BulletTimeRoutine()
         {
             _isBulletTimeActive = true;
-            GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.BulletTime);
 
-            // 如果你还想保留“最长持续时间”，就用这个；否则 duration <= 0 就一直等能量耗尽或手动关闭
+            if (GameplayManager.Instance != null)
+                GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.BulletTime, true);
+
             float elapsed = 0f;
 
             while (true)
             {
-                while (_isPaused) yield return null;
+                while (_isPaused)
+                    yield return null;
 
                 if (bulletTimeDuration > 0f)
                 {
@@ -109,14 +131,16 @@ namespace Player
                         break;
                 }
 
-                // 如果能量脚本存在且已经不能继续（比如 0 或锁定），也退出
-                if (energy != null && !energy.CanStartBulletTime && energy.CurrentEnergy <= 0f)
+                // 只要能量真正到 0，就结束子弹时间
+                if (energy != null && energy.CurrentEnergy <= 0f)
                     break;
 
                 yield return null;
             }
 
-            GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default);
+            if (GameplayManager.Instance != null)
+                GameplayManager.Instance.SetGameplayStatus(EGameplayStatus.Default, true);
+
             _isBulletTimeActive = false;
             _bulletTimeCoroutine = null;
         }

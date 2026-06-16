@@ -40,12 +40,13 @@ namespace Player
 
             BulletTrailComponent?.ResetTrail();
             BulletTrailComponent?.StartTrail();
-            
+    
             if (_lifeCycleCoroutine != null)
             {
-                _lifeCycleCoroutine = null;
                 StopCoroutine(_lifeCycleCoroutine);
+                _lifeCycleCoroutine = null;
             }
+
             _lifeCycleCoroutine = StartCoroutine(LifeCycleCoroutine());
         }
 
