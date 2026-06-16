@@ -7,5 +7,6 @@ namespace UserOptions
     {
         public float horizontalSensitivity = 12.0f;
         public float verticalSensitivity = 15.0f;
+        public float mainVolume = 60.0f;
     }
 }

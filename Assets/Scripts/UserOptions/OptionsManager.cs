@@ -7,7 +7,8 @@ namespace UserOptions
     public enum EUserOptionKey
     {
         HorizontalSensitivity,
-        VerticalSensitivity
+        VerticalSensitivity,
+        MainVolume
         // 新增设置项时在此添加
     }
 
@@ -67,12 +68,15 @@ namespace UserOptions
                 case EUserOptionKey.VerticalSensitivity:
                     _optionsData.verticalSensitivity = value;
                     break;
+                case EUserOptionKey.MainVolume:
+                    _optionsData.mainVolume = value;
+                    break;
                 // 新增设置项时在此添加
                 default:
                     Debug.LogWarning($"Unknown OptionKey: {key}");
                     return;
             }
-            // SaveOptions();
+            SaveOptions();
         }
 
         public float GetOption(EUserOptionKey key)
@@ -88,6 +92,8 @@ namespace UserOptions
                     return _optionsData.horizontalSensitivity;
                 case EUserOptionKey.VerticalSensitivity:
                     return _optionsData.verticalSensitivity;
+                case EUserOptionKey.MainVolume:
+                    return _optionsData.mainVolume;
                 // 新增设置项时在此添加
                 default:
                     Debug.LogWarning($"Unknown OptionKey: {key}");

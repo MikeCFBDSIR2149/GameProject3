@@ -66,7 +66,7 @@ namespace Enemy
 
         // melee attack coroutine state
         private Coroutine _meleeAttackCoroutine;
-        private bool _isMeleeAttacking;
+        // private bool _isMeleeAttacking;
         private float _meleeAttackTime;
 
         // parry stun
@@ -209,7 +209,7 @@ namespace Enemy
 
         private IEnumerator MeleeAttackRoutine()
         {
-            _isMeleeAttacking = true;
+            // _isMeleeAttacking = true;
             _meleeAttackTime = 0f;
 
             if (meleeAttackDuration < 0.05f)
@@ -238,7 +238,7 @@ namespace Enemy
             if (meleeHitbox != null)
                 meleeHitbox.Disarm();
 
-            _isMeleeAttacking = false;
+            // _isMeleeAttacking = false;
             _meleeAttackTime = 0f;
             _meleeAttackCoroutine = null;
         }
@@ -251,7 +251,7 @@ namespace Enemy
                 _meleeAttackCoroutine = null;
             }
 
-            _isMeleeAttacking = false;
+            // _isMeleeAttacking = false;
             _meleeAttackTime = 0f;
 
             if (meleeHitbox != null)
