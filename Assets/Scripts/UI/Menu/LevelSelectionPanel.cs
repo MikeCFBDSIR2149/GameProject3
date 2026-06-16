@@ -89,6 +89,8 @@ namespace UI.Menu
                     
                     string displayName = LevelManager.Instance.GetLevelDisplayName(i);
                     segment.SetDisplayName(displayName);
+
+                    segment.SetClear();
                 }
             }
         }

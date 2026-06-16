@@ -1,11 +1,13 @@
+using GameProgress;
 using TMPro;
 using UnityEngine;
 
 namespace UI.Menu
 {
-    public class LevelSegment : MonoBehaviour
+    public class LevelSegment : MonoBehaviour, ISyncFromGameProgress
     {
         [SerializeField] private TextMeshProUGUI levelNameText;
+        [SerializeField] private GameObject levelClearObject;
 
         private int _sceneIndex = -1;
 
@@ -32,6 +34,11 @@ namespace UI.Menu
             _sceneIndex = sceneIndex;
         }
 
+        public void SetClear()
+        {
+            SyncFromGameProgress();
+        }
+
         public void LoadLevel()
         {
             if (_sceneIndex < 0)
@@ -56,6 +63,11 @@ namespace UI.Menu
             {
                 levelNameText = GetComponentInChildren<TextMeshProUGUI>(true);
             }
+        }
+
+        public void SyncFromGameProgress()
+        {
+            levelClearObject.SetActive(GameProgressManager.Instance.GetClearedLevels().Contains(_sceneIndex));
         }
     }
 }
