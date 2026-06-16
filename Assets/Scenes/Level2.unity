@@ -15332,6 +15332,10 @@ PrefabInstance:
       value: ShootRobots
       objectReference: {fileID: 0}
     - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -16260,6 +16264,10 @@ PrefabInstance:
       value: ShotgunShooterRobots (2)
       objectReference: {fileID: 0}
     - target: {fileID: 889249890558789003, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 889249890558789003, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -16319,34 +16327,13 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 2843645856889381312, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 552866943214148206, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-      insertIndex: 8
-      addedObject: {fileID: 739967441}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
 --- !u!4 &739967439 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 929990173312516308, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
   m_PrefabInstance: {fileID: 739967438}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &739967440 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 552866943214148206, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-  m_PrefabInstance: {fileID: 739967438}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &739967441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739967440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c50b92cec6b142fb9307f96ea0cf1e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyCounter
-  triggerListener: 1
 --- !u!43 &744696967
 Mesh:
   m_ObjectHideFlags: 0
@@ -21799,7 +21786,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -27070,6 +27057,10 @@ PrefabInstance:
       value: ShotgunShooterRobots
       objectReference: {fileID: 0}
     - target: {fileID: 889249890558789003, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 889249890558789003, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -27113,10 +27104,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6379432333069725489, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-      propertyPath: targetHealth
-      value: 
-      objectReference: {fileID: 1939544120}
     - target: {fileID: 7452289110243644038, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -27192,40 +27179,23 @@ PrefabInstance:
       value: ShootRobots (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 979428290855277296, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1391991343}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
 --- !u!4 &1391991341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 494393736006322250, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
   m_PrefabInstance: {fileID: 1391991340}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1391991342 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 979428290855277296, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-  m_PrefabInstance: {fileID: 1391991340}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1391991343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391991342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c50b92cec6b142fb9307f96ea0cf1e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyCounter
-  triggerListener: 1
 --- !u!1 &1392887581
 GameObject:
   m_ObjectHideFlags: 0
@@ -32251,6 +32221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9191212829978999729, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+      propertyPath: globalVolumeController
+      value: 
+      objectReference: {fileID: 1178437900}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33787,6 +33761,10 @@ PrefabInstance:
       value: ShootRobots (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -33800,17 +33778,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 494393736006322250, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
   m_PrefabInstance: {fileID: 1939544110}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1939544120 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6202715063364680394, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-  m_PrefabInstance: {fileID: 1939544110}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec7671622b1c143959713b0ced313e6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterUniversal.Health
 --- !u!1 &1960050543
 GameObject:
   m_ObjectHideFlags: 0
@@ -34714,12 +34681,12 @@ PrefabInstance:
       value: ShotgunShooterRobots (1)
       objectReference: {fileID: 0}
     - target: {fileID: 889249890558789003, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-      propertyPath: m_AnchorMax.y
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 929990173312516308, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.492558
+    - target: {fileID: 889249890558789003, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 929990173312516308, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34772,34 +34739,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 552866943214148206, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-      insertIndex: 8
-      addedObject: {fileID: 1994984783}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
 --- !u!4 &1994984781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 929990173312516308, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
   m_PrefabInstance: {fileID: 1994984780}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1994984782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 552866943214148206, guid: ba2a48071f4197f4a9c707b9866a8cfe, type: 3}
-  m_PrefabInstance: {fileID: 1994984780}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1994984783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994984782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c50b92cec6b142fb9307f96ea0cf1e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyCounter
-  triggerListener: 1
 --- !u!43 &2006389488
 Mesh:
   m_ObjectHideFlags: 0

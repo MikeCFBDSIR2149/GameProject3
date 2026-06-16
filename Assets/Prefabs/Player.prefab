@@ -5403,6 +5403,7 @@ GameObject:
   - component: {fileID: 970431049373893496}
   - component: {fileID: 5569616931202969223}
   - component: {fileID: 6048392021370005172}
+  - component: {fileID: 9191212829978999729}
   - component: {fileID: 7894324083432749952}
   - component: {fileID: 2127594513177535028}
   m_Layer: 0
@@ -5560,6 +5561,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed07dbfc53e430ca52e37d28b684f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerHealth
+--- !u!114 &9191212829978999729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184655428823888042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027521cfba66045488a6b4f1738fad0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerHealthEffectInvoker
+  globalVolumeController: {fileID: 0}
+  playerHealth: {fileID: 5569616931202969223}
 --- !u!54 &7894324083432749952
 Rigidbody:
   m_ObjectHideFlags: 0

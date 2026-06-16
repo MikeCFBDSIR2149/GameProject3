@@ -95,9 +95,10 @@ namespace Player
             if (energy == null)
                 energy = GetComponent<BulletTimeEnergy>();
 
+            // 训练模式不引入子弹时间限制
             if (energy == null)
             {
-                Debug.LogWarning("[PlayerBulletTimeSkill] 找不到 BulletTimeEnergy，无法开启子弹时间。");
+                _bulletTimeCoroutine = StartCoroutine(BulletTimeRoutine());
                 return;
             }
 

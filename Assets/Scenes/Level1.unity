@@ -6215,6 +6215,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9191212829978999729, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+      propertyPath: globalVolumeController
+      value: 
+      objectReference: {fileID: 2055629411}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14018,29 +14022,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 979428290855277296, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1704468719}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
---- !u!1 &1704468718 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 979428290855277296, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-  m_PrefabInstance: {fileID: 1704468717}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1704468719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704468718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c50b92cec6b142fb9307f96ea0cf1e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyCounter
-  triggerListener: 1
 --- !u!1 &1716968825
 GameObject:
   m_ObjectHideFlags: 0
