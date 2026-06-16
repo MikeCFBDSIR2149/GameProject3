@@ -6044,6 +6044,7 @@ GameObject:
   - component: {fileID: 798143431}
   - component: {fileID: 798143430}
   - component: {fileID: 798143429}
+  - component: {fileID: 798143433}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6137,6 +6138,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &798143433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798143428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf9263d27858461eb5dd140ac580dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.MainCanvas
+  mainCanvas: {fileID: 798143431}
 --- !u!1001 &804174201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12463,18 +12477,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 494393736006322250, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.4925579
-      objectReference: {fileID: 0}
-    - target: {fileID: 494393736006322250, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.4925579
-      objectReference: {fileID: 0}
-    - target: {fileID: 494393736006322250, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.4925579
-      objectReference: {fileID: 0}
-    - target: {fileID: 494393736006322250, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.9499993
       objectReference: {fileID: 0}
@@ -12518,36 +12520,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShootRobots
       objectReference: {fileID: 0}
-    - target: {fileID: 2968289369928525588, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-      propertyPath: canMove
+    - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 979428290855277296, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1430123389}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
---- !u!1 &1430123388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 979428290855277296, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
-  m_PrefabInstance: {fileID: 1430123387}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1430123389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430123388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c50b92cec6b142fb9307f96ea0cf1e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyCounter
-  triggerListener: 1
 --- !u!1 &1439265186
 GameObject:
   m_ObjectHideFlags: 0
@@ -14021,6 +14006,14 @@ PrefabInstance:
     - target: {fileID: 979428290855277296, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
       propertyPath: m_Name
       value: ShootRobots
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683096139351448506, guid: bb4bff9ca2b2e844e80e47e0a223db86, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

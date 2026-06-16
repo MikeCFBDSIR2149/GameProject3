@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,18 +10,7 @@ namespace UI
         private readonly Dictionary<string, GameObject> _uiPrefabDictionary = new Dictionary<string, GameObject>();
 
         private Canvas _mainCanvas;
-        
-        protected override void Awake()
-        {
-            base.Awake();
-            Initialize();
-        }
-        private void Initialize()
-        {
-            // 确保Canvas存在
-            EnsureCanvas();
-        }
-        
+
         // 显示UI（增强版）
         public UIBase ShowUI(string uiName, object data = null, bool asRootCanvas = false)
         {
@@ -55,7 +43,7 @@ namespace UI
             }
 
             // 确保有Canvas
-            EnsureCanvas();
+            if (!asRootCanvas) EnsureCanvas();
             GameObject uiObj;
             if (asRootCanvas && prefab.GetComponent<Canvas>() != null)
             {
@@ -101,7 +89,8 @@ namespace UI
             }
 
             // 2. 确保Canvas，或者允许传入自定义 parent
-            EnsureCanvas();
+            if (!asRootCanvas) EnsureCanvas();
+            
             Transform targetParent = parent != null ? parent : _mainCanvas.transform;
             GameObject uiObj;
             if (asRootCanvas && prefab.GetComponent<Canvas>() != null)
@@ -164,35 +153,26 @@ namespace UI
         {
             return _uiDictionary.GetValueOrDefault(uiName);
         }
+
+        public void RegisterMainCanvas(Canvas canvas)
+        {
+            _mainCanvas = canvas;
+        }
+        
+        public void UnregisterMainCanvas(Canvas canvas)
+        {
+            if (_mainCanvas == canvas)
+            {
+                _mainCanvas = null;
+            }
+        }
         
         private void EnsureCanvas()
         {
-            if (_mainCanvas != null)
+            if (_mainCanvas)
                 return;
-
-         
-            // 2. 只找非World Space的Canvas，避免误选敌人头顶血条
-            Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
-            foreach (var canvas in canvases)
-            {
-                if (canvas == null) 
-                    continue;
-
-                if (!canvas.gameObject.activeInHierarchy)
-                    continue;
-
-                if (canvas.renderMode == RenderMode.WorldSpace)
-                    continue;
-
-                _mainCanvas = canvas;
-                break;
-            }
-
-            // 3. 实在没有就创建一个
-            if (_mainCanvas == null)
-            {
-                CreateCanvas();
-            }
+            
+            CreateCanvas();
         }
         
         private void CreateCanvas()
@@ -203,7 +183,7 @@ namespace UI
             canvasObj.AddComponent<CanvasScaler>();
             canvasObj.AddComponent<GraphicRaycaster>();
 
-            Debug.Log("创建了新的Canvas");
+            // Debug.Log("创建了新的Canvas");
         }
         
         // 获取UI实例
