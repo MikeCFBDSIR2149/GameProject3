@@ -7,6 +7,7 @@ namespace UI.Starter
     {
         [SerializeField] private string gameOverUIName = "GameOverMenu";
         [SerializeField] private GlobalVolumeController globalVolumeController;
+        [SerializeField] private GameObject gameOverUIAdditional;
 
         private bool _isVisible;
 
@@ -46,8 +47,9 @@ namespace UI.Starter
                 return;
 
             UIManager.Instance.ShowUI(gameOverUIName, asRootCanvas: true);
+            if (gameOverUIAdditional) gameOverUIAdditional.SetActive(true);
             _isVisible = true;
-            if (globalVolumeController != null) globalVolumeController.GameOverEffect(true);
+            if (globalVolumeController) globalVolumeController.GameOverEffect(true);
         }
 
         private void HideGameOverUI()
@@ -56,8 +58,9 @@ namespace UI.Starter
                 return;
 
             UIManager.Instance.HideUI(gameOverUIName);
+            if (gameOverUIAdditional) gameOverUIAdditional.SetActive(false);
             _isVisible = false;
-            if (globalVolumeController != null) globalVolumeController.GameOverEffect(false);
+            if (globalVolumeController) globalVolumeController.GameOverEffect(false);
         }
     }
 }
