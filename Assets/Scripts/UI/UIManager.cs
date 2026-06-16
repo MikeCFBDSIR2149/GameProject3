@@ -167,13 +167,31 @@ namespace UI
         
         private void EnsureCanvas()
         {
+            if (_mainCanvas != null)
+                return;
+
+         
+            // 2. 只找非World Space的Canvas，避免误选敌人头顶血条
+            Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+            foreach (var canvas in canvases)
+            {
+                if (canvas == null) 
+                    continue;
+
+                if (!canvas.gameObject.activeInHierarchy)
+                    continue;
+
+                if (canvas.renderMode == RenderMode.WorldSpace)
+                    continue;
+
+                _mainCanvas = canvas;
+                break;
+            }
+
+            // 3. 实在没有就创建一个
             if (_mainCanvas == null)
             {
-                _mainCanvas = FindFirstObjectByType<Canvas>();
-                if (_mainCanvas == null)
-                {
-                    CreateCanvas();
-                }
+                CreateCanvas();
             }
         }
         
