@@ -1,3 +1,4 @@
+using System.Collections;
 using CharacterUniversal;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace Player
         private BulletTrail _bulletTrail;
 
         protected BulletTrail BulletTrailComponent => _bulletTrail;
+        
+        private Coroutine _lifeCycleCoroutine;
 
         protected virtual void Awake()
         {
@@ -37,6 +40,13 @@ namespace Player
 
             BulletTrailComponent?.ResetTrail();
             BulletTrailComponent?.StartTrail();
+            
+            if (_lifeCycleCoroutine != null)
+            {
+                _lifeCycleCoroutine = null;
+                StopCoroutine(_lifeCycleCoroutine);
+            }
+            _lifeCycleCoroutine = StartCoroutine(LifeCycleCoroutine());
         }
 
         protected virtual void OnTriggerEnter(Collider other)
@@ -48,7 +58,15 @@ namespace Player
             if (!other.gameObject.CompareTag("Player"))
             {
                 ObjectPoolManager.Instance.Dispose(referencePoolKey, gameObject);
+                _lifeCycleCoroutine = null;
             }
+        }
+
+        private IEnumerator LifeCycleCoroutine()
+        {
+            yield return new WaitForSeconds(5f);
+            ObjectPoolManager.Instance.Dispose(referencePoolKey, gameObject);
+            _lifeCycleCoroutine = null;
         }
     }
 }
