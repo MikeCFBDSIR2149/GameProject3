@@ -5244,7 +5244,7 @@ GameObject:
   - component: {fileID: 341894977}
   - component: {fileID: 341894976}
   - component: {fileID: 341894975}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (26)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5956,7 +5956,7 @@ GameObject:
   - component: {fileID: 356126137}
   - component: {fileID: 356126136}
   - component: {fileID: 356126135}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (34)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -6668,7 +6668,7 @@ GameObject:
   - component: {fileID: 392457474}
   - component: {fileID: 392457473}
   - component: {fileID: 392457472}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (54)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -7024,7 +7024,7 @@ GameObject:
   - component: {fileID: 409783555}
   - component: {fileID: 409783554}
   - component: {fileID: 409783553}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (38)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -9582,7 +9582,7 @@ GameObject:
   - component: {fileID: 532796594}
   - component: {fileID: 532796593}
   - component: {fileID: 532796592}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (39)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -11913,7 +11913,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -51.249, y: 1.39, z: 11.35}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.79622, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 45048646}
@@ -12816,7 +12816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.GameOverUIController
   gameOverUIName: GameOverMenu
-  globalVolumeController: {fileID: 0}
+  globalVolumeController: {fileID: 1202939139}
 --- !u!4 &726685235
 Transform:
   m_ObjectHideFlags: 0
@@ -14343,7 +14343,7 @@ GameObject:
   - component: {fileID: 821690681}
   - component: {fileID: 821690680}
   - component: {fileID: 821690679}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (27)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -16212,7 +16212,7 @@ GameObject:
   - component: {fileID: 939230133}
   - component: {fileID: 939230132}
   - component: {fileID: 939230131}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (43)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -20202,6 +20202,69 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1202939138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202939141}
+  - component: {fileID: 1202939140}
+  - component: {fileID: 1202939139}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1202939139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202939138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c938c3a3db54d85aad48d4665211a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Render.GlobalVolumeController
+  globalVolume: {fileID: 1202939140}
+--- !u!114 &1202939140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202939138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: bd523924d8d564614a838ee7994860d6, type: 2}
+--- !u!4 &1202939141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202939138}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1205091622
 Mesh:
   m_ObjectHideFlags: 0
@@ -21350,7 +21413,7 @@ GameObject:
   - component: {fileID: 1285578437}
   - component: {fileID: 1285578436}
   - component: {fileID: 1285578435}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (49)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -22911,7 +22974,7 @@ GameObject:
   - component: {fileID: 1410187528}
   - component: {fileID: 1410187527}
   - component: {fileID: 1410187526}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (25)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -25090,7 +25153,7 @@ GameObject:
   - component: {fileID: 1505879288}
   - component: {fileID: 1505879287}
   - component: {fileID: 1505879286}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (48)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -25463,7 +25526,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -15.43, y: 6.34, z: 8.21}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.8047}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 45048646}
@@ -26736,7 +26799,7 @@ GameObject:
   - component: {fileID: 1575629100}
   - component: {fileID: 1575629099}
   - component: {fileID: 1575629098}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (55)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -28741,7 +28804,7 @@ GameObject:
   - component: {fileID: 1696963354}
   - component: {fileID: 1696963353}
   - component: {fileID: 1696963352}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (24)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -29097,7 +29160,7 @@ GameObject:
   - component: {fileID: 1706575253}
   - component: {fileID: 1706575252}
   - component: {fileID: 1706575251}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (37)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -32286,7 +32349,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -20.09, y: 1.9316, z: 5.32}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.1942, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 45048646}
@@ -33030,7 +33093,7 @@ GameObject:
   - component: {fileID: 2047475947}
   - component: {fileID: 2047475946}
   - component: {fileID: 2047475945}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (23)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -34971,3 +35034,4 @@ SceneRoots:
   - {fileID: 1572935655}
   - {fileID: 1125483026}
   - {fileID: 726685235}
+  - {fileID: 1202939141}
