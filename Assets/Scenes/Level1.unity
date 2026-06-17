@@ -165,8 +165,93 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AORadiusController
   rendererData: {fileID: 11400000, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
   radiusMin: 0
-  radiusMax: 1
-  changeSpeed: 10
+  radiusMax: 30
+  enterDuration: 0.5
+  exitDuration: 0.5
+  enterCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7827876
+      value: 0.40558684
+      inSlope: 1.1244013
+      outSlope: 1.1244013
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9205882
+      value: 0.7582593
+      inSlope: 1.0820725
+      outSlope: 1.0820725
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  exitCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.15510668
+      value: 0.57406163
+      inSlope: 1.5964533
+      outSlope: 1.5964533
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6496739
+      value: 0.93059206
+      inSlope: 0.24302518
+      outSlope: 0.24302518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5718276
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!43 &101396904
 Mesh:
   m_ObjectHideFlags: 0
@@ -10583,7 +10668,7 @@ Transform:
   m_GameObject: {fileID: 1232985313}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.258819, z: -0, w: 0.9659259}
-  m_LocalPosition: {x: -654.2021, y: -272.42328, z: 9}
+  m_LocalPosition: {x: -654.2021, y: -272.42328, z: 8.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13468,7 +13553,7 @@ Transform:
   m_GameObject: {fileID: 1523160269}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -656.6211, y: -272.42328, z: 16.08}
+  m_LocalPosition: {x: -656.6211, y: -272.42328, z: 15.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

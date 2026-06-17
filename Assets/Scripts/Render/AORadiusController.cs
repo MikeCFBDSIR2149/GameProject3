@@ -12,13 +12,27 @@ namespace Render
         [Header("半径数值")]
         public float radiusMin = 0f;
         public float radiusMax = 1f;
-    
-        [Header("平滑速度")]
-        public float changeSpeed = 10f;
+
+        [Header("过渡时间（秒）")]
+        [Tooltip("进入子弹时间的过渡时长")]
+        public float enterDuration = 0.2f;
+        [Tooltip("退出子弹时间的过渡时长")]
+        public float exitDuration = 0.5f;
+
+        [Header("缓动曲线")]
+        [Tooltip("进入的曲线（默认EaseOut，前快后慢）")]
+        public AnimationCurve enterCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        [Tooltip("退出的曲线（默认EaseIn，前快后慢消失）")]
+        public AnimationCurve exitCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
         // 内部状态
         private float currentRadius;
-        private float targetRadius;
+        private float transitionStart;
+        private float transitionTarget;
+        private float transitionTimer;
+        private float transitionDuration;
+        private AnimationCurve transitionCurve;
+        private bool transitioning;
 
         // 反射缓存
         private ScriptableRendererFeature ssaoFeature;
@@ -28,13 +42,11 @@ namespace Render
         void Awake()
         {
             currentRadius = radiusMin;
-            targetRadius = radiusMin;
             InitReflection();
         }
 
         private void OnEnable()
         {
-            // 订阅GameplayManager的状态变化事件
             if (GameplayManager.Instance != null)
             {
                 GameplayManager.Instance.OnStatusChanged += OnGameplayStatusChanged;
@@ -43,7 +55,6 @@ namespace Render
 
         private void OnDisable()
         {
-            // 取消订阅
             if (GameplayManager.Instance != null)
             {
                 GameplayManager.Instance.OnStatusChanged -= OnGameplayStatusChanged;
@@ -51,71 +62,71 @@ namespace Render
             ResetToDefault();
         }
 
-        // 响应GameplayManager的状态变化
-        // 注意：只在以下情况改变AO
-        // 1. 状态变为BulletTime -> AO设为最大
-        // 2. 状态变为Default且前一个状态是BulletTime -> AO设为最小
-        // Paused状态下保持当前AO值（可能是在BulletTime中暂停）
         private void OnGameplayStatusChanged(EGameplayStatus newStatus)
         {
             if (newStatus == EGameplayStatus.BulletTime)
             {
-                // 进入子弹时间：AO设为最大
-                targetRadius = radiusMax;
+                StartTransition(radiusMax, enterDuration, enterCurve);
             }
             else if (newStatus == EGameplayStatus.Default && GameplayManager.Instance.PreviousStatus == EGameplayStatus.BulletTime)
             {
-                // 从BulletTime回到Default：AO设为最小
-                targetRadius = radiusMin;
+                StartTransition(radiusMin, exitDuration, exitCurve);
             }
-            // 其他状态变化（如进入Paused）不改变AO
         }
 
+        private void StartTransition(float target, float duration, AnimationCurve curve)
+        {
+            transitionStart = currentRadius;
+            transitionTarget = target;
+            transitionDuration = Mathf.Max(0.001f, duration);
+            transitionCurve = curve;
+            transitionTimer = 0f;
+            transitioning = true;
+        }
 
         private void Update()
         {
             if (ssaoFeature == null || radiusField == null) return;
+            if (!transitioning) return;
 
-            // 平滑数值
-            if (!Mathf.Approximately(currentRadius, targetRadius))
+            transitionTimer += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(transitionTimer / transitionDuration);
+            float eased = transitionCurve != null ? transitionCurve.Evaluate(t) : t;
+            currentRadius = Mathf.Lerp(transitionStart, transitionTarget, eased);
+
+            ApplyValue(currentRadius);
+
+            if (t >= 1f)
             {
-                currentRadius = Mathf.MoveTowards(currentRadius, targetRadius, Time.unscaledDeltaTime * changeSpeed);
+                currentRadius = transitionTarget;
                 ApplyValue(currentRadius);
+                transitioning = false;
             }
         }
 
-        // 退出时还原radiusa到默认是
-
-        // 1. 当游戏退出或停止播放时触发
         void OnApplicationQuit()
         {
             ResetToDefault();
         }
 
-        // 2. 当脚本物体被禁用或销毁时触发（双重保险）
-
-        // 直接将数值设为最小值并写入 URP
         private void ResetToDefault()
         {
             if (ssaoFeature != null && radiusField != null)
             {
                 ApplyValue(radiusMin);
-                // Debug.Log("<color=orange>【AO Controller】已自动还原为默认半径: " + radiusMin + "</color>");
             }
         }
 
         private void ApplyValue(float val)
         {
             if (ssaoFeature == null) return;
-        
-            // 反射修改：取出副本 -> 修改副本 -> 覆盖原位
+
             object settingsCopy = settingsField.GetValue(ssaoFeature);
             radiusField.SetValue(settingsCopy, val);
             settingsField.SetValue(ssaoFeature, settingsCopy);
 
-            // 如果在编辑器中，强制刷新一下资源，虽然不是必须但更稳定
 #if UNITY_EDITOR
-            if (!Application.isPlaying) 
+            if (!Application.isPlaying)
             {
                 UnityEditor.EditorUtility.SetDirty(rendererData);
             }
@@ -142,12 +153,7 @@ namespace Render
                 }
             }
 
-            if (ssaoFeature != null && radiusField != null)
-            {
-                // Debug.Log("[AO] 初始化成功！</color>");
-                return true;
-            }
-            return false;
+            return ssaoFeature != null && radiusField != null;
         }
     }
 }
