@@ -17,3 +17,7 @@ MonoBehaviour:
     displayName: "\u8BAD\u7EC3"
   - levelIndex: 2
     displayName: "\u4EFB\u52A1A"
+  - levelIndex: 3
+    displayName: "\u4EFB\u52A1B"
+  - levelIndex: 4
+    displayName: "\u4EFB\u52A1C"

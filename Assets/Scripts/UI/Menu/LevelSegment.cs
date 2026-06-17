@@ -1,12 +1,14 @@
 using GameProgress;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.Menu
 {
     public class LevelSegment : MonoBehaviour, ISyncFromGameProgress
     {
         [SerializeField] private TextMeshProUGUI levelNameText;
+        [SerializeField] private Image snapshotImage;
         [SerializeField] private GameObject levelClearObject;
 
         private int _sceneIndex = -1;
@@ -32,6 +34,7 @@ namespace UI.Menu
         public void SetLevelIndex(int sceneIndex)
         {
             _sceneIndex = sceneIndex;
+            snapshotImage.sprite = Resources.Load<Sprite>($"Snapshots/Level{sceneIndex - 1}");
         }
 
         public void SetClear()
