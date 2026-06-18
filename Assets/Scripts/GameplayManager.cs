@@ -201,7 +201,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         SetGameplayStatus(EGameplayStatus.GameWin, true);
     }
 
-    private void SetDoNotTriggerListener(bool value)
+    public void SetDoNotTriggerListener(bool value)
     {
         doNotTriggerListener = value;
     }

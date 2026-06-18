@@ -9,14 +9,29 @@ namespace Render
     public class GlobalVolumeController : MonoBehaviour
     {
         [SerializeField] private Volume globalVolume;
+        [SerializeField] private float filmGrainIntensityMin;
+        [SerializeField] private float filmGrainIntensityMax;
         
         private Coroutine _playerHealthEffectCoroutine;
+
+        private void OnEnable()
+        {
+            globalVolume.profile.TryGet(out FilmGrain filmGrain);
+            filmGrain.active = true;
+            filmGrain.intensity.value = filmGrainIntensityMin;
+        }
+
+        private void OnDisable()
+        {
+            globalVolume.profile.TryGet(out FilmGrain filmGrain);
+            filmGrain.active = true;
+        }
 
         public void GameOverEffect(bool isGameOver)
         {
             globalVolume.profile.TryGet(out FilmGrain filmGrain);
             filmGrain.active = true;
-            filmGrain.intensity.value = isGameOver? 1f : 0f;
+            filmGrain.intensity.value = isGameOver? filmGrainIntensityMax : filmGrainIntensityMin;
         }
 
         public void PlayerHealthEffect()

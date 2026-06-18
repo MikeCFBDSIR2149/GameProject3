@@ -39,7 +39,7 @@ namespace UI
 
         private System.Collections.IEnumerator FadeInBackground()
         {
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(1.5f);
             float elapsed = 0f;
             while (elapsed < fadeDuration)
             {

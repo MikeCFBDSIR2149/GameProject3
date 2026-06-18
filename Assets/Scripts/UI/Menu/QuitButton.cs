@@ -6,6 +6,7 @@ namespace UI.Menu
     {
         public void QuitGame()
         {
+            GameplayManager.Instance.SetDoNotTriggerListener(true);
             #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
             #else
