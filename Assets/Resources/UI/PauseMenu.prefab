@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 359175267188046911}
   - component: {fileID: 4183751287984500237}
   - component: {fileID: 2314488045271322149}
+  - component: {fileID: 3364663758298080533}
   - component: {fileID: 638656616052242334}
   - component: {fileID: 4761188618014743964}
   m_Layer: 5
@@ -215,6 +216,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3364663758298080533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094309127193675112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!114 &638656616052242334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +447,7 @@ GameObject:
   - component: {fileID: 7724339583513012132}
   - component: {fileID: 3480964043653226781}
   - component: {fileID: 2954172232815649858}
+  - component: {fileID: 6278783139370837031}
   - component: {fileID: 2933562852481008797}
   - component: {fileID: 7479087989810255932}
   m_Layer: 5
@@ -498,6 +515,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6278783139370837031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3329057665717245251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!114 &2933562852481008797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,6 +823,7 @@ GameObject:
   - component: {fileID: 8693598008484528752}
   - component: {fileID: 7679047575966141272}
   - component: {fileID: 1463767838298180079}
+  - component: {fileID: 2630126034940327450}
   - component: {fileID: 1314896382613813727}
   m_Layer: 5
   m_Name: Resume Button
@@ -857,6 +890,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2630126034940327450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7034090138542682956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!114 &1314896382613813727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,6 +1352,7 @@ GameObject:
   - component: {fileID: 2771459496447961048}
   - component: {fileID: 3309759897497453132}
   - component: {fileID: 5861226905283618821}
+  - component: {fileID: 37058897464990134}
   - component: {fileID: 3268075830793705314}
   - component: {fileID: 4590420284583004715}
   m_Layer: 5
@@ -1371,6 +1420,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &37058897464990134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8382970084786645054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!114 &3268075830793705314
 MonoBehaviour:
   m_ObjectHideFlags: 0

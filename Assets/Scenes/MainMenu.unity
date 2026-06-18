@@ -747,6 +747,7 @@ GameObject:
   - component: {fileID: 1182397601}
   - component: {fileID: 1182397600}
   - component: {fileID: 1182397599}
+  - component: {fileID: 1182397603}
   - component: {fileID: 1182397602}
   m_Layer: 5
   m_Name: StartGame
@@ -881,6 +882,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ef44fd1c88a4d37bf5a4fa552ea455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.MenuSet.StartGameButton
+--- !u!114 &1182397603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182397597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!1 &1397394398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,6 +1594,7 @@ GameObject:
   - component: {fileID: 1684471969}
   - component: {fileID: 1684471968}
   - component: {fileID: 1684471971}
+  - component: {fileID: 1684471972}
   m_Layer: 5
   m_Name: QuitGame
   m_TagString: Untagged
@@ -1711,6 +1728,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6650654305654a6f8189e0fdb519261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.MenuSet.QuitButton
+--- !u!114 &1684471972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684471966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!1 &1690370343
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,6 +2166,7 @@ GameObject:
   - component: {fileID: 1847852467}
   - component: {fileID: 1847852466}
   - component: {fileID: 1847852465}
+  - component: {fileID: 1847852469}
   - component: {fileID: 1847852468}
   m_Layer: 5
   m_Name: UserOptions
@@ -2268,6 +2301,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40342645eaa8a450a9a239480390994d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.UserOptionsButton
+--- !u!114 &1847852469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847852462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!1 &1931662964
 GameObject:
   m_ObjectHideFlags: 0

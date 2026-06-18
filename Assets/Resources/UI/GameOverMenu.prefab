@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 7246307115428583005}
   - component: {fileID: 8552799596725180890}
   - component: {fileID: 4752150754901381874}
+  - component: {fileID: 5942007083258075931}
   m_Layer: 5
   m_Name: MainMenu Button
   m_TagString: Untagged
@@ -283,6 +284,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad31a8b7fb994408faf8026b0cbc941f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.MenuSet.BackMainMenuButton
+--- !u!114 &5942007083258075931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803041486730489896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!1 &3653992957458338009
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +591,7 @@ GameObject:
   - component: {fileID: 2429203286706561853}
   - component: {fileID: 678148948587765992}
   - component: {fileID: 2511090095487820430}
+  - component: {fileID: 962321029626852352}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -708,6 +725,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6650654305654a6f8189e0fdb519261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.MenuSet.QuitButton
+--- !u!114 &962321029626852352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234431355742584694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!1 &8575045811938883347
 GameObject:
   m_ObjectHideFlags: 0

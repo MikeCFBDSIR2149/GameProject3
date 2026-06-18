@@ -859,6 +859,7 @@ GameObject:
   - component: {fileID: 3653350267601394057}
   - component: {fileID: 6768653834212234474}
   - component: {fileID: 5413450838728835559}
+  - component: {fileID: 781318519265365102}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -979,6 +980,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &781318519265365102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7094416205036157328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!1 &8040185793553156545
 GameObject:
   m_ObjectHideFlags: 0

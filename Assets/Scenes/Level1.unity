@@ -2006,6 +2006,7 @@ GameObject:
   - component: {fileID: 331111838}
   - component: {fileID: 331111837}
   - component: {fileID: 331111836}
+  - component: {fileID: 331111839}
   - component: {fileID: 331111835}
   m_Layer: 5
   m_Name: Button
@@ -2140,6 +2141,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 331111833}
   m_CullTransparentMesh: 1
+--- !u!114 &331111839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331111833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!1 &338216601
 GameObject:
   m_ObjectHideFlags: 0
