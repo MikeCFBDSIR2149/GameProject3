@@ -21,3 +21,5 @@ MonoBehaviour:
     displayName: "\u4EFB\u52A1B"
   - levelIndex: 4
     displayName: "\u4EFB\u52A1C"
+  - levelIndex: 5
+    displayName: "\u4EFB\u52A1D"
