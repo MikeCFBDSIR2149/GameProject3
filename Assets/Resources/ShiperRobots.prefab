@@ -702,15 +702,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -478.72
+      value: -485.39
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -198.89
+      value: -204.565
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.25
+      value: 13.83
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df8e86716d586a24a8a3cb4e76d5b900, type: 3}
       propertyPath: m_LocalRotation.w
@@ -887,6 +887,8 @@ MonoBehaviour:
     m_Bits: 64
   laserWidth: 0.02
   laserColor: {r: 1, g: 0, b: 0, a: 1}
+  weaponAimRoot: {fileID: 8510272660840000850}
+  weaponAimOffsetEuler: {x: 0, y: 0, z: 0}
   searchHealthInChildren: 1
 --- !u!114 &3096692394151023168
 MonoBehaviour:

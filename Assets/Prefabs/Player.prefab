@@ -5399,6 +5399,7 @@ GameObject:
   - component: {fileID: 1490091806887864891}
   - component: {fileID: 5769470976598894858}
   - component: {fileID: 8987283102007461699}
+  - component: {fileID: 3721355895142228968}
   - component: {fileID: 4372298040169993628}
   - component: {fileID: 970431049373893496}
   - component: {fileID: 5569616931202969223}
@@ -5503,6 +5504,24 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 73
   IgnoreTag: Player
+--- !u!114 &3721355895142228968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184655428823888042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dfbf8e6a22be8f4b8d348dc9eed47ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.BulletTimeEnergy
+  maxEnergy: 300
+  currentEnergy: 300
+  drainPerSecond: 30
+  regenPerSecond: 15
+  depletedLockSeconds: 2
+  startCost: 0
 --- !u!114 &4372298040169993628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5535,7 +5554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBulletTimeSkill
   inputController: {fileID: 1490091806887864891}
   bulletTimeDuration: 10
-  energy: {fileID: 4372298040169993628}
+  energy: {fileID: 3721355895142228968}
 --- !u!114 &5569616931202969223
 MonoBehaviour:
   m_ObjectHideFlags: 0
