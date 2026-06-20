@@ -38,13 +38,20 @@ namespace Enemy
         [Tooltip("激光颜色")]
         public Color laserColor = Color.red;
 
+        [Header("Weapon Aim")]
+        [Tooltip("枪械要单独对准玩家的根节点。建议拖狙击枪模型的父物体，而不是 firePoint。")]
+        [SerializeField] private Transform weaponAimRoot;
+
+        [Tooltip("如果枪模型默认朝向不是 Z+，可以在这里修正角度")]
+        [SerializeField] private Vector3 weaponAimOffsetEuler = Vector3.zero;
+
         [Header("Health Fallback")]
         [Tooltip("兜底查找 Health。父类没直接读到时，这里仍可让敌人正常死亡。")]
         [SerializeField] private bool searchHealthInChildren = true;
 
-        private float _aimTimer = 0f;
-        private float _cooldownTimer = 0f;
-        private bool _isPaused = false;
+        private float _aimTimer;
+        private float _cooldownTimer;
+        private bool _isPaused;
 
         private Health _localHealth;
 
@@ -174,8 +181,11 @@ namespace Enemy
             // 近：停下，开始狙击
             StopAgentMovement();
 
-            // 水平朝向玩家（避免上下点头导致看起来怪）
+            // 敌人本体朝向玩家
             transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+
+            // 枪械单独对准玩家
+            AimWeaponAtPlayer();
 
             // 冷却中：不显示激光，重新开始锁定
             if (_cooldownTimer > 0f)
@@ -198,6 +208,9 @@ namespace Enemy
                     // 开枪前最后确认一次，防止临界帧穿墙
                     if (UpdateLaserAndCheckClearShot())
                     {
+                        // 开枪前再对准一次，减少模型偏差
+                        AimWeaponAtPlayer();
+
                         Shoot();
                         _cooldownTimer = shootCooldown;
                     }
@@ -217,7 +230,7 @@ namespace Enemy
             SetLaserVisible(false);
             _aimTimer = 0f;
 
-            // 你如果希望玩家离开范围后，连冷却也重置，就保留这一句
+            // 如果你希望玩家离开范围后，连冷却也重置，就保留这一句
             _cooldownTimer = 0f;
         }
 
@@ -229,6 +242,19 @@ namespace Enemy
 
             agent.isStopped = true;
             agent.ResetPath();
+        }
+
+        /// <summary>
+        /// 枪械单独朝向玩家
+        /// </summary>
+        private void AimWeaponAtPlayer()
+        {
+            if (weaponAimRoot == null || player == null) return;
+
+            Vector3 dir = player.position - weaponAimRoot.position;
+            if (dir.sqrMagnitude < 0.0001f) return;
+
+            weaponAimRoot.rotation = Quaternion.LookRotation(dir.normalized, Vector3.up) * Quaternion.Euler(weaponAimOffsetEuler);
         }
 
         /// <summary>

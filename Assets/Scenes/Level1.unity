@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.Menu.GameOverUIController
   gameOverUIName: GameOverMenu
-  globalVolumeController: {fileID: 2055629411}
+  globalVolumeController: {fileID: 141499233}
   gameOverUIAdditional: {fileID: 1358287560}
 --- !u!4 &140363388
 Transform:
@@ -515,6 +515,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 700f0fe6b7ce5491a86f9a14bfcb4cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameProgress.GameProgressUpdater
+--- !u!1001 &141499232
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2363403015648440790, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_Name
+      value: Global Volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125334388107667297, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+--- !u!114 &141499233 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9200925180035622731, guid: 79889ee92ede54a229c9a0a635682dbe, type: 3}
+  m_PrefabInstance: {fileID: 141499232}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c938c3a3db54d85aad48d4665211a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Render.GlobalVolumeController
 --- !u!1 &149008491
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +975,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 100}
+  m_SizeDelta: {x: 600, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &159778972
 MonoBehaviour:
@@ -1938,6 +2006,7 @@ GameObject:
   - component: {fileID: 331111838}
   - component: {fileID: 331111837}
   - component: {fileID: 331111836}
+  - component: {fileID: 331111839}
   - component: {fileID: 331111835}
   m_Layer: 5
   m_Name: Button
@@ -2072,6 +2141,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 331111833}
   m_CullTransparentMesh: 1
+--- !u!114 &331111839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331111833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9528429850714474abf03b2a71c659cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.Common.ButtonClickSound
+  clickClip: {fileID: 8300000, guid: fc6dd05a6cdbb0946958271d8049ed2d, type: 3}
+  volume: 1
+  playOnClick: 1
 --- !u!1 &338216601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,7 +2191,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &338216603
 MonoBehaviour:
@@ -2156,8 +2240,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6303,7 +6387,7 @@ PrefabInstance:
     - target: {fileID: 9191212829978999729, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
       propertyPath: globalVolumeController
       value: 
-      objectReference: {fileID: 2055629411}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16521,69 +16605,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: d38ebc3f608684c289f380de720ba7fb, type: 2}
   m_BuildHeightMesh: 0
---- !u!1 &2055629408
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2055629410}
-  - component: {fileID: 2055629409}
-  - component: {fileID: 2055629411}
-  m_Layer: 0
-  m_Name: Global Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2055629409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055629408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: bd523924d8d564614a838ee7994860d6, type: 2}
---- !u!4 &2055629410
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055629408}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2055629411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055629408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24c938c3a3db54d85aad48d4665211a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Render.GlobalVolumeController
-  globalVolume: {fileID: 2055629409}
 --- !u!1 &2122271817
 GameObject:
   m_ObjectHideFlags: 0
@@ -16992,5 +17013,5 @@ SceneRoots:
   - {fileID: 808504771}
   - {fileID: 140363388}
   - {fileID: 597384460}
-  - {fileID: 2055629410}
+  - {fileID: 141499232}
   - {fileID: 1041215946}

@@ -46,7 +46,7 @@ namespace UI.Starter
             if (_isVisible || UIManager.Instance == null)
                 return;
 
-            UIManager.Instance.ShowUI(gameOverUIName, asRootCanvas: true);
+            UIManager.Instance.ShowUI(gameOverUIName);
             if (gameOverUIAdditional) gameOverUIAdditional.SetActive(true);
             _isVisible = true;
             if (globalVolumeController) globalVolumeController.GameOverEffect(true);

@@ -44,7 +44,7 @@ namespace UI.Starter
             if (_isVisible || UIManager.Instance == null)
                 return;
 
-            UIManager.Instance.ShowUI(gameWinUIName, asRootCanvas: true);
+            UIManager.Instance.ShowUI(gameWinUIName);
             _isVisible = true;
         }
 

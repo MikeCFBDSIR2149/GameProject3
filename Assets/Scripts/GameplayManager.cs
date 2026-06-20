@@ -8,7 +8,8 @@ public enum EGameplayStatus
     BulletTime,
     Paused,
     GameOver,
-    GameWin
+    GameWin,
+    NotInitialized
 }
 
 public enum EGameplayStatusLevel
@@ -28,9 +29,9 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     private bool _pendingPause;
 
 
-    public EGameplayStatus Status { get; private set; } = EGameplayStatus.Default;
-    public EGameplayStatus PreviousStatus { get; private set; } = EGameplayStatus.Default;
-    public EGameplayStatusLevel StatusLevel { get; private set; } = EGameplayStatusLevel.Playable;
+    public EGameplayStatus Status { get; private set; } = EGameplayStatus.NotInitialized;
+    public EGameplayStatus PreviousStatus { get; private set; } = EGameplayStatus.NotInitialized;
+    public EGameplayStatusLevel StatusLevel { get; private set; } = EGameplayStatusLevel.Terminal;
     
     public bool CanPerformGameplayActions => StatusLevel == EGameplayStatusLevel.Playable;
     public bool IsTerminalState => StatusLevel == EGameplayStatusLevel.Terminal;
@@ -48,6 +49,8 @@ public class GameplayManager : MonoSingleton<GameplayManager>
             if (_player == value) return;
 
             _player = value;
+            
+            // if (_player != null) SetGameplayStatus(EGameplayStatus.Default, true);
             OnPlayerChanged?.Invoke(_player);
         }
     }
@@ -70,14 +73,14 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     private void Start()
     {
         // Debug.Log("GameplayManager Start");
-        SetGameplayStatus(EGameplayStatus.Default, true);
+        // SetGameplayStatus(EGameplayStatus.Default, true);
         doNotTriggerListener = false;
     }
 
     private void Update()
     {
         // Check if a pause was requested via RequestPause()
-        if (_pendingPause)
+        if (_pendingPause && Status != EGameplayStatus.NotInitialized)
         {
             SetGameplayStatus(EGameplayStatus.Paused, true);
             _pendingPause = false;
@@ -97,6 +100,8 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         Status = targetStatus;
         StatusLevel = ResolveStatusLevel(targetStatus);
         OnStatusChanged?.Invoke(Status);
+        
+        Debug.Log($"[GameplayManager] Status Set To: {Status}");
         
         switch (targetStatus)
         {
@@ -122,6 +127,10 @@ public class GameplayManager : MonoSingleton<GameplayManager>
                 _timeScaleController.UseGameOverTimeScale();
                 SetDoNotTriggerListener(true);
                 // 游戏胜利后不再消耗能量
+                break;
+            case EGameplayStatus.NotInitialized:
+                _timeScaleController.UseGameOverTimeScale();
+                SetDoNotTriggerListener(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(targetStatus), targetStatus, null);
@@ -149,6 +158,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
                 return EGameplayStatusLevel.Suspended;
             case EGameplayStatus.GameOver:
             case EGameplayStatus.GameWin:
+            case EGameplayStatus.NotInitialized:
                 return EGameplayStatusLevel.Terminal;
             default:
                 throw new ArgumentOutOfRangeException(nameof(status), status, null);
@@ -188,11 +198,12 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         if (IsTerminalState)
             return;
         Debug.Log("[GameplayManager] Requesting GameWin");
+        // Debug.Log("[GameplayManager] IsTerminalState: " + IsTerminalState);
 
         SetGameplayStatus(EGameplayStatus.GameWin, true);
     }
 
-    private void SetDoNotTriggerListener(bool value)
+    public void SetDoNotTriggerListener(bool value)
     {
         doNotTriggerListener = value;
     }
@@ -217,6 +228,5 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     private void HandleBeforeSceneLoad()
     {
         Player = null;
-        SetGameplayStatus(EGameplayStatus.Default, true);
     }
 }

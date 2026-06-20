@@ -6,6 +6,7 @@ namespace UI.Menu
     {
         public void BackMainMenu()
         {
+            GameplayManager.Instance.SetDoNotTriggerListener(true);
             LevelManager.Instance.LoadScene(0);
         }
     }

@@ -12,6 +12,8 @@ public class LevelTimer : MonoBehaviour
     private bool _isRunning;
     private bool _isPaused;
     private int _lastWholeSecond = -1;
+    
+    private bool _waitingForStart = false;
 
     private void OnEnable()
     {
@@ -32,8 +34,14 @@ public class LevelTimer : MonoBehaviour
 
     private void Start()
     {
-        StartLevelCountdown(levelTimeSeconds);
-        // Debug.Log("LevelCountdownToGameOver Start");
+        if (GameplayManager.Instance.StatusLevel == EGameplayStatusLevel.Playable)
+        {
+            StartLevelCountdown(levelTimeSeconds);
+        }
+        else
+        {
+            _waitingForStart = true;
+        }
     }
 
     public void StartLevelCountdown(int seconds)
@@ -108,6 +116,12 @@ public class LevelTimer : MonoBehaviour
 
     private void HandleGameplayStatusChanged(EGameplayStatus status)
     {
+        if (_waitingForStart)
+        {
+            StartLevelCountdown(levelTimeSeconds);
+            _waitingForStart = false;
+            return;
+        }
         if (GameplayManager.Instance != null && GameplayManager.Instance.IsTerminalState)
         {
             _isRunning = false;

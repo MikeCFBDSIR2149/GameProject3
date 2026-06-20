@@ -31,7 +31,7 @@ namespace CharacterUniversal
 
             CurrentHealth = Mathf.Max(0f, CurrentHealth - damage);
             OnHealthChanged?.Invoke(CurrentHealth, maxHealth);
-            Debug.Log($"Name: {gameObject.name}, Health: {CurrentHealth}");
+            // Debug.Log($"Name: {gameObject.name}, Health: {CurrentHealth}");
 
             if (IsDead)
             {
