@@ -81,7 +81,8 @@ public class LevelManager : MonoSingleton<LevelManager>
         }
 
         ClearBeforeSceneLoad();
-        SceneManager.LoadScene(sceneName);
+        // SceneManager.LoadScene(sceneName);
+        SceneTransitionManager.Instance.TransitionToScene(sceneName);
     }
 
     /// <summary>
@@ -96,7 +97,8 @@ public class LevelManager : MonoSingleton<LevelManager>
         }
 
         ClearBeforeSceneLoad();
-        SceneManager.LoadScene(sceneBuildIndex);
+        // SceneManager.LoadScene(sceneBuildIndex);
+        SceneTransitionManager.Instance.TransitionToScene(sceneBuildIndex);
     }
 
     /// <summary>

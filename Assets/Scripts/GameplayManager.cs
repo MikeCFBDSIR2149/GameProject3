@@ -50,7 +50,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
 
             _player = value;
             
-            if (_player != null) SetGameplayStatus(EGameplayStatus.Default, true);
+            // if (_player != null) SetGameplayStatus(EGameplayStatus.Default, true);
             OnPlayerChanged?.Invoke(_player);
         }
     }
@@ -73,14 +73,14 @@ public class GameplayManager : MonoSingleton<GameplayManager>
     private void Start()
     {
         // Debug.Log("GameplayManager Start");
-        SetGameplayStatus(EGameplayStatus.Default, true);
+        // SetGameplayStatus(EGameplayStatus.Default, true);
         doNotTriggerListener = false;
     }
 
     private void Update()
     {
         // Check if a pause was requested via RequestPause()
-        if (_pendingPause)
+        if (_pendingPause && Status != EGameplayStatus.NotInitialized)
         {
             SetGameplayStatus(EGameplayStatus.Paused, true);
             _pendingPause = false;
@@ -100,6 +100,8 @@ public class GameplayManager : MonoSingleton<GameplayManager>
         Status = targetStatus;
         StatusLevel = ResolveStatusLevel(targetStatus);
         OnStatusChanged?.Invoke(Status);
+        
+        Debug.Log($"[GameplayManager] Status Set To: {Status}");
         
         switch (targetStatus)
         {
