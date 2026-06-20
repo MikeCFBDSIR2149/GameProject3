@@ -56,6 +56,7 @@ Shader "Custom/HighlightRing"
                 float _MinAlpha;
                 float _MaxAlpha;
                 float _CircleRadius;
+                float _UnscaledTime;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -78,7 +79,7 @@ Shader "Custom/HighlightRing"
                 clip(_CircleRadius - dist);
 
                 // Time-driven sawtooth wave position: expand from 0 -> _WaveMaxRadius, then jump back to 0
-                float t = frac(_Time.y * _WaveSpeed);
+                float t = frac(_UnscaledTime * _WaveSpeed);
                 // Ensure the wave peak never exceeds the circle radius
                 float maxR = min(_WaveMaxRadius, _CircleRadius);
                 float wavePos = t * maxR;
