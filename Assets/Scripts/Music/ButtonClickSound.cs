@@ -1,3 +1,4 @@
+using Music;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +52,8 @@ namespace UI.Common
 
             if (_audioSource != null)
             {
-                _audioSource.PlayOneShot(clickClip, volume);
+                // Debug.Log(AudioManager.Instance.GetSoundEffectsVolume());
+                _audioSource.PlayOneShot(clickClip, AudioManager.Instance != null ? AudioManager.Instance.GetSoundEffectsVolume() : volume);
             }
         }
 
@@ -67,7 +69,8 @@ namespace UI.Common
             source.loop = false;
             source.spatialBlend = 0f;   // 2D 音效
             source.dopplerLevel = 0f;
-            source.volume = volume;
+            source.volume = AudioManager.Instance != null ? AudioManager.Instance.GetSoundEffectsVolume() : volume;
+            // Debug.Log(source.volume);
 
             return source;
         }

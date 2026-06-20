@@ -63,5 +63,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Render.GlobalVolumeController
   globalVolume: {fileID: 4546109216916570442}
-  filmGrainIntensityMin: 0.6
+  filmGrainIntensityMin: 0.4
   filmGrainIntensityMax: 1

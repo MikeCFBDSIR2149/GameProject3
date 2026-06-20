@@ -8,6 +8,7 @@ namespace Music
         private MusicBuilder _currentMusic;
         private bool _pausedByBulletTime;
         private float _masterVolume = 1f; // 0..1
+        private float _soundEffectsVolume = 1f;
 
         protected override void Awake()
         {
@@ -44,6 +45,11 @@ namespace Music
             }
         }
 
+        public float GetSoundEffectsVolume()
+        {
+            return _soundEffectsVolume;
+        }
+
         public void SyncFromOptions()
         {
             if (OptionsManager.Instance == null)
@@ -52,6 +58,8 @@ namespace Music
             float raw = OptionsManager.Instance.GetOption(EUserOptionKey.MainVolume);
             // Assume options mainVolume is 0..100, map to 0..1. If user uses 0..1 already, clamp will still work.
             _masterVolume = Mathf.Clamp01(raw / 100f);
+            raw = OptionsManager.Instance.GetOption(EUserOptionKey.SoundEffectsVolume);
+            _soundEffectsVolume = Mathf.Clamp01(raw / 100f);
             ApplyMasterVolumeToAll();
         }
 
