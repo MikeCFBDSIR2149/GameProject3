@@ -29,13 +29,13 @@ public class SceneTransitionManager : MonoSingleton<SceneTransitionManager>
     private IEnumerator FadeIn()
     {
         _transitionObj.SetActive(true);
-        yield return null;
+        yield return new WaitForSecondsRealtime(0.5f);
     }
 
     private IEnumerator FadeOut()
     {
+        yield return new WaitForSecondsRealtime(3f);
         _transitionObj.SetActive(false);
-        yield return new WaitForSecondsRealtime(1f);
     }
     
 

@@ -21,6 +21,7 @@ public enum EGameplayStatusLevel
 
 public class GameplayManager : MonoSingleton<GameplayManager>
 {
+    private static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
     private TimeScaleController _timeScaleController;
     private EnergyController _energyController;
     private Player.Player _player;
@@ -85,6 +86,7 @@ public class GameplayManager : MonoSingleton<GameplayManager>
             SetGameplayStatus(EGameplayStatus.Paused, true);
             _pendingPause = false;
         }
+        Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);
     }
 
     public void SetGameplayStatus(EGameplayStatus targetStatus, bool forceSwitch = false)

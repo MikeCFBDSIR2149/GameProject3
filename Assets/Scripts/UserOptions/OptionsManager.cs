@@ -8,7 +8,8 @@ namespace UserOptions
     {
         HorizontalSensitivity,
         VerticalSensitivity,
-        MainVolume
+        MainVolume,
+        SoundEffectsVolume
         // 新增设置项时在此添加
     }
 
@@ -71,6 +72,9 @@ namespace UserOptions
                 case EUserOptionKey.MainVolume:
                     _optionsData.mainVolume = value;
                     break;
+                case EUserOptionKey.SoundEffectsVolume:
+                    _optionsData.soundEffectsVolume = value;
+                    break;
                 // 新增设置项时在此添加
                 default:
                     Debug.LogWarning($"Unknown OptionKey: {key}");
@@ -94,6 +98,8 @@ namespace UserOptions
                     return _optionsData.verticalSensitivity;
                 case EUserOptionKey.MainVolume:
                     return _optionsData.mainVolume;
+                case EUserOptionKey.SoundEffectsVolume:
+                    return _optionsData.soundEffectsVolume;
                 // 新增设置项时在此添加
                 default:
                     Debug.LogWarning($"Unknown OptionKey: {key}");
