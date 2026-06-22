@@ -60,7 +60,7 @@ namespace Player
         private IEnumerator CooldownCoroutine()
         {
             _allowAttack = false;
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(0.5f);
             _allowAttack = true;
         }
     }
