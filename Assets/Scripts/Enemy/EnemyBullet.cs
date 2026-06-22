@@ -20,6 +20,8 @@ namespace Enemy
 
         private float _lifeTimer;
         private BulletTrail _bulletTrail;
+        
+        [SerializeField] protected GameObject collisionEffectPrefab;
 
         private void Awake()
         {
@@ -81,6 +83,7 @@ namespace Enemy
             // 命中玩家：造成伤害并回收
             if (other.CompareTag("Player"))
             {
+                Instantiate(collisionEffectPrefab, transform.position, transform.rotation);
                 other.GetComponentInParent<IDamageable>()?.TakeDamage(damage);
                 ReturnToPool();
                 return;

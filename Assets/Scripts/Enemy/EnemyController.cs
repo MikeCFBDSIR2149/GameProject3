@@ -276,7 +276,7 @@ namespace Enemy
 
         public Vector3 GetWorldPosition()
         {
-            return transform.position;
+            return transform.position + new Vector3(0f, 2f, 0f);
         }
 
         public bool IsAlive => !_isDead && this != null;

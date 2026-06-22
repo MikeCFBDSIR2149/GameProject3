@@ -113,6 +113,7 @@ MonoBehaviour:
   referencePoolKey: EnemyBullet
   lifeTime: 5
   damage: 10
+  collisionEffectPrefab: {fileID: 2558031292920075693, guid: 8a61ee2fe3e75c54e85aa488a1833bae, type: 3}
 --- !u!114 &9172866444468158473
 MonoBehaviour:
   m_ObjectHideFlags: 0

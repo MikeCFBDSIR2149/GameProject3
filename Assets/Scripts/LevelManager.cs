@@ -114,7 +114,7 @@ public class LevelManager : MonoSingleton<LevelManager>
         }
 
         ClearBeforeSceneLoad();
-        SceneManager.LoadScene(activeScene.buildIndex);
+        SceneTransitionManager.Instance.TransitionToScene(activeScene.buildIndex);
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public class LevelManager : MonoSingleton<LevelManager>
         }
 
         ClearBeforeSceneLoad();
-        SceneManager.LoadScene(nextIndex);
+        SceneTransitionManager.Instance.TransitionToScene(nextIndex);
         return true;
     }
     

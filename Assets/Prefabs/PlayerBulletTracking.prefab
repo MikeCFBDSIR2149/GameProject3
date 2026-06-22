@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBulletTracking
   rb: {fileID: 3368445801712962054}
   referencePoolKey: PlayerBulletTracking
+  collisionEffectPrefab: {fileID: 2558031292920075693, guid: 5a9474fdb6ce1af4cb2c294dacd121e9, type: 3}
 --- !u!135 &8558082723626588351
 SphereCollider:
   m_ObjectHideFlags: 0

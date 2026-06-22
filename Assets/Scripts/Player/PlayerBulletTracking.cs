@@ -102,6 +102,7 @@ namespace Player
             }
             if (!other.gameObject.CompareTag("Player"))
             {
+                Instantiate(collisionEffectPrefab, transform.position, transform.rotation);
                 ObjectPoolManager.Instance.Dispose(referencePoolKey, gameObject);
                 // Debug.Log($"Attack Back! {other.gameObject.name}");
             }

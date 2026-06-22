@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerBullet
   rb: {fileID: 3368445801712962054}
   referencePoolKey: PlayerBullet
+  collisionEffectPrefab: {fileID: 2558031292920075693, guid: 50add9c35d276af4ebf13573cabed46d, type: 3}
 --- !u!135 &8558082723626588351
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -185,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b431c10ff020c4c2d87f5f6758dc3766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUniversal.BulletTrail
-  useWorldSpace: 1
+  controlMode: 0
 --- !u!96 &7741542115140573555
 TrailRenderer:
   serializedVersion: 4

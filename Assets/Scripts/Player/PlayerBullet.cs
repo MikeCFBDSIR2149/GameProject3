@@ -13,7 +13,9 @@ namespace Player
         protected BulletTrail BulletTrailComponent => _bulletTrail;
         
         private Coroutine _lifeCycleCoroutine;
-
+        
+        [SerializeField] protected GameObject collisionEffectPrefab;
+        
         protected virtual void Awake()
         {
             TryGetComponent(out _bulletTrail);
@@ -58,6 +60,7 @@ namespace Player
             }
             if (!other.gameObject.CompareTag("Player"))
             {
+                Instantiate(collisionEffectPrefab, transform.position, transform.rotation);
                 ObjectPoolManager.Instance.Dispose(referencePoolKey, gameObject);
                 _lifeCycleCoroutine = null;
             }
