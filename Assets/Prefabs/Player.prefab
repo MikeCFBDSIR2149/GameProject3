@@ -5517,8 +5517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.BulletTimeEnergy
   maxEnergy: 300
   currentEnergy: 300
-  drainPerSecond: 30
-  regenPerSecond: 15
+  drainPerSecond: 60
+  regenPerSecond: 30
   depletedLockSeconds: 2
   startCost: 0
 --- !u!114 &970431049373893496

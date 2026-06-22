@@ -963,7 +963,7 @@ MonoBehaviour:
   shootInterval: 2.5
   firePoint: {fileID: 2529280371520588565}
   bulletPoolKey: EnemyBullet
-  bulletSpeed: 10
+  bulletSpeed: 5
   pelletsPerShot: 6
   spreadAngle: 18
   horizontalOnly: 1
