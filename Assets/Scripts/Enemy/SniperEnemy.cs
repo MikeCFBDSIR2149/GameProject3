@@ -142,7 +142,7 @@ namespace Enemy
 
             if (_isPaused) return;
 
-            bool playerInDetectRange = (player != null && Vector3.Distance(transform.position, player.position) < detectRange);
+            bool playerInDetectRange = (Player != null && Vector3.Distance(transform.position, Player.position) < detectRange);
 
             if (playerInDetectRange)
             {
@@ -159,14 +159,14 @@ namespace Enemy
         protected override void OnPlayerDetected()
         {
             if (_isPaused) return;
-            if (player == null) return;
+            if (Player == null) return;
             if (firePoint == null)
             {
                 Debug.LogWarning("[SniperEnemy] firePoint is null!");
                 return;
             }
 
-            float distance = Vector3.Distance(transform.position, player.position);
+            float distance = Vector3.Distance(transform.position, Player.position);
 
             if (distance > shootDistance)
             {
@@ -174,7 +174,7 @@ namespace Enemy
                 SetLaserVisible(false);
                 _aimTimer = 0f;
 
-                TrySetDestination(player.position);
+                TrySetDestination(Player.position);
                 return;
             }
 
@@ -182,7 +182,7 @@ namespace Enemy
             StopAgentMovement();
 
             // 敌人本体朝向玩家
-            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+            transform.LookAt(new Vector3(Player.position.x, transform.position.y, Player.position.z));
 
             // 枪械单独对准玩家
             AimWeaponAtPlayer();
@@ -249,9 +249,9 @@ namespace Enemy
         /// </summary>
         private void AimWeaponAtPlayer()
         {
-            if (weaponAimRoot == null || player == null) return;
+            if (weaponAimRoot == null || Player == null) return;
 
-            Vector3 dir = player.position - weaponAimRoot.position;
+            Vector3 dir = Player.position - weaponAimRoot.position;
             if (dir.sqrMagnitude < 0.0001f) return;
 
             weaponAimRoot.rotation = Quaternion.LookRotation(dir.normalized, Vector3.up) * Quaternion.Euler(weaponAimOffsetEuler);
@@ -266,9 +266,11 @@ namespace Enemy
             SetLaserVisible(true);
 
             Vector3 origin = firePoint.position;
-            Vector3 dir = (player.position - origin).normalized;
+            Vector3 dir = (Player.position - origin).normalized;
 
-            float distToPlayer = Vector3.Distance(origin, player.position);
+            float distToPlayer = Vector3.Distance(origin, Player.position);
+            
+            // Debug.Log($"Player Pos: {Player.position}");
 
             bool blocked = Physics.Raycast(origin, dir, out RaycastHit hitObstacle, distToPlayer, obstacleMask, QueryTriggerInteraction.Ignore);
 
@@ -279,7 +281,7 @@ namespace Enemy
                 return false;
             }
 
-            Vector3 end = player.position;
+            Vector3 end = Player.position;
             laser.SetPosition(0, origin);
             laser.SetPosition(1, end);
 
@@ -291,11 +293,11 @@ namespace Enemy
         /// </summary>
         private bool CheckClearShotOnly()
         {
-            if (firePoint == null || player == null) return false;
+            if (firePoint == null || Player == null) return false;
 
             Vector3 origin = firePoint.position;
-            Vector3 dir = (player.position - origin).normalized;
-            float distToPlayer = Vector3.Distance(origin, player.position);
+            Vector3 dir = (Player.position - origin).normalized;
+            float distToPlayer = Vector3.Distance(origin, Player.position);
 
             return !Physics.Raycast(origin, dir, distToPlayer, obstacleMask, QueryTriggerInteraction.Ignore);
         }
@@ -321,7 +323,7 @@ namespace Enemy
             EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
             if (bulletScript == null) return;
 
-            Vector3 dir = (player.position - firePoint.position).normalized;
+            Vector3 dir = (Player.position - firePoint.position).normalized;
             bulletScript.Init(dir * bulletSpeed);
             bulletScript.SetSender(this);
         }

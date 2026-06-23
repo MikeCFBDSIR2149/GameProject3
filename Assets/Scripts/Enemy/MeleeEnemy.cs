@@ -97,9 +97,9 @@ namespace Enemy
         protected override void OnPlayerDetected()
         {
             if (_isPaused) return;
-            if (player == null) return;
+            if (Player == null) return;
 
-            float distance = Vector3.Distance(transform.position, player.position);
+            float distance = Vector3.Distance(transform.position, Player.position);
 
             // 远：追击（受 canMove 控制）
             if (distance > attackDistance)
@@ -112,7 +112,7 @@ namespace Enemy
                     if (meleeHitbox != null) meleeHitbox.Disarm();
                 }
 
-                TrySetDestination(player.position);
+                TrySetDestination(Player.position);
                 return;
             }
 
@@ -120,7 +120,7 @@ namespace Enemy
             StopAgentMovement();
 
             // 水平朝向玩家（不改变 Y）
-            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+            transform.LookAt(new Vector3(Player.position.x, transform.position.y, Player.position.z));
 
             if (Time.time - _lastAttackTime >= attackInterval && _attackRoutine == null)
             {

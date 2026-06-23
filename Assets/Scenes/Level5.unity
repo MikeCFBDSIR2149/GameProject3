@@ -5424,7 +5424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2028ecb0e14a69a8b62f8ee4a28168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.CrosshairUI
-  attackBack: {fileID: 0}
+  attackBack: {fileID: 1614598387}
 --- !u!114 &283947875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9404,7 +9404,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1900982266}
+  m_Mesh: {fileID: 871650956}
 --- !u!33 &466746117
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -37889,6 +37889,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4479451114731084045, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
   m_PrefabInstance: {fileID: 1614598385}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1614598387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8514242841801262915, guid: ab8123daf5e73455c9ce858b5dfa94f6, type: 3}
+  m_PrefabInstance: {fileID: 1614598385}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0a1bf35cda44da98a98ec34c8abeec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerAttackBack
 --- !u!1 &1616030386
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,15 @@ namespace Enemy
         [Header("Movement")]
         [SerializeField] protected bool canMove = true;
 
-        protected Transform player;
+        protected Transform Player
+        {
+            get
+            {
+                _player = GameplayManager.Instance.Player.transform ? GameplayManager.Instance.Player.transform : GameObject.FindGameObjectWithTag("Player").transform;
+                return _player;
+            }
+        }
+        private Transform _player;
         protected NavMeshAgent agent;
 
         protected Vector3 patrolCenter;
@@ -59,7 +67,7 @@ namespace Enemy
         protected virtual void Start()
         {
             agent = GetComponent<NavMeshAgent>();
-            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            // player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
             patrolCenter = transform.position;
             SetNewPatrolTarget();
@@ -108,7 +116,7 @@ namespace Enemy
         {
             if (CheckAndHandleDeath()) return;
 
-            if (player != null && Vector3.Distance(transform.position, player.position) < detectRange)
+            if (Player != null && Vector3.Distance(transform.position, Player.position) < detectRange)
             {
                 OnPlayerDetected();
             }
@@ -244,8 +252,8 @@ namespace Enemy
         /// </summary>
         protected virtual void OnPlayerDetected()
         {
-            if (player == null) return;
-            TrySetDestination(player.position);
+            if (Player == null) return;
+            TrySetDestination(Player.position);
         }
 
         /// <summary>

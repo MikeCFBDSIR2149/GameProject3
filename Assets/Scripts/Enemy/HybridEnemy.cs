@@ -84,9 +84,9 @@ namespace Enemy
 
         protected override void OnPlayerDetected()
         {
-            if (player == null) return;
+            if (Player == null) return;
 
-            float dist = Vector3.Distance(transform.position, player.position);
+            float dist = Vector3.Distance(transform.position, Player.position);
 
             UpdateCombatModeByDistance(dist);
 
@@ -149,14 +149,14 @@ namespace Enemy
             // 远程逻辑：距离 > shootDistance 时追击；否则停下射击
             if (dist > shootDistance)
             {
-                TrySetDestination(player.position);
+                TrySetDestination(Player.position);
                 return;
             }
 
             StopAgentMovement();
 
             // 水平朝向玩家
-            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+            transform.LookAt(new Vector3(Player.position.x, transform.position.y, Player.position.z));
 
             _shootTimer += Time.deltaTime;
             if (_shootTimer >= shootInterval)
@@ -179,14 +179,14 @@ namespace Enemy
             // 离得不够近：追一下
             if (dist > meleeEnterDistance)
             {
-                TrySetDestination(player.position);
+                TrySetDestination(Player.position);
                 return;
             }
 
             StopAgentMovement();
 
             // 近战时面向玩家（你想“攻击过程中也一直跟随朝向”就保留；想更像挥砍可移到协程开头只 LookAt 一次）
-            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+            transform.LookAt(new Vector3(Player.position.x, transform.position.y, Player.position.z));
 
             // 攻击协程运行中：不再计时触发下一次攻击
             if (_meleeAttackCoroutine != null)
@@ -309,7 +309,7 @@ namespace Enemy
             EnemyBullet bulletScript = bullet.GetComponent<EnemyBullet>();
             if (bulletScript == null) return;
 
-            Vector3 dir = (player.position - firePoint.position).normalized;
+            Vector3 dir = (Player.position - firePoint.position).normalized;
             bulletScript.Init(dir * bulletSpeed);
             bulletScript.SetSender(this);
         }

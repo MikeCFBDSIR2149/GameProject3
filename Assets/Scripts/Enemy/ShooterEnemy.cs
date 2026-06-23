@@ -48,14 +48,14 @@ namespace Enemy
         protected override void OnPlayerDetected()
         {
             if (isPaused) return;
-            if (player == null) return;
+            if (Player == null) return;
 
-            float distance = Vector3.Distance(transform.position, player.position);
+            float distance = Vector3.Distance(transform.position, Player.position);
 
             // 远：追击（会受 canMove 控制）
             if (distance > shootDistance)
             {
-                TrySetDestination(player.position);
+                TrySetDestination(Player.position);
                 return;
             }
 
@@ -63,7 +63,7 @@ namespace Enemy
             StopAgentMovement();
 
             // 水平朝向主角（不影响 canMove）
-            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+            transform.LookAt(new Vector3(Player.position.x, transform.position.y, Player.position.z));
 
             shootTimer += Time.deltaTime;
             if (shootTimer >= shootInterval)
@@ -92,7 +92,7 @@ namespace Enemy
             }
             TriggerShootAnim();
             // 发射方向（以 firePoint 为起点）
-            Vector3 baseDir = (player.position - firePoint.position).normalized;
+            Vector3 baseDir = (Player.position - firePoint.position).normalized;
             Vector3 shootDir = GetRandomDirectionInCone(baseDir, aimConeAngle, horizontalOnly);
             Vector3 velocity = shootDir * bulletSpeed;
 

@@ -60,14 +60,14 @@ namespace Enemy
         protected override void OnPlayerDetected()
         {
             if (isPaused) return;
-            if (player == null) return;
+            if (Player == null) return;
 
-            float distance = Vector3.Distance(transform.position, player.position);
+            float distance = Vector3.Distance(transform.position, Player.position);
 
             // 远：追击
             if (distance > shootDistance)
             {
-                TrySetDestination(player.position);
+                TrySetDestination(Player.position);
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace Enemy
             StopAgentMovement();
 
             // 水平朝向玩家
-            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+            transform.LookAt(new Vector3(Player.position.x, transform.position.y, Player.position.z));
 
             shootTimer += Time.deltaTime;
             if (shootTimer >= shootInterval)
@@ -109,7 +109,7 @@ namespace Enemy
                 return;
             }
 
-            Vector3 baseDir = (player.position - firePoint.position).normalized;
+            Vector3 baseDir = (Player.position - firePoint.position).normalized;
             TriggerShootAnim();
             // 一次射多发
             int count = Mathf.Max(1, pelletsPerShot);
