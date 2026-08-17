@@ -664,7 +664,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de2028ecb0e14a69a8b62f8ee4a28168, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI.CrosshairUI
+  m_EditorClassIdentifier: Assembly-CSharp::UI.CrosshairHighlightInteractor
   attackBack: {fileID: 0}
 --- !u!1001 &786149851
 PrefabInstance:

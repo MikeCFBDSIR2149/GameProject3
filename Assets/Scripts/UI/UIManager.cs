@@ -158,6 +158,12 @@ namespace UI
         {
             _mainCanvas = canvas;
         }
+
+        public bool TryGetMainCanvas(out Canvas canvas)
+        {
+            canvas = _mainCanvas;
+            return canvas != null;
+        }
         
         public void UnregisterMainCanvas(Canvas canvas)
         {
